@@ -1,0 +1,607 @@
+/* =====================================================
+   ABOUT PAGE — spectechcom
+   Файл: /wp-content/themes/msn/css/about.css
+   Подключается только для template-about.php
+===================================================== */
+
+.stc-about-page {
+  --stc-about-ink: #111111;
+  --stc-about-ink-2: #333333;
+  --stc-about-muted: #686e73;
+  --stc-about-soft: #f5f5f7;
+  --stc-about-line: rgba(17, 17, 17, .1);
+  --stc-about-orange: var(--color-orange, #ec621f);
+  --stc-about-orange-dark: var(--color-orange-dark, #d4541a);
+  --stc-about-radius: 26px;
+  background: #fff;
+  color: var(--stc-about-ink);
+  overflow: hidden;
+}
+
+.stc-about-page *,
+.stc-about-page *::before,
+.stc-about-page *::after {
+  box-sizing: border-box;
+}
+
+.stc-about-page .stc-modern-container {
+  width: 100%;
+  max-width: var(--stc-mw, 1400px);
+  margin-inline: auto;
+  padding-inline: var(--stc-px, 40px);
+}
+
+.stc-about-page .stc-modern-section {
+  padding: clamp(56px, 7vw, 104px) 0;
+}
+
+/* HERO */
+.stc-about-page .stc-modern-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(560px, 72vh, 760px);
+  padding: 22px 0 clamp(56px, 8vw, 96px);
+  color: #fff;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(236, 98, 31, .22), transparent 34%),
+    linear-gradient(135deg, #07090d 0%, #111722 52%, #191c20 100%);
+  overflow: hidden;
+}
+
+.stc-about-page .stc-modern-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -12% -34% 45%;
+  height: 420px;
+  background: radial-gradient(circle, rgba(236, 98, 31, .18), transparent 68%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.stc-about-page .stc-modern-hero .stc-page-bc,
+.stc-about-page .stc-modern-hero .dam_breadcrumbs,
+.stc-about-page .stc-modern-hero .rank-math-breadcrumb,
+.stc-about-page .stc-modern-hero .rank-math-breadcrumb p {
+  margin: 0;
+  padding: 0 0 28px;
+  color: rgba(255, 255, 255, .62);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.stc-about-page .stc-modern-hero .dam_breadcrumbs a,
+.stc-about-page .stc-modern-hero .rank-math-breadcrumb a {
+  color: rgba(255, 255, 255, .72);
+}
+
+.stc-about-page .stc-modern-hero .dam_breadcrumbs a:hover,
+.stc-about-page .stc-modern-hero .rank-math-breadcrumb a:hover {
+  color: #fff;
+}
+
+.stc-about-page .stc-modern-hero .separator {
+  color: rgba(255, 255, 255, .28);
+}
+
+.stc-about-page .stc-modern-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(420px, 1.08fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.stc-about-page .stc-modern-hero__content {
+  max-width: 650px;
+  position: relative;
+  z-index: 2;
+}
+
+.stc-about-page .stc-modern-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--stc-about-orange);
+}
+
+.stc-about-page .stc-modern-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.stc-about-page .stc-modern-hero h1 {
+  margin: 0 0 22px;
+  max-width: 720px;
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: clamp(34px, 5vw, 68px) !important;
+  font-weight: 900 !important;
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+  color: #fff !important;
+}
+
+.stc-about-page .stc-modern-hero p {
+  max-width: 610px;
+  margin: 0 0 30px;
+  font-family: var(--font-body, Manrope, sans-serif);
+  font-size: clamp(16px, 1.35vw, 19px) !important;
+  line-height: 1.75 !important;
+  color: rgba(255, 255, 255, .78) !important;
+}
+
+.stc-about-page .stc-modern-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.stc-about-page .stc-modern-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .04em;
+  text-decoration: none !important;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.stc-about-page .stc-modern-btn:hover {
+  transform: translateY(-1px);
+}
+
+.stc-about-page .stc-modern-btn--primary {
+  background: var(--stc-about-orange);
+  color: #fff !important;
+  box-shadow: 0 18px 34px rgba(236, 98, 31, .28);
+}
+
+.stc-about-page .stc-modern-btn--primary:hover {
+  background: var(--stc-about-orange-dark);
+  color: #fff !important;
+}
+
+.stc-about-page .stc-modern-btn--ghost {
+  border: 1px solid rgba(255, 255, 255, .26);
+  background: rgba(255, 255, 255, .06);
+  color: #fff !important;
+  backdrop-filter: blur(8px);
+}
+
+.stc-about-page .stc-modern-btn--ghost:hover {
+  border-color: rgba(255, 255, 255, .55);
+  background: rgba(255, 255, 255, .1);
+}
+
+/* Правая колонка hero: вместо <img> используется затемнённый background-image */
+.stc-about-page .stc-modern-hero__image {
+  position: relative;
+  min-height: clamp(390px, 44vw, 560px);
+  border-radius: 32px;
+  overflow: hidden;
+  background-image:
+    linear-gradient(90deg, rgba(7, 9, 13, .72) 0%, rgba(7, 9, 13, .34) 44%, rgba(7, 9, 13, .58) 100%),
+    linear-gradient(0deg, rgba(0, 0, 0, .26), rgba(0, 0, 0, .26)),
+    var(--stc-about-hero-bg);
+  background-size: cover;
+  background-position: center;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, .38),
+    inset 0 0 0 1px rgba(255, 255, 255, .13);
+}
+
+.stc-about-page .stc-modern-hero__image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .08), transparent 26%),
+    radial-gradient(circle at 18% 18%, rgba(236, 98, 31, .24), transparent 32%),
+    linear-gradient(180deg, transparent 56%, rgba(0, 0, 0, .34));
+  pointer-events: none;
+}
+
+.stc-about-page .stc-modern-hero__image::after {
+  content: "25 лет в спецтехнике";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  display: inline-flex;
+  width: fit-content;
+  max-width: calc(100% - 48px);
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, .24);
+  border-radius: 999px;
+  background: rgba(9, 11, 15, .54);
+  color: #fff;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+/* TEXT SECTIONS */
+.stc-about-page .stc-two-col {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 76px);
+  align-items: start;
+}
+
+.stc-about-page .stc-section-head {
+  max-width: 760px;
+  margin-bottom: 32px;
+}
+
+.stc-about-page .stc-section-head--sticky {
+  position: sticky;
+  top: 122px;
+}
+
+.stc-about-page .stc-section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.stc-about-page .stc-section-head--center .stc-modern-eyebrow {
+  justify-content: center;
+}
+
+.stc-about-page .stc-section-head h2 {
+  margin: 0 0 16px;
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: clamp(30px, 4vw, 52px) !important;
+  font-weight: 900 !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.04em !important;
+  color: var(--stc-about-ink) !important;
+}
+
+.stc-about-page .stc-section-head p,
+.stc-about-page .stc-rich-text p {
+  margin: 0 0 18px;
+  font-size: clamp(15px, 1.2vw, 17px) !important;
+  line-height: 1.8 !important;
+  color: var(--stc-about-muted) !important;
+}
+
+.stc-about-page .stc-rich-text {
+  padding: clamp(24px, 4vw, 44px);
+  border: 1px solid var(--stc-about-line);
+  border-radius: var(--stc-about-radius);
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(17, 17, 17, .06);
+}
+
+.stc-about-page .stc-rich-text strong {
+  color: var(--stc-about-ink);
+  font-weight: 800;
+}
+
+/* BENEFITS */
+.stc-about-page .stc-benefits-section {
+  background: var(--stc-about-soft);
+}
+
+.stc-about-page .stc-benefits-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, .8fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.stc-about-page .stc-benefits-image {
+  min-height: 100%;
+  border-radius: var(--stc-about-radius);
+  overflow: hidden;
+  background: #e9e9ed;
+}
+
+.stc-about-page .stc-benefits-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 460px;
+  object-fit: cover;
+  display: block;
+}
+
+.stc-about-page .stc-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.stc-about-page .stc-benefit-card {
+  padding: 24px;
+  border: 1px solid var(--stc-about-line);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 10px 34px rgba(17, 17, 17, .045);
+}
+
+.stc-about-page .stc-benefit-card img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+.stc-about-page .stc-benefit-card h3,
+.stc-about-page .stc-production-grid h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: 18px !important;
+  font-weight: 850 !important;
+  line-height: 1.22 !important;
+  letter-spacing: -.02em !important;
+  color: var(--stc-about-ink) !important;
+}
+
+.stc-about-page .stc-benefit-card p {
+  margin: 0;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+  color: var(--stc-about-muted) !important;
+}
+
+/* DOCUMENTS */
+.stc-about-page .stc-docs-section {
+  background: #fff;
+}
+
+.stc-about-page .stc-docs-section--muted {
+  background: var(--stc-about-soft);
+}
+
+.stc-about-page .stc-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stc-about-page .stc-docs-grid--small {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 680px;
+}
+
+.stc-about-page .stc-doc-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--stc-about-line);
+  border-radius: 22px;
+  background: #fff;
+  color: var(--stc-about-ink) !important;
+  text-decoration: none !important;
+  box-shadow: 0 14px 44px rgba(17, 17, 17, .055);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.stc-about-page .stc-doc-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(236, 98, 31, .32);
+  box-shadow: 0 20px 60px rgba(17, 17, 17, .1);
+  color: var(--stc-about-ink) !important;
+}
+
+.stc-about-page .stc-doc-card__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  padding: 16px;
+  background:
+    linear-gradient(180deg, #fafafa, #f2f2f4);
+  border-bottom: 1px solid var(--stc-about-line);
+}
+
+.stc-about-page .stc-doc-card__image img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 26px rgba(17, 17, 17, .12);
+}
+
+.stc-about-page .stc-doc-card__title {
+  display: flex;
+  align-items: center;
+  min-height: 86px;
+  padding: 18px 18px 20px;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--stc-about-ink);
+}
+
+.stc-about-page .stc-doc-card__title::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: var(--stc-about-orange);
+  flex: 0 0 auto;
+}
+
+/* PRODUCTION */
+.stc-about-page .stc-wide-image {
+  position: relative;
+  margin: 0 0 24px;
+  overflow: hidden;
+  border-radius: var(--stc-about-radius);
+  background: #111;
+}
+
+.stc-about-page .stc-wide-image img {
+  width: 100%;
+  height: clamp(320px, 45vw, 560px);
+  display: block;
+  object-fit: cover;
+}
+
+.stc-about-page .stc-wide-image figcaption {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .54);
+  color: #fff;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.stc-about-page .stc-production-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stc-about-page .stc-production-grid article {
+  padding: 28px;
+  border: 1px solid var(--stc-about-line);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 14px 44px rgba(17, 17, 17, .055);
+}
+
+.stc-about-page .stc-production-grid ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stc-about-page .stc-production-grid li {
+  position: relative;
+  padding-left: 22px;
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--stc-about-muted);
+}
+
+.stc-about-page .stc-production-grid li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .68em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--stc-about-orange);
+}
+
+@media (max-width: 1180px) {
+  .stc-about-page .stc-docs-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .stc-about-page .stc-modern-hero__grid,
+  .stc-about-page .stc-two-col,
+  .stc-about-page .stc-benefits-layout,
+  .stc-about-page .stc-production-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stc-about-page .stc-section-head--sticky {
+    position: static;
+  }
+
+  .stc-about-page .stc-modern-hero__image {
+    min-height: 380px;
+    order: -1;
+  }
+
+  .stc-about-page .stc-docs-grid,
+  .stc-about-page .stc-docs-grid--small {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .stc-about-page .stc-modern-container {
+    padding-inline: 16px;
+  }
+
+  .stc-about-page .stc-modern-hero {
+    min-height: auto;
+    padding-bottom: 42px;
+  }
+
+  .stc-about-page .stc-modern-hero .stc-page-bc,
+  .stc-about-page .stc-modern-hero .dam_breadcrumbs,
+  .stc-about-page .stc-modern-hero .rank-math-breadcrumb,
+  .stc-about-page .stc-modern-hero .rank-math-breadcrumb p {
+    padding-bottom: 18px;
+  }
+
+  .stc-about-page .stc-modern-hero__grid {
+    gap: 24px;
+  }
+
+  .stc-about-page .stc-modern-hero__image {
+    min-height: 260px;
+    border-radius: 22px;
+  }
+
+  .stc-about-page .stc-modern-hero__image::after {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    max-width: calc(100% - 28px);
+    font-size: 10px;
+  }
+
+  .stc-about-page .stc-modern-actions,
+  .stc-about-page .stc-modern-btn {
+    width: 100%;
+  }
+
+  .stc-about-page .stc-benefits-grid,
+  .stc-about-page .stc-docs-grid,
+  .stc-about-page .stc-docs-grid--small {
+    grid-template-columns: 1fr;
+  }
+
+  .stc-about-page .stc-doc-card__image {
+    height: 290px;
+  }
+
+  .stc-about-page .stc-rich-text,
+  .stc-about-page .stc-benefit-card,
+  .stc-about-page .stc-production-grid article {
+    padding: 22px;
+  }
+}

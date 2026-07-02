@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="52" viewBox="0 0 24 52">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffb370;
+        fill-rule: evenodd;
+        filter: url(#filter);
+      }
+    </style>
+    <filter id="filter" x="269" y="128" width="24" height="52" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" dy="-2" in="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood result="flood" flood-opacity="0.2"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+      <feFlood result="flood-2" flood-color="#fff"/>
+      <feComposite result="composite-2" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend-2" in2="blend"/>
+    </filter>
+  </defs>
+  <path id="faceboook" class="cls-1" d="M285,141v5h8l-1,9h-7v25H274V155h-5v-9h5v-5s-0.891-9.536,8-11.013h11V138h-5A2.917,2.917,0,0,0,285,141Z" transform="translate(-269 -128)"/>
+</svg>

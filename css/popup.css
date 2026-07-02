@@ -1,0 +1,333 @@
+/* =====================================================
+   POPUP — Magnific Popup + CF7
+   Файл: /wp-content/themes/msn/css/popup.css
+   Назначение: единый вид всплывающих форм в шапке, товарах и каталогах
+===================================================== */
+
+.mfp-bg {
+  background: rgba(0, 0, 0, .62) !important;
+  opacity: 1 !important;
+  z-index: 100000 !important;
+}
+
+.mfp-wrap {
+  z-index: 100001 !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mfp-container {
+  padding: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.mfp-inline-holder .mfp-content {
+  width: auto !important;
+  max-width: min(460px, calc(100vw - 32px)) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+}
+
+/* Основная карточка попапа */
+.mfp-content > .white-popup-block,
+.white-popup-block {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: 460px !important;
+  margin: 0 auto !important;
+  padding: 38px 36px 32px !important;
+  background: #fff !important;
+  border: 1px solid rgba(255, 255, 255, .24) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, .28) !important;
+  box-sizing: border-box !important;
+  color: var(--color-dark, #1d1d1f) !important;
+  text-align: left !important;
+}
+
+/* Старый костыль из style.css двигал header popup вниз */
+#test-form1.white-popup-block,
+#test-form2.white-popup-block {
+  top: auto !important;
+}
+
+/* Заголовок */
+.white-popup-block > p:first-child,
+.white-popup-block .stc-popup-title {
+  margin: 0 0 22px !important;
+  font-family: var(--font-heading, Montserrat, system-ui, sans-serif) !important;
+  font-size: 22px !important;
+  line-height: 1.18 !important;
+  font-weight: 800 !important;
+  letter-spacing: -.02em !important;
+  color: var(--color-dark, #1d1d1f) !important;
+  text-align: center !important;
+}
+
+.white-popup-block .wpcf7,
+.white-popup-block form {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.white-popup-block .wpcf7-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.white-popup-block .wpcf7-form p {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.45 !important;
+}
+
+.white-popup-block .wpcf7-form p:empty {
+  display: none !important;
+}
+
+.white-popup-block .wpcf7-form-control-wrap {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.white-popup-block input[type="text"],
+.white-popup-block input[type="tel"],
+.white-popup-block input[type="email"],
+.white-popup-block input[type="search"],
+.white-popup-block textarea,
+.white-popup-block select {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+  border: 1.5px solid #e0e0e4 !important;
+  border-radius: 10px !important;
+  background: #fafafa !important;
+  color: var(--color-dark, #1d1d1f) !important;
+  font-family: var(--font-body, Manrope, system-ui, sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  appearance: none !important;
+  transition: border-color .16s ease, background-color .16s ease, box-shadow .16s ease !important;
+}
+
+.white-popup-block textarea {
+  min-height: 96px !important;
+  padding-top: 13px !important;
+  padding-bottom: 13px !important;
+  resize: vertical !important;
+}
+
+.white-popup-block input[type="text"]:focus,
+.white-popup-block input[type="tel"]:focus,
+.white-popup-block input[type="email"]:focus,
+.white-popup-block input[type="search"]:focus,
+.white-popup-block textarea:focus,
+.white-popup-block select:focus {
+  border-color: var(--color-orange, #ec621f) !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 3px rgba(236, 98, 31, .12) !important;
+}
+
+.white-popup-block input[type="submit"],
+.white-popup-block button[type="submit"],
+.white-popup-block .wpcf7-submit,
+.white-popup-block .main-product_btn2 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 52px !important;
+  margin: 2px 0 0 !important;
+  padding: 0 18px !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: var(--color-orange, #ec621f) !important;
+  color: #fff !important;
+  font-family: var(--font-heading, Montserrat, system-ui, sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: .09em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  transition: background-color .16s ease, transform .16s ease, box-shadow .16s ease !important;
+}
+
+.white-popup-block input[type="submit"]:hover,
+.white-popup-block button[type="submit"]:hover,
+.white-popup-block .wpcf7-submit:hover,
+.white-popup-block .main-product_btn2:hover {
+  background: var(--color-orange-dark, #d4541a) !important;
+  box-shadow: 0 10px 24px rgba(236, 98, 31, .24) !important;
+  transform: translateY(-1px) !important;
+}
+
+.white-popup-block input[type="submit"]:disabled,
+.white-popup-block button[type="submit"]:disabled,
+.white-popup-block .wpcf7-submit:disabled {
+  opacity: .58 !important;
+  cursor: default !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.white-popup-block .wpcf7-spinner {
+  display: none !important;
+}
+
+/* Согласие */
+.white-popup-block .wpcf7-acceptance,
+.white-popup-block .wpcf7-checkbox {
+  display: block !important;
+  margin: 0 !important;
+}
+
+.white-popup-block .wpcf7-list-item {
+  display: block !important;
+  margin: 0 !important;
+}
+
+.white-popup-block .wpcf7-acceptance label,
+.white-popup-block .wpcf7-list-item-label {
+  display: block !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding-left: 24px !important;
+  color: var(--color-gray, #686e73) !important;
+  font-family: var(--font-body, Manrope, system-ui, sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+}
+
+.white-popup-block .wpcf7-acceptance input[type="checkbox"],
+.white-popup-block input[type="checkbox"] {
+  position: absolute !important;
+  left: 0 !important;
+  top: 1px !important;
+  width: 15px !important;
+  height: 15px !important;
+  margin: 0 !important;
+  accent-color: var(--color-orange, #ec621f) !important;
+}
+
+.white-popup-block .wpcf7-not-valid-tip {
+  display: block !important;
+  margin-top: 5px !important;
+  color: #d93025 !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+}
+
+.white-popup-block .wpcf7-response-output {
+  margin: 4px 0 0 !important;
+  padding: 10px 12px !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: var(--color-dark, #1d1d1f) !important;
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+  text-align: center !important;
+}
+
+/* Кнопка закрытия */
+.mfp-inline-holder .mfp-close,
+.mfp-close {
+  top: 10px !important;
+  right: 10px !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  background: rgba(0, 0, 0, .06) !important;
+  color: #686e73 !important;
+  font-size: 26px !important;
+  line-height: 34px !important;
+  text-align: center !important;
+  opacity: .8 !important;
+  transition: opacity .16s ease, background-color .16s ease !important;
+}
+
+.mfp-inline-holder .mfp-close:hover,
+.mfp-close:hover {
+  opacity: 1 !important;
+  background: rgba(0, 0, 0, .1) !important;
+}
+
+/* Попап меню */
+#test-form.humberger-menu {
+  max-width: 360px !important;
+  padding: 30px 28px !important;
+}
+
+#test-form.humberger-menu ul {
+  display: grid !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+#test-form.humberger-menu a {
+  display: block !important;
+  padding: 11px 14px !important;
+  border-radius: 10px !important;
+  background: #f5f5f7 !important;
+  color: var(--color-dark, #1d1d1f) !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+}
+
+#test-form.humberger-menu a:hover {
+  background: rgba(236, 98, 31, .1) !important;
+  color: var(--color-orange, #ec621f) !important;
+}
+
+@media (max-width: 782px) {
+  .admin-bar .mfp-wrap {
+    top: 46px !important;
+    height: calc(100% - 46px) !important;
+  }
+}
+
+@media (min-width: 783px) {
+  .admin-bar .mfp-wrap {
+    top: 32px !important;
+    height: calc(100% - 32px) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .mfp-container {
+    padding: 16px !important;
+  }
+
+  .mfp-content > .white-popup-block,
+  .white-popup-block {
+    max-width: calc(100vw - 24px) !important;
+    padding: 32px 20px 24px !important;
+    border-radius: 14px !important;
+  }
+
+  .white-popup-block > p:first-child,
+  .white-popup-block .stc-popup-title {
+    font-size: 20px !important;
+    margin-bottom: 18px !important;
+  }
+}

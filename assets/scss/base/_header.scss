@@ -1,0 +1,152 @@
+#wpadminbar {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+.newheader {
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.head {
+  padding: 0;
+
+  &-top {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    &--cont {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    &-logo-partner--caption {
+      float: right;
+      color: #232a30c4;
+      font-size: 14px;
+      padding-left: 25px;
+
+      @media (max-width: 1600px) {
+        display: none;
+      }
+    }
+
+    &--phone {
+      justify-content: flex-end;
+
+      a {
+        box-shadow: 0 5px 9px rgba(0, 0, 0, 0.25);
+        font-size: 14px;
+        font-weight: 700;
+        color: #3a3a3a;
+        border: 2px solid rgb(231, 24, 24);
+        padding: 8px 15px;
+        transition: .3s ease all;
+        border-radius: 5px;
+        font-family: 'CenturyGothic', sans-serif;
+
+        &:hover {
+          box-shadow: 0 5px 9px rgba(0, 0, 0, 0.35);
+        }
+      }
+    }
+  }
+
+  &-navbar { // Navigation header
+    padding: 0 !important;
+
+    .navbar-collapse {
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &--social {
+      ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      li {
+        &:first-child {
+          a {
+            padding-left: 0;
+          }
+        }
+
+        &:last-child {
+          a {
+            padding-right: 0;
+          }
+        }
+      }
+
+      a {
+        padding: 0 8px;
+        display: block;
+      }
+
+      img {
+        width: 28px;
+        height: 18px;
+        object-fit: contain;
+      }
+    }
+
+    &--nav {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      // justify-content: space-between;
+
+      li {
+        padding: 14px 5px;
+        position: relative;
+
+        a {
+          padding: 0 5px;
+          color: #333;
+          transition: .3s ease all;
+          font-family: 'CenturyGothic';
+
+          &:hover {
+            color: #dd7540;
+
+            &:before {
+              width: 100%;
+              background: #d62829;
+            }
+          }
+
+          &:before {
+            content: "";
+            width: 0%;
+            height: 2px;
+            background: transparent;
+            position: absolute;
+            top: -1px;
+            left: 0;
+            transition: .3s ease all;
+          }
+
+          .link-blue {
+            color: #005893;
+          }
+        }
+      }
+    }
+  }
+}

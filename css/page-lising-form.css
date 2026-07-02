@@ -1,0 +1,1107 @@
+/* =====================================================
+   PAGE — spectechcom
+   Файл: /wp-content/themes/msn/css/page.css
+   Подключается: functions.php → is_page() (кроме is_front_page)
+   
+   Содержит стили внутренних страниц:
+   - О компании (.ab-sec*)
+   - Контакты (.sec_contacts, .contact_faces_sec)
+   - Лизинг (.lising_*, .lising_attach)
+   - Прочие страницы (.mobile_center_sec, .info_slider, .first_mobile_sec)
+   
+   TODO: аудит — выяснить какие страницы живые, удалить мёртвые
+===================================================== */
+
+.ab-sec1 p:nth-child(3) {
+  margin-bottom: 50px;
+}
+
+.ab-sec2 {
+  background-color: #474747;
+  background-repeat: no-repeat;
+  background-image: url("img/12-2.jpg");
+  background-attachment: scroll;
+  background-position: bottom center;
+  --webkit-background-size: cover;
+  background-size: cover;
+  height: 1016px;
+  color: #fff;
+}
+
+.ab-sec6 {
+  background-color: #474747;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+.ab-sec2 .item-b {
+  border: 5px solid #dd7540;
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 216px;
+  margin: 100px auto;
+}
+
+.ab-sec6 .item-b {
+  border: 5px solid #dd7540;
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 344px;
+  margin: 40px auto;
+}
+
+.ab-sec2 span {
+  font-size: 40px;
+}
+
+.ab-sec3 {
+  margin: 50px 0;
+}
+
+.ab-sec3 .col-sm-auto a {
+  color: #000;
+}
+
+.ab-sec3 .col-sm-auto img {
+  max-width: 230px;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid gray;
+  border: 1px solid #8080805e;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.ab-sec4 {
+  margin: 100px auto;
+}
+
+.ab-sec4 img {
+  margin-bottom: 50px;
+}
+
+.ab-sec5 {
+  background: #e8e8e8;
+  padding-bottom: 100px;
+}
+
+.ab-sec5 .entry-title2 {
+  padding-top: 50px;
+}
+
+.ab-sec5 .col-sm-auto img {
+  max-width: 560px;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ab-sec5 .col-sm-auto h4 {
+  overflow-wrap: break-word;
+}
+
+.ab-sec5 .col-sm-auto .img-gr {
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+.ab-sec5 .col-sm-auto .img-gr img {
+  max-width: 70px;
+}
+
+.ab-sec5 .col-sm-auto li span {
+  color: #000;
+}
+
+.ab-sec5 .item-2col {
+  width: 100%;
+}
+
+.block-questions_left,
+.block-questions_right {
+  position: relative;
+}
+
+.block-questions_main {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: flexbox;
+  display: flex;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 200px auto 100px;
+}
+
+.block-questions_title {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.block-questions_num {
+  font-size: 24px;
+  font-weight: 600;
+  font-family: sans-serif, sans-serif;
+}
+
+.img-vig {
+  background: url("img/frame.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 1200px;
+}
+
+.img-vig-mob {
+  display: none;
+  margin-top: 80px;
+}
+
+.img-vig-mob .entry-title {
+  margin-bottom: 20px;
+  font-size: 22px;
+  text-align: center;
+}
+
+.img-vig-mob .left-itvig {
+  font-size: 30px;
+  color: #ec743d;
+  margin-bottom: 20px;
+}
+
+.img-vig-mob .right-itvig {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 20px;
+  border-top: 2px solid #ec743d;
+}
+
+.sec1-sercent {
+  background: url("img/2145-1.jpg");
+  height: 604px;
+  --webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.sec2-sercent {
+  margin: 100px auto 50px;
+}
+
+.sec2-sercent .item-scleft {
+  border: 4px solid rgb(128 128 128 / 31%);
+  padding: 20px;
+}
+
+.sec2-sercent .item-scright {
+  border: 4px solid #dd7540;
+  padding: 20px;
+}
+
+.sec2-sercent .item-scright p:first-child {
+  text-align: center;
+}
+
+.sec2-sercent .item-scright .text-scr {
+  padding-bottom: 15px;
+}
+
+.sec2-sercent .item-scright img {
+  display: block;
+  margin: 30px auto 28px;
+  border: 1px solid #787878;
+  box-shadow: 5px 4px rgb(0 0 0 / 40%);
+  transition: all 1s ease;
+}
+
+.sec2-sercent .item-scright img:hover {
+  box-shadow: 5px 4px #dd7540;
+}
+
+.sec3-sercent .item2-scleft {
+  border: 4px solid #dd7540;
+  padding: 20px;
+}
+
+.sec3-sercent .item2-scright {
+  border: 4px solid rgb(128 128 128 / 31%);
+  padding: 20px;
+  height: 1662px;
+}
+
+.wp-sercen .block-questions_main {
+  margin-top: 100px;
+}
+
+.sec_contacts .item:first-child {
+  width: 64.2%;
+}
+
+.sec_contacts .item .map {
+  height: 550px;
+}
+
+.sec_contacts .item:last-child {
+  margin-top: 40px;
+  width: 31%;
+  text-align: center;
+}
+
+.sec_contacts h3 {
+  margin-bottom: 0;
+  line-height: 1.6em;
+  text-shadow: 2px 2px 2px rgb(0 0 0 / 8%);
+  font-size: 18pt;
+  color: #000;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.sec_contacts p {
+  padding: 10px 0;
+  margin: 0 0 15px;
+  text-shadow: 2px 2px 2px rgb(0 0 0 / 8%);
+  font-size: 15pt;
+  padding-bottom: 5px;
+  color: #000;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.sec_contacts .contacts_block a {
+  text-shadow: 2px 2px 2px rgb(0 0 0 / 8%);
+  font-size: 16pt;
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+}
+
+.sec_contacts {
+  padding-top: 40px;
+  padding-bottom: 70px;
+}
+
+.contact_faces_sec .item {
+  width: 300px;
+  margin-bottom: 70px;
+}
+
+.contact_faces_sec .item h3 {
+  color: #fff;
+  font-size: 18px;
+  text-shadow: 2px 2px 2px rgb(0 0 0 / 8%);
+  padding: 5px 10px;
+  background-color: grey;
+  font-weight: 700 !important;
+}
+
+.contact_faces_sec .item h3 a {
+  color: #fff;
+  font-size: 18px;
+}
+
+.contact_faces_sec .item h3 a:focus,
+.contact_faces_sec .item h3 a:hover {
+  color: #fff;
+}
+
+.contact_faces_sec .item h4 {
+  font-size: 12pt;
+  color: #000;
+  font-weight: 700;
+  text-shadow: 2px 2px 2px rgb(0 0 0 / 8%);
+}
+
+.contact_faces_sec .item span {
+  text-shadow: 2px 2px 2px rgb(0 0 0 / 8%);
+  font-size: 12pt;
+  color: #000;
+  font-weight: 700;
+}
+
+.contact_faces_sec .item span a {
+  font-weight: 300;
+  color: #000;
+}
+
+.lising_three_days h3 {
+  text-align: center;
+  font-size: 36px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.lising_three_days {
+  margin-top: 30px;
+}
+
+.lising_three_days p {
+  font-size: 24px;
+  text-align: center;
+  color: #fff;
+}
+
+.lising_three_days {
+  background-image: url("img/three_bg.jpg");
+  --webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  height: 420px;
+  position: relative;
+}
+
+.lising_three_days .text_wrap {
+  width: 100%;
+  padding: 130px 0;
+}
+
+.lising_attach .item {
+  border: 1px solid #e1e1e1;
+  background: #fafafa;
+  padding: 45px 20px 20px;
+  border-radius: 3px;
+  width: 286px;
+  box-sizing: border-box;
+  margin-bottom: 60px;
+  box-shadow: 0 0 1px 0 rgb(0 0 0 / 30%);
+}
+
+.lising_attach .icon_wrap {
+  width: 53px;
+  height: 53px;
+  line-height: 53px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #23282d;
+  color: #fff;
+  margin: -72px auto 0;
+}
+
+.lising_attach .icon_wrap i {
+  color: #fff;
+}
+
+.lising_attach h4 {
+  margin: 15px 0;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgb(0 0 0 / 8%);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+.lising_attach p {
+  font-size: 12px;
+  text-align: center;
+}
+
+section.lising_attach {
+  padding-top: 120px;
+  padding-bottom: 100px;
+}
+
+.info_slider .slide {
+  height: 100vh;
+  position: relative;
+}
+
+.info_slider .slide p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 42px;
+  text-align: center;
+  color: #fff;
+  padding: 10px 15px;
+  background: rgb(0 0 0 / 50%);
+  box-sizing: border-box;
+}
+
+.info_slider .slide {
+  --webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+}
+
+.info_sec span {
+  font-weight: 700;
+}
+
+.info_posts h4 {
+  text-align: center;
+  text-shadow: 2px 2px 2px rgb(0 0 0 / 8%);
+  font-size: 1em;
+  padding-top: 20px;
+}
+
+.info_posts .item {
+  width: 366px;
+  margin-right: 15px;
+}
+
+.info_posts .item img {
+  max-width: 100%;
+}
+
+.info_posts span {
+  font-size: 0.8em;
+  color: #919191;
+  text-align: center;
+  display: none;
+}
+
+.info_posts .block {
+  justify-content: flex-start;
+}
+
+.info_posts {
+  padding-bottom: 20px;
+}
+
+.info_slider .slide p {
+  font-size: 25px;
+  width: 100%;
+}
+
+.info_slider .owl-nav {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 0.3s;
+}
+
+.info_slider .owl-prev {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  color: #fff !important;
+  background: rgb(0 0 0 / 30%) !important;
+  position: absolute;
+  left: 15px;
+  transition: 0.3s;
+}
+
+.info_slider .owl-next {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  color: #fff !important;
+  background: rgb(0 0 0 / 30%) !important;
+  position: absolute;
+  right: 15px;
+  transition: 0.3s;
+}
+
+.info_slider .owl-next:hover,
+.info_slider .owl-prev:hover {
+  color: #d16920 !important;
+}
+
+.mobile_center_sec .block .item {
+  width: 50%;
+}
+
+.mobile_center_sec .block .item strong {
+  font-size: 18px;
+  line-height: 22px;
+  display: block;
+  font-family: verdana, sans-serif;
+}
+
+.mobile_center_sec .block .item b {
+  font-size: 22px;
+  line-height: 28px;
+  display: block;
+  margin-top: 15px;
+}
+
+.mobile_center_sec .block .item p {
+  font-size: 18px;
+  padding-bottom: 10px;
+  line-height: 22px;
+  display: block;
+}
+
+.mobile_center_sec .block2 .item .img_wrap {
+  width: 30%;
+}
+
+.mobile_center_sec .block2 .item img {
+  max-width: 100%;
+}
+
+.mobile_center_sec .block2 .item .text_wrap {
+  width: 68%;
+}
+
+.mobile_center_sec .block {
+  padding: 70px;
+  background-color: #ffffff7a;
+  justify-content: center;
+}
+
+.mobile_center_sec .block2 .item {
+  padding-bottom: 30px;
+}
+
+.mobile_center_sec .block3 {
+  padding: 50px 0;
+}
+
+.mobile_center_sec .block3 p {
+  padding-bottom: 20px;
+}
+
+section.info_sec {
+  padding: 40px 0;
+}
+
+.first_mobile_sec {
+  background-image: url("img/photo.jpg");
+  --webkit-background-size: cover;
+  background-size: cover;
+  background-position: bottom;
+  height: 780px;
+  padding-top: 80px;
+  margin-bottom: 50px;
+}
+
+  .img-vig {
+    height: 800px;
+  }
+
+  .img-vig {
+    height: 700px;
+  }
+
+  .contact_faces_sec .item {
+    width: 48%;
+  }
+}
+  .sec1-sercent {
+    display: none;
+  }
+
+  .sec2-sercent {
+    margin: 60px auto;
+  }
+
+  .sec2-sercent .item-scright img {
+    width: 100%;
+  }
+
+  .lising_three_days .text_wrap {
+    padding: 91px 0;
+  }
+
+  .sec_contacts .item:first-child {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .sec_contacts .item:last-child {
+    width: 100%;
+  }
+
+  .block-questions_main {
+    margin-top: 20px;
+  }
+
+  .block-questions_right {
+    margin-top: 20px;
+  }
+
+  .img-vig {
+    height: 450px;
+  }
+
+  .ab-sec2 .item-b {
+    margin: 10px;
+  }
+
+  .ab-sec2 {
+    background-image: none;
+    height: auto;
+    padding: 50px 0;
+  }
+
+  .ab-sec6 .item-b {
+    margin: 10px;
+  }
+
+  .ab-sec6 {
+    background-image: none;
+    height: auto;
+    padding: 50px 0;
+  }
+
+  .sec3-sercent .item2-scright {
+    height: auto;
+  }
+
+  .wp-sercen .block-questions_main {
+    margin-top: 10px;
+  }
+
+  .block-questions_main {
+    margin: 50px auto 35px;
+    justify-content: left;
+  }
+
+  .block-questions_title {
+    font-size: 19px;
+  }
+
+  .block-questions_num {
+    font-size: 26px;
+  }
+
+  .block-questions_left {
+    padding-bottom: 20px;
+  }
+
+  .block-questions_right {
+    margin-top: -5px;
+  }
+
+  .sec2-sercent .item-scleft,
+  .sec2-sercent .item-scright {
+    height: 655px;
+  }
+
+  .block-questions_main {
+    margin: 50px auto 120px;
+    justify-content: left;
+  }
+
+  .block-questions_title {
+    font-size: 24px;
+  }
+
+  .block-questions_num {
+    justify-content: center;
+  }
+
+  .img-vig {
+    display: none;
+  }
+
+  .img-vig-mob {
+    display: block;
+  }
+
+  .ab-sec4 img {
+    width: 100%;
+  }
+
+  .block-questions_left,
+  .block-questions_right,
+  .cash1,
+  .cash2 {
+    text-align: center;
+  }
+
+  .block-questions_left::before,
+  .block-questions_right::before {
+    width: 20px;
+    color: #a8a8a8;
+  }
+
+  .mobile_center_sec .block .item {
+    width: 100% !important;
+  }
+
+  .block-questions_title {
+    max-width: -webkit-fill-available;
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .sec2-sercent .item-scleft,
+  .sec3-sercent .item2-scleft {
+    margin-bottom: 10px;
+  }
+
+  .sec2-sercent .item-scleft,
+  .sec2-sercent .item-scright {
+    height: 555px;
+  }
+
+  .img-vig-mob .left-itvig {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .img-vig-mob .entry-title {
+    line-height: 20px;
+  }
+
+  .contact_faces_sec .item {
+    width: 100%;
+  }
+}
+#post-307 > div.container.sec3-sercent {
+  margin-bottom: 40px;
+}
+
+.block-questions_right {
+  font-size: 22px;
+  height: 90px;
+  width: 330px;
+}
+
+body > section.sec_contacts > div > div > div:nth-child(2) > div > div > div {
+  max-width: 100%;
+}
+
+    > div.container.ab-sec1.mobile.ep-custom-column.wp-block-columns.eplus-wrapper.is-layout-flex.wp-container-core-columns-is-layout-6.wp-block-columns-is-layout-flex.eplus-styles-uid-5489a3 {
+    display: grid;
+  }
+
+
+/* ── desctop-nortopt (перенесено из style.css) ─────── */
+.desctop-nortopt .ver-tabs {
+  z-index: 1;
+  border: solid 1px #ebe3e3;
+  margin-top: 15px;
+}
+
+.desctop-nortopt .ver-tabs a {
+  color: #333;
+  font-size: 14px;
+
+.desctop-nortopt .ver-tabs li:hover {
+}
+
+.desctop-nortopt .btn-nal {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.desctop-nortopt .btn-nal li {
+  list-style-type: none;
+  padding: 40px 0 50px;
+  margin-right: 10px;
+}
+
+.desctop-nortopt .btn-nal a {
+  color: #383838;
+  display: inline-block;
+  padding: 20px 43px;
+}
+
+.desctop-nortopt .btn-nal a:hover {
+  color: inherit;
+  background: #f3b200;
+  background: linear-gradient(
+.desctop-nortopt .ver-tabs {
+}
+
+.desctop-nortopt .ver-tabs li {
+  display: flex;
+  align-items: center;
+}
+  .desctop-nortopt .ver-tabs a {
+    font-size: 12px;
+  }
+
+  .desctop-nortopt .ver-tabs {
+    margin-top: 0;
+  }
+}
+  .desctop-nortopt .ver-tabs {
+    margin-top: 0;
+  }
+
+  .desctop-nortopt .ver-tabs a {
+    font-size: 11px;
+  }
+}
+.desctop-nortopt {
+  width: 100% !important;
+}
+
+
+/* =====================================================
+   LEASING PAGE — CF7 form panel
+   Файл: /wp-content/themes/msn/css/page.css
+   Scope: .stc-modern-form-panel only
+   Date: 2026-07-02
+===================================================== */
+
+.stc-modern-form-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 30px 28px 26px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(236, 98, 31, .12), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #fffaf7 100%);
+  border: 1px solid rgba(17, 17, 17, .08);
+  border-top: 4px solid var(--color-orange, #ec621f);
+  border-radius: 22px;
+  box-shadow:
+    0 18px 50px rgba(29, 29, 31, .10),
+    0 2px 0 rgba(255, 255, 255, .8) inset;
+}
+
+.stc-modern-form-panel::before {
+  content: "";
+  position: absolute;
+  right: -42px;
+  top: -42px;
+  z-index: -1;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  background: rgba(236, 98, 31, .08);
+}
+
+.stc-modern-form-panel h3 {
+  margin: 0 0 20px !important;
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: clamp(22px, 2.2vw, 30px) !important;
+  font-weight: 800 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.03em !important;
+  color: var(--color-dark, #1d1d1f) !important;
+}
+
+.stc-modern-form-panel h3::after {
+  content: "Оставьте телефон — менеджер уточнит параметры техники и подготовит расчёт.";
+  display: block;
+  max-width: 340px;
+  margin-top: 10px;
+  font-family: var(--font-body, Manrope, sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--color-gray, #686e73);
+}
+
+.stc-modern-form-panel .wpcf7,
+.stc-modern-form-panel .wpcf7-form {
+  width: 100%;
+  margin: 0;
+}
+
+.stc-modern-form-panel .wpcf7-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* CF7 часто выводит пустые p и br — в этой форме они только ломают сетку */
+.stc-modern-form-panel .wpcf7-form > p:empty,
+.stc-modern-form-panel .wpcf7-form > br,
+.stc-modern-form-panel .wpcf7-form > p > br {
+  display: none !important;
+}
+
+.stc-modern-form-panel .hidden-fields-container {
+  display: none !important;
+}
+
+.stc-modern-form-panel .wpcf7-form-control-wrap {
+  display: block !important;
+  width: 100%;
+  margin: 0 !important;
+}
+
+.stc-modern-form-panel input[type="text"],
+.stc-modern-form-panel input[type="tel"],
+.stc-modern-form-panel input[type="email"] {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 54px !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+  border: 1.5px solid #dedee3 !important;
+  border-radius: 12px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-family: var(--font-body, Manrope, sans-serif) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  color: var(--color-dark, #1d1d1f) !important;
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background-color .18s ease;
+}
+
+.stc-modern-form-panel input::placeholder {
+  color: #9a9aa1;
+  opacity: 1;
+  font-weight: 500;
+}
+
+.stc-modern-form-panel input[type="text"]:focus,
+.stc-modern-form-panel input[type="tel"]:focus,
+.stc-modern-form-panel input[type="email"]:focus {
+  background: #fff !important;
+  border-color: var(--color-orange, #ec621f) !important;
+  box-shadow: 0 0 0 4px rgba(236, 98, 31, .14) !important;
+}
+
+.stc-modern-form-panel .wpcf7-submit,
+.stc-modern-form-panel input[type="submit"].wpcf7-submit {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  max-width: none !important;
+  height: 56px !important;
+  margin: 4px 0 0 !important;
+  padding: 0 22px !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: var(--color-orange, #ec621f) !important;
+  color: #fff !important;
+  box-shadow: 0 12px 26px rgba(236, 98, 31, .28) !important;
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    background-color .16s ease,
+    opacity .16s ease;
+}
+
+.stc-modern-form-panel .wpcf7-submit:hover:not(:disabled) {
+  background: var(--color-orange-dark, #d4541a) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(236, 98, 31, .34) !important;
+}
+
+.stc-modern-form-panel .wpcf7-submit:disabled {
+  opacity: .55 !important;
+  cursor: default !important;
+  box-shadow: none !important;
+}
+
+.stc-modern-form-panel .wpcf7-spinner {
+  display: none !important;
+}
+
+.stc-modern-form-panel .wpcf7-acceptance,
+.stc-modern-form-panel .wpcf7-list-item,
+.stc-modern-form-panel .wpcf7-list-item label {
+  display: block !important;
+  width: 100%;
+  margin: 0 !important;
+}
+
+.stc-modern-form-panel .wpcf7-acceptance {
+  margin-top: 2px !important;
+}
+
+.stc-modern-form-panel .wpcf7-list-item label {
+  position: relative;
+  padding-left: 26px;
+  cursor: pointer;
+}
+
+.stc-modern-form-panel .wpcf7-acceptance input[type="checkbox"] {
+  position: absolute !important;
+  left: 0 !important;
+  top: 3px !important;
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  float: none !important;
+  accent-color: var(--color-orange, #ec621f);
+}
+
+.stc-modern-form-panel .wpcf7-list-item-label {
+  display: block !important;
+  padding: 0 !important;
+  font-family: var(--font-body, Manrope, sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.55 !important;
+  color: #6b6f76 !important;
+}
+
+.stc-modern-form-panel .wpcf7-list-item-label::before,
+.stc-modern-form-panel .wpcf7-list-item-label::after {
+  display: none !important;
+  content: none !important;
+}
+
+.stc-modern-form-panel .wpcf7-list-item-label a {
+  color: var(--color-orange, #ec621f) !important;
+  font-size: inherit !important;
+  font-weight: 700 !important;
+  text-decoration: none;
+}
+
+.stc-modern-form-panel .wpcf7-list-item-label a:hover {
+  color: var(--color-orange-dark, #d4541a) !important;
+  text-decoration: underline;
+}
+
+.stc-modern-form-panel .wpcf7-not-valid-tip {
+  margin-top: 6px;
+  font-size: 12px !important;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #d93025 !important;
+}
+
+.stc-modern-form-panel .wpcf7-response-output {
+  margin: 4px 0 0 !important;
+  padding: 10px 12px !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  border: 1px solid #dedee3 !important;
+  color: var(--color-dark, #1d1d1f) !important;
+  font-family: var(--font-body, Manrope, sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+}
+
+@media (max-width: 640px) {
+  .stc-modern-form-panel {
+    max-width: none;
+    padding: 24px 18px 20px;
+    border-radius: 18px;
+  }
+
+  .stc-modern-form-panel h3 {
+    font-size: 22px !important;
+  }
+
+  .stc-modern-form-panel h3::after {
+    font-size: 13px;
+  }
+
+  .stc-modern-form-panel input[type="text"],
+  .stc-modern-form-panel input[type="tel"],
+  .stc-modern-form-panel input[type="email"],
+  .stc-modern-form-panel .wpcf7-submit {
+    height: 52px !important;
+  }
+}

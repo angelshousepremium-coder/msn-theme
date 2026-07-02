@@ -1,0 +1,1335 @@
+/* =====================================================
+   PRODUCT PAGE — spectechcom v4.3
+   Файл: /wp-content/themes/msn/css/product.css
+===================================================== */
+
+:root { --stc-px: 40px; --stc-mw: 1400px; }
+
+/* ══ 00. СБРОСЫ ════════════════════════════════════ */
+.single-product div.product.stc-product-page,.single-product .stc-product-page{
+  display:block!important;z-index:auto!important;
+  background:none!important;background-image:none!important;width:100%!important;
+}
+.stc-product-page::before,.stc-product-page::after{display:none!important;}
+.stc-gallery .woocommerce-product-gallery,.stc-gallery div.images{
+  float:none!important;width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;
+}
+.stc-panel .summary.entry-summary{display:none;}
+.stc-product-page .stc-product-card{opacity:1!important;transform:none!important;transition:none!important;}
+.stc-tabs-section .stc-card-badge--instock,.stc-tabs-section .stc-card-badge.stc-card-badge--instock{display:none!important;}
+.stc-product-page .blok_zvonok_form{background:none!important;}
+
+/* ══ 01. СТРАНИЦА / HERO ════════════════════════════ */
+.stc-product-page{padding:0;overflow-x:hidden;background:#fff;}
+
+/* FIX 2026-06-27: product.css не должен глобально менять .stc-hero на архивах/категориях.
+   Этот grid нужен только hero внутри WooCommerce single product. */
+.single-product .stc-product-page > .stc-hero,
+.single-product div.product.stc-product-page > .stc-hero{
+  display:grid!important;          /* защита от переопределения */
+  grid-template-columns:1fr 440px;
+  grid-template-rows:auto;
+  max-width:var(--stc-mw, 1400px);margin:15px auto;padding:0 var(--stc-px, 40px);
+  border-bottom:1px solid #e8e8eb;
+  align-items:start;               /* grid items не растягиваются по высоте */
+}
+
+/* ══ 02. ГАЛЕРЕЯ (белый фон, object-fit:cover) ══════ */
+.stc-gallery{
+  background:#fff;
+  grid-column:1;         /* явное размещение в первой колонке */
+  min-width:0;           /* стандартный фикс: grid item не должен выходить за ячейку */
+  overflow:hidden;       /* clearfix для WC float: .woocommerce-product-gallery { float:left } */
+  padding:0 24px 20px 0;
+  border-right:1px solid #e8e8eb;
+  display:flex;flex-direction:column;
+}
+.stc-gallery .col-lg-6.prdctcl6,.stc-gallery .prdctcl6{
+  width:100%!important;max-width:100%!important;float:none!important;padding:0!important;margin:0!important;
+}
+/* КРИТИЧНО: WC layout CSS: div.product div.images { float:left; width:48% }
+   Перебиваем через .stc-gallery с !important */
+.stc-gallery .woocommerce-product-gallery,
+.stc-gallery .woocommerce-product-gallery.images,
+.stc-gallery div.images {
+  float:none!important;
+  width:100%!important;
+  max-width:100%!important;
+  clear:none!important;
+  background:transparent;
+}
+.stc-gallery .wr-sku{position:relative;}
+.stc-gallery .sku_wrapper{
+  position:absolute;top:12px;left:12px;z-index:10;
+  background:rgba(0,0,0,.5);color:#fff;
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:3px;
+}
+.stc-gallery .flex-viewport{margin-bottom:10px!important;overflow:hidden;}
+.stc-gallery .woocommerce-product-gallery__image>a{display:block;}
+/* object-fit:cover — изображение крупное, без полей */
+.stc-gallery .woocommerce-product-gallery__image>a img,
+.stc-gallery .woocommerce-product-gallery__image>a picture img{
+  width:100%;height:460px;
+  object-fit:cover;   /* cover = заполняет без пустых полей */
+  padding:0;          /* без паддинга — полный кадр */
+  box-sizing:border-box;
+  position:static!important;top:auto!important;left:auto!important;
+  transform:none!important;display:block!important;
+}
+/* Миниатюры */
+.stc-gallery .flex-control-nav.flex-control-thumbs{
+  display:flex!important;flex-wrap:nowrap;gap:6px;
+  margin:0!important;padding:0!important;list-style:none;overflow-x:auto;
+  scrollbar-width:none;content:none!important;
+}
+.stc-gallery .flex-control-thumbs::-webkit-scrollbar{display:none;}
+.single-product div.product
+  .woocommerce-product-gallery.woocommerce-product-gallery--columns-4
+  .flex-control-thumbs li,
+.stc-gallery .flex-control-thumbs li{
+  float:none!important;clear:none!important;
+  width:70px!important;max-width:70px!important;
+  margin:0!important;flex-shrink:0;list-style:none;
+}
+.stc-gallery .flex-control-thumbs li img{
+  width:70px!important;height:52px!important;object-fit:cover;border-radius:5px;
+  border:2px solid transparent;cursor:pointer;opacity:.6;
+  transition:opacity .15s,border-color .15s;display:block;
+}
+.stc-gallery .flex-control-thumbs li img:hover{opacity:.85;}
+.stc-gallery .flex-control-thumbs li img.flex-active{border-color:var(--stc-or, #ec621f);opacity:1;}
+.stc-gallery__disclaimer{font-size:10px;color:#b0b0b5;line-height:1.5;margin-top:12px;}
+.stc-gallery .prdctcl6>p{display:none!important;}
+
+/* ══ 03. ПАНЕЛЬ ТОВАРА ══════════════════════════════ */
+.stc-panel{
+  border-top:4px solid var(--stc-or, #ec621f);
+  grid-column:2;         /* явное размещение во второй колонке */
+  min-width:0;           /* фикс grid overflow */
+  display:flex;flex-direction:column;
+  /* position:sticky убран — может конфликтовать с overflow на родителе */
+  background:#fff;
+  align-self:start;      /* не растягиваться на всю высоту grid row */
+}
+
+.stc-panel__bc{padding:16px 22px 0;font-size:11px;}
+
+.stc-panel__title{
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:21px;font-weight:800;
+  line-height:1.2;color:var(--stc-ink, #1d1d1f);
+  margin:12px 22px 0;   /* больше отступ сверху */
+  padding:0;
+}
+
+/* ── Строка subtitle+sku | цена: отступы увеличены ── */
+.stc-panel__info-row{
+  display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;
+  padding:12px 22px 14px;  /* больше дыхания */
+  border-top:1px solid #f0f0f3;
+  margin-top:10px;         /* отступ от title */
+}
+.stc-panel__info-left{display:flex;flex-direction:column;gap:3px;}
+.stc-panel__subtitle{font-family:var(--font-body, Manrope, sans-serif);font-size:13px;color:var(--stc-muted, #86868b);margin:0;}
+.stc-panel__sku{font-family:var(--font-heading, Montserrat, sans-serif);font-size:10px;color:var(--stc-muted, #86868b);letter-spacing:.04em;}
+.stc-panel__sku strong{color:var(--stc-ink, #1d1d1f);}
+
+/* ── Цена: del сверху, ins снизу крупнее ── */
+.stc-panel__price{display:flex;flex-direction:column;align-items:flex-end;}
+.stc-price-label{display:none;}
+.stc-panel__price .price{display:flex;flex-direction:column;align-items:flex-end;gap:1px;}
+.stc-panel__price del{
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:12px;font-weight:400;
+  color:var(--stc-muted, #86868b);text-decoration:line-through;opacity:1;display:block;line-height:1.2;
+}
+.stc-panel__price del .woocommerce-Price-amount{color:var(--stc-muted, #86868b);}
+.stc-panel__price del .woocommerce-Price-currencySymbol{font-size:10px;}
+.stc-panel__price ins{text-decoration:none;display:block;}
+.stc-panel__price ins .woocommerce-Price-amount{
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:24px;font-weight:900;color:var(--stc-or, #ec621f);line-height:1.1;display:block;
+}
+.stc-panel__price ins .woocommerce-Price-currencySymbol{font-size:16px;}
+.stc-panel__price .price>.woocommerce-Price-amount{
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:24px;font-weight:900;color:var(--stc-or, #ec621f);line-height:1.1;
+}
+.stc-panel__price .screen-reader-text{display:none;}
+
+/* ── Характеристики из WC short_description ── */
+.stc-panel__specs{
+  padding:10px 22px 14px;  /* больше дыхания снизу */
+  border-top:1px solid #f0f0f3;
+  border-bottom:1px solid #f0f0f3;
+}
+.stc-panel__specs .woocommerce-product-details__short-description{margin:0;padding:0;}
+
+/* 2 чёткие колонки: flex + 50%/50% */
+.main-product_feature{display:flex;gap:0;}
+.feature-left{
+  flex:0 0 50%;width:50%;
+  border-right:1px solid #f0f0f3;padding-right:14px;box-sizing:border-box;
+}
+.feature-right{flex:0 0 50%;width:50%;padding-left:14px;box-sizing:border-box;}
+.feature-block{padding:7px 0;border-bottom:1px solid #f8f8fa;}
+.feature-block:last-child{border-bottom:none;}
+.feature-text{
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:9px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--stc-muted, #86868b);margin-bottom:3px;display:block;
+}
+.feature-text_sub{display:flex;align-items:center;gap:6px;}
+.feature-text_sub img{
+  width:auto;height:18px;max-width:22px;object-fit:contain;flex-shrink:0;
+  float:none!important;margin:0!important;opacity:.7;
+}
+.feature-span{font-family:var(--font-body, Manrope, sans-serif);font-size:13px;font-weight:600;color:var(--stc-ink, #1d1d1f);}
+
+/* ── Кнопки + симметрия ── */
+.stc-panel__actions{
+  padding:14px 22px 18px;  /* дыхание */
+  display:flex;flex-direction:column;gap:8px;
+}
+
+/* 2 кнопки в ряд — 50/50 */
+.stc-btn-row-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;box-sizing:border-box;padding: 10px 0px;}
+
+.stc-btn-primary,.stc-btn-secondary{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;box-sizing:border-box;height:46px;padding:0 8px;
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:11px;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;
+  text-decoration:none!important;border-radius:7px;text-align:center;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.stc-btn-primary{background:var(--stc-or, #ec621f);color:#fff!important;border:2px solid var(--stc-or, #ec621f);}
+.stc-btn-primary:hover{background:var(--stc-or2, #d4541a);border-color:var(--stc-or2, #d4541a);}
+.stc-btn-secondary{background:#fff;color:var(--stc-ink, #1d1d1f)!important;border:2px solid #e0e0e4;}
+.stc-btn-secondary:hover{border-color:var(--stc-or, #ec621f);color:var(--stc-or, #ec621f)!important;}
+
+/* ── CF7 id="6d8f14a" — «Заказать звонок»
+   Реальная DOM структура после рендера CF7:
+   .block-questions_tel1
+     div.telephn
+       p (пустой, CF7 добавляет)
+       span.wpcf7-form-control-wrap → input[type="tel"].input-tel
+       p (пустой, CF7 добавляет)
+     div.telephone
+       p → input[type="submit"].main-product_btn2 + span.wpcf7-spinner
+
+   ЦЕЛЬ: та же симметрия 1fr / 1fr как у .stc-btn-row-2 выше
+── */
+
+.stc-panel__callback { width: 100%; box-sizing: border-box; }
+.stc-panel__callback .wpcf7 { margin: 0; width: 100%; }
+
+/* GRID 1fr 1fr — точно как .stc-btn-row-2 */
+.stc-panel__callback .block-questions_tel1 {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: flex-start !important;
+}
+
+/* .telephn: занимает grid ячейку, прячет пустые p */
+.stc-panel__callback .telephn {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Пустые <p> что CF7 вставляет вокруг поля — прятать */
+.stc-panel__callback .telephn > p {
+  display: none !important;
+  margin: 0 !important; padding: 0 !important;
+}
+
+/* span.wpcf7-form-control-wrap — заполняет .telephn */
+.stc-panel__callback .telephn .wpcf7-form-control-wrap {
+  display: flex !important;
+  flex: 1;
+  align-items: stretch;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important; margin: 0 !important;
+}
+
+/* Поле ввода — border ТОЛЬКО здесь */
+.stc-panel__callback .telephn input[type="tel"],
+.stc-panel__callback .telephn input.input-tel {
+  flex: 1 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 46px !important;
+  padding: 0 12px !important;
+  box-sizing: border-box;
+  border: 1.5px solid #e0e0e4 !important;
+  border-radius: 7px !important;
+  background: #fafafa !important;
+  font-family: var(--font-body, Manrope, sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: var(--stc-ink, #1d1d1f);
+  outline: none;
+  margin: 0 !important;
+  appearance: none;
+  transition: border-color .15s;
+}
+.stc-panel__callback .telephn input[type="tel"]:focus,
+.stc-panel__callback .telephn input.input-tel:focus {
+  border-color: var(--stc-or, #ec621f) !important;
+  background: #fff !important;
+}
+
+/* .telephone: grid ячейка, flex внутри */
+.stc-panel__callback .telephone {
+  width: auto !important;     /* сброс width:68% из style.css */
+  display: flex !important;
+  align-items: stretch;
+  margin: 0 !important; padding: 0 !important;
+}
+
+/* <p> внутри .telephone содержит submit — делаем flex-1 */
+.stc-panel__callback .telephone > p {
+  flex: 1;
+  display: flex !important;
+  align-items: stretch;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+}
+
+/* Кнопка submit — полная ширина своей grid ячейки */
+.stc-panel__callback .telephone input[type="submit"],
+.stc-panel__callback .telephone .main-product_btn2 {
+  flex: 1 !important;
+  width: 100% !important;
+  height: 46px !important;
+  padding: 0 8px !important;
+  box-sizing: border-box;
+  background: var(--stc-or, #ec621f) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 7px !important;
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s;
+}
+.stc-panel__callback .telephone input[type="submit"]:hover,
+.stc-panel__callback .telephone .main-product_btn2:hover {
+  background: var(--stc-or2, #d4541a) !important;
+}
+
+/* Спиннер CF7 — скрыть */
+.stc-panel__callback .wpcf7-spinner { display: none !important; }
+
+/* Acceptance */
+.stc-panel__callback .wpcf7-acceptance {
+  display: block; width: 100%; margin-top: 6px;
+  font-size: 10px; color: var(--stc-muted, #86868b); line-height: 1.45;
+}
+.stc-panel__callback .wpcf7-response-output {
+  width: 100%; font-size: 11px; padding: 6px 10px;
+  margin-top: 4px; border-radius: 5px; border: 1px solid currentColor;
+}
+
+/* ══ 04. ТАБЫ ════════════════════════════════════════ */
+.stc-tabs-section{max-width:var(--stc-mw, 1400px);margin:0 auto;padding:5px var(--stc-px, 40px) 56px;}
+.stc-tabs-section__inner{max-width:100%;}
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs{
+  display:flex;flex-wrap:wrap;gap:4px;list-style:none;
+  padding:4px;margin:0 0 28px;background:#ededf0;border-radius:10px;border:none;width:fit-content;
+}
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs::before,
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs::after{display:none;}
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs li{margin:0;padding:0;border:none;border-radius:7px;background:none;}
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs li::before,
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs li::after{display:none;}
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs li a{
+  display:block;padding:9px 20px;
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:11px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--stc-muted, #86868b);text-decoration:none;border-radius:7px;white-space:nowrap;
+  transition:background .18s,color .18s,box-shadow .18s;
+}
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs li.active a{background:#fff;color:var(--stc-ink, #1d1d1f);box-shadow:0 2px 8px rgba(0,0,0,.1);}
+.stc-tabs-section .woocommerce-tabs ul.tabs.wc-tabs li a:hover{color:var(--stc-ink, #1d1d1f);background:rgba(255,255,255,.55);}
+.stc-tabs-section .woocommerce-Tabs-panel,.stc-tabs-section .panel{margin:0;padding:0;}
+.stc-tabs-section .woocommerce-Tabs-panel h2{display:none;}
+.stc-tabs-section .panel .alignleft,.stc-tabs-section .panel img.alignleft,.stc-tabs-section .panel span.img_spec{float:left;margin-right:40px;margin-bottom:12px;}
+.stc-tabs-section span.img_spec img{height:200px;width:auto;max-width:300px;}
+.stc-tabs-section .shop_attributes{width:100%;border-collapse:collapse;font-size:13px;max-width:780px;}
+.stc-tabs-section .shop_attributes tr{border-bottom:1px solid #f2f2f5;}
+.stc-tabs-section .shop_attributes tr:last-child{border-bottom:none;}
+.stc-tabs-section .shop_attributes th{width:38%;padding:9px 16px 9px 0;font-family:var(--font-heading, Montserrat, sans-serif);font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--stc-muted, #86868b);text-align:left;vertical-align:top;}
+.stc-tabs-section .shop_attributes td{padding:9px 0;font-weight:500;color:var(--stc-ink, #1d1d1f);vertical-align:top;line-height:1.5;}
+.stc-tabs-section .panel strong{font-family:var(--font-heading, Montserrat, sans-serif);font-weight:800;}
+.stc-tabs-section .panel img{height: auto;
+    border-radius: 4px;
+    float: right;}
+
+/* ══ 05. ПОХОЖИЕ ТОВАРЫ ══════════════════════════════ */
+.stc-tabs-section section.related{margin-top:52px;padding-top:32px;border-top:2px solid #f0f0f4;}
+.stc-tabs-section section.related>h2{font-family:var(--font-heading, Montserrat, sans-serif);font-size:15px;font-weight:800;color:var(--stc-ink, #1d1d1f);text-transform:uppercase;margin:0 0 20px;}
+.stc-tabs-section section.related .justify-content-md-center{text-align:left!important;}
+.stc-tabs-section section.related .woocommerce.columns-4{width:100%!important;}
+.stc-tabs-section section.related ul.products{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:14px!important;float:none!important;width:100%!important;margin:0 0 16px!important;padding:0!important;list-style:none!important;}
+.stc-tabs-section section.related ul.products li.product{float:none!important;width:auto!important;margin:0!important;clear:none!important;}
+
+/* ══ 06. «С НАМИ ВЫГОДНО» — 8 карточек, стиль Image 2 ═
+   FA-иконки оранжевые, чистые линейные, bordered cards
+══════════════════════════════════════════════════════ */
+.stc-advantages{
+  background:#fff;
+  padding:52px 0;
+  border-top:1px solid #e8e8eb;
+  border-bottom:1px solid #e8e8eb;
+}
+.stc-advantages__inner{max-width:var(--stc-mw, 1400px);margin:0 auto;padding:0 var(--stc-px, 40px);}
+.stc-advantages__title{
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:22px;font-weight:800;
+  color:var(--stc-ink, #1d1d1f);margin:0 0 28px;
+}
+
+/* Сетка: 4+4 с касающимися бордерами */
+.stc-advantages__grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+
+/* CSS-анимация — не зависит от IO/JS */
+@keyframes stcCardIn{
+  from{opacity:0;transform:translateY(10px);}
+  to  {opacity:1;transform:none;}
+}
+.stc-adv-card{
+  padding:28px 22px;
+  border-right:1px solid #e8e8eb;
+  border-bottom:1px solid #e8e8eb;
+  display:flex;flex-direction:column;gap:16px;
+  transition:background .18s;
+  /* backwards: карточка начинает с opacity:0, заканчивает opacity:1 — без JS */
+  animation:stcCardIn .4s ease backwards;
+}
+/* Задержка по порядку */
+.stc-adv-card:nth-child(1){animation-delay:.05s;}
+.stc-adv-card:nth-child(2){animation-delay:.1s;}
+.stc-adv-card:nth-child(3){animation-delay:.15s;}
+.stc-adv-card:nth-child(4){animation-delay:.2s;}
+.stc-adv-card:nth-child(5){animation-delay:.25s;}
+.stc-adv-card:nth-child(6){animation-delay:.3s;}
+.stc-adv-card:nth-child(7){animation-delay:.35s;}
+.stc-adv-card:nth-child(8){animation-delay:.4s;}
+
+/* Бордеры: первая строка + первый столбец */
+.stc-adv-card:nth-child(4n+1){border-left:1px solid #e8e8eb;}
+.stc-adv-card:nth-child(-n+4){border-top:1px solid #e8e8eb;}
+
+.stc-adv-card:hover{background:#fafafa;}
+
+/* FA-иконки: крупные, оранжевые */
+.stc-adv-card__icon{
+  font-size:40px;
+  color:var(--stc-or, #ec621f);
+  line-height:1;display:block;
+}
+
+.stc-adv-card__text{
+  font-family:var(--font-body, Manrope, sans-serif);font-size:13px;
+  color:#444;line-height:1.6;margin:0;
+}
+
+/* Акцентная карточка (8-я) с большим числом */
+.stc-adv-card--accent{background:#fff;}
+.stc-adv-card__number{
+  font-family:var(--font-heading, Montserrat, sans-serif);font-size:52px;font-weight:900;
+  color:var(--stc-or, #ec621f);line-height:1;
+}
+.stc-adv-card__number span{font-size:24px;font-weight:700;}
+
+/* ══ 07. WHY (фургоны) ══════════════════════════════ */
+.stc-why{padding:52px var(--stc-px, 40px);background:#f7f7f9;border-top:1px solid #ebebef;}
+.stc-why__inner{max-width:var(--stc-mw, 1400px);margin:0 auto;}
+.stc-why__title{font-family:var(--font-heading, Montserrat, sans-serif);font-size:20px;font-weight:800;color:var(--stc-ink, #1d1d1f);text-align:center;margin:0 0 28px;}
+.stc-why__grid{display:grid;grid-template-columns:1fr 1fr auto 1fr 1fr;gap:14px;align-items:center;list-style:none;padding:0;margin:0;}
+.stc-why__img{width:180px;height:auto;display:block;margin:0 auto;border-radius:8px;}
+.stc-why__item{background:#fff;border-radius:10px;list-style:none;opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s;}
+.stc-why__item.stc-visible{opacity:1;transform:none;}
+.stc-why__item:nth-child(2){transition-delay:.1s;}.stc-why__item:nth-child(4){transition-delay:.1s;}.stc-why__item:nth-child(5){transition-delay:.2s;}
+.stc-why__item-inner{padding:18px 16px;display:flex;flex-direction:column;gap:6px;}
+.stc-why__item img{width:38px;height:38px;object-fit:contain;}
+.stc-why__item-title{font-family:var(--font-heading, Montserrat, sans-serif);font-size:12px;font-weight:700;color:var(--stc-ink, #1d1d1f);}
+.stc-why__item-desc{font-family:var(--font-body, Manrope, sans-serif);font-size:12px;color:var(--stc-muted, #86868b);line-height:1.5;margin:0;}
+.why-list{display:grid;grid-template-columns:1fr 1fr auto 1fr 1fr;gap:14px;align-items:center;list-style:none;padding:0;margin:0;}
+.why-img{width:180px;height:auto;display:block;margin:0 auto;border-radius:8px;}
+.why-list-item{background:#fff;border-radius:10px;list-style:none;}
+.why-list-item-inner{padding:16px 14px;display:flex;flex-direction:column;gap:6px;}
+.why-list-item img{width:36px;height:36px;object-fit:contain;}
+.why-list-item .tit{font-family:var(--font-heading, Montserrat, sans-serif);font-size:12px;font-weight:700;color:var(--stc-ink, #1d1d1f);}
+.why-list-item .desc{font-family:var(--font-body, Manrope, sans-serif);font-size:12px;color:var(--stc-muted, #86868b);line-height:1.5;margin:0;}
+
+
+@media(max-width:640px){
+  :root{--stc-px:14px;}
+  .stc-gallery .woocommerce-product-gallery__image>a img,
+  .stc-gallery .woocommerce-product-gallery__image>a picture img{height:240px;}
+  .stc-panel__title{font-size:18px;}
+  .stc-panel__price ins .woocommerce-Price-amount{font-size:20px;}
+  .main-product_feature{flex-direction:column;}
+  .feature-left{border-right:none;padding-right:0;border-bottom:1px solid #f0f0f3;padding-bottom:8px;}
+  .feature-right{padding-left:0;padding-top:8px;}
+  .stc-btn-row-2{grid-template-columns:1fr;}
+  .stc-advantages__grid{grid-template-columns:1fr;}
+  .stc-adv-card:nth-child(n){border-left:1px solid #e8e8eb;border-top:0;}
+  .stc-adv-card:first-child{border-top:1px solid #e8e8eb;}
+  .stc-why__grid,.why-list{grid-template-columns:1fr;}
+  .stc-tabs-section section.related ul.products{grid-template-columns:1fr!important;}
+  .single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-4 .flex-control-thumbs li,
+  .stc-gallery .flex-control-thumbs li{width:56px!important;max-width:56px!important;}
+  .stc-gallery .flex-control-thumbs li img{width:56px!important;height:42px!important;}
+}
+
+
+/* ══════════════════════════════════════════════════════
+   stc-col-half — 2 колонки (float, работает везде)
+══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════
+   КОЛОНКИ В ТАБАХ — стабильное решение
+   
+   ПРОБЛЕМА: .row внутри табов имеет display:flex
+   Float не работает внутри flex-контейнера.
+   
+   РЕШЕНИЕ: убиваем flex только на ПРЯМЫХ .row-враппёрах
+   внутри таб-панелей. НЕ трогаем tab-item — он контейнер.
+════════════════════════════════════════════════════════ */
+
+/* BFC на таб-панели — содержит floats */
+.stc-tabs-section .woocommerce-Tabs-panel,
+.stc-tabs-section .panel { display: flow-root; }
+
+/* .row внутри табов — Bootstrap flex, НЕ убиваем display */
+.stc-tabs-section .woocommerce-Tabs-panel .row,
+.stc-tabs-section .panel .row,
+.tabcontent1 .row,
+.tabcontent2 .row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start;
+}
+
+/* tab-item — ширина, НЕ трогаем display (Bootstrap flex) */
+.stc-tabs-section .tab-item,
+.stc-tabs-section .tab-item1,
+.stc-tabs-section .tab-item-gallery {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Полные колонки */
+.stc-col-full {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  float: none !important;
+}
+
+/* Четверть-колонка (фото двигателя, коробки) */
+.stc-col-quarter {
+  float: left !important;
+  width: calc(25% - 15px) !important;
+  margin-right: 20px !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+.stc-col-quarter img { width: 100%; height: auto; display: block; border-radius: 8px; }
+
+/* Половинные колонки */
+.stc-col-half {
+  float: left !important;
+  width: calc(50% - 20px) !important;
+  box-sizing: border-box !important;
+  clear: none !important;
+  display: block !important;
+  min-width: 0;
+}
+.stc-col-half:nth-child(odd)  { margin-right: 40px !important; }
+.stc-col-half:nth-child(even) { margin-right: 0 !important; }
+
+/* Враппер wpautop внутри колонок */
+.stc-col-half > div,
+.stc-col-half > p,
+.stc-col-quarter > div,
+.stc-col-quarter > p { width: 100% !important; box-sizing: border-box !important; }
+
+/* Изображения в колонках */
+.stc-col-half span.img_spec,
+.stc-col-quarter span.img_spec { display: block !important; float: none !important; margin: 0 !important; width: 100%; }
+.stc-col-half span.img_spec img,
+.stc-col-half > img,
+.stc-col-quarter span.img_spec img,
+.stc-col-quarter > img { float: none !important; width: 100%; max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 !important; }
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .stc-col-half,
+  .stc-col-quarter { float: none !important; width: 100% !important; margin-right: 0 !important; }
+}
+
+/* ══════════════════════════════════════════════════════
+   ДВИГАТЕЛЬ / КОРОБКА — infographic-item
+══════════════════════════════════════════════════════ */
+.stc-tabs-section .b-model__item__sub-title { font-family:var(--font-heading,Montserrat,sans-serif); font-size:17px; font-weight:700; color:var(--stc-ink,#1d1d1f); line-height:1.35; margin:0 0 24px; display:block; }
+.stc-tabs-section .infographic-item { display:inline-flex; flex-direction:column; gap:6px; margin:0 40px 20px 0; vertical-align:top; }
+.stc-tabs-section .infographic-item:last-child { margin-right:0; }
+.stc-tabs-section .infographic-item__main { display:flex; flex-direction:column; gap:8px; }
+.stc-tabs-section .infographic-item__digit { font-family:var(--font-heading,Montserrat,sans-serif); font-weight:900; color:var(--stc-or,#ec621f); line-height:1; margin:0; display:flex; align-items:baseline; gap:5px; font-size:inherit; }
+.stc-tabs-section .infographic-item__digit-num { font-family:var(--font-heading,Montserrat,sans-serif); font-size:40px; font-weight:900; color:var(--stc-or,#ec621f); line-height:1; }
+.stc-tabs-section .infographic-item__digit-top { font-family:var(--font-heading,Montserrat,sans-serif); font-size:18px; font-weight:700; color:var(--stc-or,#ec621f); line-height:1.1; text-transform:uppercase; }
+.stc-tabs-section .infographic-item__digit-top .i-br { display:block; font-size:12px; }
+.stc-tabs-section .infographic-item__title { font-family:var(--font-heading,Montserrat,sans-serif); font-size:10px; font-weight:700; color:var(--stc-muted,#86868b); text-transform:uppercase; letter-spacing:.1em; margin:0; }
+
+/* ══════════════════════════════════════════════════════
+   ПОХОЖИЕ ТОВАРЫ — карточки с ВЫРАВНИВАНИЕМ
+   Заголовки: 12px. Контент симметричен через flex + min-height
+══════════════════════════════════════════════════════ */
+.stc-tabs-section section.related ul.products {
+  display:grid!important; grid-template-columns:repeat(4,1fr)!important;
+  gap:14px!important; float:none!important; width:100%!important;
+  margin:0 0 16px!important; padding:0!important; list-style:none!important;
+  align-items:stretch!important;  /* равная высота строк */
+}
+.stc-tabs-section section.related ul.products li.product { float:none!important; width:auto!important; margin:0!important; clear:none!important; }
+
+.stc-tabs-section section.related .stc-product-card,
+.stc-tabs-section section.related ul.products li.product {
+  display:flex!important; flex-direction:column;
+  background:#fff; border:1px solid #e8e8eb; border-radius:10px;
+  overflow:hidden; box-sizing:border-box; height:100%;
+  transition:box-shadow .2s;
+}
+.stc-tabs-section section.related .stc-product-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.1); }
+
+/* Изображение: фиксированный aspect-ratio */
+.stc-tabs-section section.related .stc-card-img-wrap {
+  display:block!important; width:100%; aspect-ratio:4/3;
+  overflow:hidden; background:#f7f7f9; flex-shrink:0;
+}
+.stc-tabs-section section.related .stc-card-img-wrap img {
+  width:100%!important; height:100%!important;
+  object-fit:contain!important; padding:8px; box-sizing:border-box; float:none!important;
+}
+
+/* Тело: flex column с min-height для выравнивания */
+.stc-tabs-section section.related .stc-card-body {
+  padding:12px 14px 14px; display:flex; flex-direction:column; gap:6px; flex:1;
+}
+.stc-tabs-section section.related .stc-card-label {
+  font-family:var(--font-heading,Montserrat,sans-serif); font-size:9px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--stc-muted,#86868b); margin:0;
+}
+/* Заголовок: 12px, ограничен 2 строками */
+.stc-tabs-section section.related .stc-card-title,
+.stc-tabs-section section.related .woocommerce-loop-product__title {
+  font-family:var(--font-heading,Montserrat,sans-serif);
+  font-size:12px!important; font-weight:700; line-height:1.35;
+  color:var(--stc-ink,#1d1d1f); margin:0;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  min-height:calc(1.35em * 3);  /* резервируем 3 строки — симметрия */
+}
+.stc-tabs-section section.related .stc-card-params { display:flex; flex-wrap:wrap; gap:5px; margin-top:4px; }
+.stc-tabs-section section.related .stc-card-param { display:flex; flex-direction:column; gap:1px; min-width:52px; }
+.stc-tabs-section section.related .stc-cp-label {
+  font-family:var(--font-heading,Montserrat,sans-serif); font-size:8px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--stc-muted,#86868b);
+}
+.stc-tabs-section section.related .stc-cp-value {
+  font-family:var(--font-body,Manrope,sans-serif); font-size:11px; font-weight:600; color:var(--stc-ink,#1d1d1f);
+}
+/* Цена: всегда внизу карточки */
+.stc-tabs-section section.related .stc-card-price,
+.stc-tabs-section section.related .price { margin-top:auto; padding-top:8px; }
+.stc-tabs-section section.related .price del,
+.stc-tabs-section section.related .stc-card-price del { font-size:11px; color:var(--stc-muted,#86868b); display:block; text-decoration:line-through; }
+.stc-tabs-section section.related .price ins,
+.stc-tabs-section section.related .stc-card-price ins {
+  text-decoration:none; font-family:var(--font-heading,Montserrat,sans-serif);
+  font-size:15px; font-weight:800; color:var(--stc-or,#ec621f); display:block;
+}
+.stc-tabs-section section.related .stc-btn-price {
+  display:inline-flex; align-items:center; gap:4px;
+  font-family:var(--font-heading,Montserrat,sans-serif); font-size:11px; font-weight:700;
+  color:var(--stc-or,#ec621f); text-decoration:none; cursor:pointer; margin-top:6px;
+}
+
+/* ══════════════════════════════════════════════════════
+   «С НАМИ ВЫГОДНО» — PREMIUM DARK REDESIGN
+   Тёмный фон + крупные иконки + белый текст + оранжевые акценты
+══════════════════════════════════════════════════════ */
+.stc-advantages {
+  background: #111;
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+/* Декоративная оранжевая полоса сверху */
+.stc-advantages::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--stc-or,#ec621f), #f0a030, var(--stc-or,#ec621f));
+}
+/* Декоративный круг справа */
+.stc-advantages::after {
+  content: '';
+  position: absolute; right: -120px; top: 50%; transform: translateY(-50%);
+  width: 480px; height: 480px; border-radius: 50%;
+  border: 60px solid rgba(236,98,31,.06);
+  pointer-events: none;
+}
+
+.stc-advantages__inner {
+  max-width: var(--stc-mw, 1400px); margin: 0 auto;
+  padding: 0 var(--stc-px, 40px);
+  position: relative; z-index: 1;
+}
+
+.stc-advantages__title {
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 32px; font-weight: 800; line-height: 1.2;
+  color: #fff; margin: 0 0 48px;
+}
+
+/* Grid: 4+4, бордеры через box-shadow (не overflow) */
+.stc-advantages__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,.08);  /* цвет "разделителей" */
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.stc-adv-card {
+  padding: 36px 28px;
+  background: #1a1a1a;
+  display: flex; flex-direction: column; gap: 18px;
+  border: none; border-radius: 0;
+  animation: stcCardIn .4s ease backwards;
+  transition: background .2s;
+}
+.stc-adv-card:hover { background: #222; }
+
+/* Анимация появления */
+@keyframes stcCardIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.stc-adv-card:nth-child(1){animation-delay:.05s;} .stc-adv-card:nth-child(2){animation-delay:.1s;}
+.stc-adv-card:nth-child(3){animation-delay:.15s;} .stc-adv-card:nth-child(4){animation-delay:.2s;}
+.stc-adv-card:nth-child(5){animation-delay:.25s;} .stc-adv-card:nth-child(6){animation-delay:.3s;}
+.stc-adv-card:nth-child(7){animation-delay:.35s;} .stc-adv-card:nth-child(8){animation-delay:.4s;}
+
+/* Иконка: крупная оранжевая */
+.stc-adv-card__icon {
+  font-size: 45px !important;
+  color: var(--stc-or, #ec621f) !important;
+  line-height: 1; display: block;
+  transition: transform .2s;
+  text-align: center;
+}
+.stc-adv-card:hover .stc-adv-card__icon { transform: scale(1.08); }
+
+/* Текст: светлый на тёмном */
+.stc-adv-card__text {
+  font-family: var(--font-body, Manrope, sans-serif);
+  font-size: 14px; line-height: 1.65;
+  color: rgba(255,255,255,.75);
+  margin: 0;
+}
+
+/* Акцентная карточка "2 года" */
+.stc-adv-card--accent { background: #1a1a1a; }
+.stc-adv-card__number {
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 64px; font-weight: 900;
+  color: var(--stc-or, #ec621f); line-height: 1;
+}
+.stc-adv-card__number span { font-size: 28px; font-weight: 700; }
+.stc-adv-card--accent .stc-adv-card__text { color: rgba(255,255,255,.75); }
+
+/* Адаптив */
+@media(max-width:1024px) { .stc-advantages__grid { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:640px)  { .stc-advantages__grid { grid-template-columns:1fr; } .stc-advantages__title { font-size:24px; } }
+
+/* ══════════════════════════════════════════════════════
+   ТАБЛИЦЫ В ТАБАХ — PREMIUM
+   Полосатые строки, оранжевые заголовки секций, чёткие границы
+══════════════════════════════════════════════════════ */
+.stc-tabs-section .panel table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-body, Manrope, sans-serif);
+  font-size: 13px; margin-bottom: 24px;
+  border: 1px solid #e8e8eb; border-radius: 8px; overflow: hidden;
+}
+.stc-tabs-section .panel table td,
+.stc-tabs-section .panel table th {
+  padding: 11px 16px; border-bottom: 1px solid #f0f0f3;
+  vertical-align: top; line-height: 1.5;
+}
+/* Нечётные строки: чуть серее */
+.stc-tabs-section .panel table tr:nth-child(even) td { background: #fafafa; }
+/* Первая ячейка строки = лейбл */
+.stc-tabs-section .panel table td:first-child:not([colspan]) {
+  font-weight: 600; color: var(--stc-ink, #1d1d1f);
+  width: 35%; border-right: 1px solid #f0f0f3;
+}
+/* Строки с colspan + strong = заголовок секции таблицы */
+.stc-tabs-section .panel table tr td[colspan] {
+  /*background: var(--stc-or, #ec621f);*/
+  color: #fff;
+  padding: 10px 16px;
+  border-bottom: none;
+}
+.stc-tabs-section .panel table tr td[colspan] strong {
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: #fff;
+}
+/* Последняя строка без нижней границы */
+.stc-tabs-section .panel table tr:last-child td { border-bottom: none; }
+
+/* ══════════════════════════════════════════════════════
+   CTA СПЛИТ — УСИЛЕН: крупнее, акцентнее, декор
+══════════════════════════════════════════════════════ */
+.stc-cta-split {
+display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 380px;                   /* центрировать */
+}
+/* Оранжевая сторона */
+.stc-cta-split__orange {
+  background:linear-gradient(140deg,#f07030,#c94e14);
+  position:relative;overflow:hidden;display:flex;align-items:center;
+  padding: 56px 48px 56px max(var(--stc-px, 40px), calc((100vw - var(--stc-mw, 1400px)) / 2 + var(--stc-px, 40px)));
+}
+/* Декоративные круги */
+.stc-cta-split__deco {
+  position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+  width: 400px; height: 400px; pointer-events: none;
+}
+/* Горизонтальная линия-акцент */
+.stc-cta-split__orange::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,.25);
+}
+
+.stc-cta-split__content { position: relative; z-index: 1; opacity: 0; transform: translateX(-16px); transition: opacity .6s, transform .6s; }
+.stc-cta-split__content.stc-visible { opacity: 1; transform: none; }
+
+/* Метка над заголовком */
+.stc-cta-split__heading {
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 28px!important; font-weight: 800; color: #fff; line-height: 1.2; margin: 0 0 12px;
+}
+.stc-cta-split__sub {
+  font-family: var(--font-body, Manrope, sans-serif);
+  font-size: 15px; color: rgba(255,255,255,.85); line-height: 1.6; margin: 0 0 24px;
+}
+/* Телефон — очень крупный */
+.stc-cta-split__phone {
+  display: inline-block;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 30px!important; font-weight: 900; color: #fff;
+  text-decoration: none; letter-spacing: .02em;
+  border-bottom: 2px solid rgba(255,255,255,.35); padding-bottom: 3px;
+  transition: border-color .2s;
+}
+.stc-cta-split__phone:hover { border-color: #fff; color: #fff; }
+
+/* Белая сторона */
+.stc-cta-split__form {
+  background:#fff;display:flex;flex-direction:column;justify-content:center;
+  padding: 56px max(var(--stc-px, 40px), calc((100vw - var(--stc-mw, 1400px)) / 2 + var(--stc-px, 40px))) 56px 48px;
+  border-top: 1px solid #e8e8eb; position: relative;
+}
+/* Декоративная оранжевая линия слева */
+.stc-cta-split__form::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--stc-or, #ec621f);
+}
+.stc-cta-split__form-label {
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--stc-muted, #86868b); margin: 0 0 16px;
+}
+.stc-cta-split__form .wpcf7 { margin: 0; max-width: 480px; }
+.stc-cta-split__form .wpcf7-form { display: flex; flex-direction: column; gap: 8px; }
+.stc-cta-split__form .wpcf7-form p { margin: 0; }
+.stc-cta-split__form input[type="text"],
+.stc-cta-split__form input[type="tel"],
+.stc-cta-split__form input[type="email"],
+.stc-cta-split__form textarea {
+  width: 100%; padding: 13px 16px;
+  border: 1.5px solid #e0e0e4; border-radius: 7px;
+  font-family: var(--font-body, Manrope, sans-serif); font-size: 13px; color: var(--stc-ink, #1d1d1f);
+  background: #fafafa; box-sizing: border-box; outline: none;
+  transition: border-color .2s; appearance: none;
+}
+.stc-cta-split__form input:focus,
+.stc-cta-split__form textarea:focus { border-color: var(--stc-or, #ec621f); background: #fff; }
+.stc-cta-split__form input[type="submit"],
+.stc-cta-split__form .wpcf7-submit {
+  width: 100%; padding: 15px;
+  background: var(--stc-or, #ec621f); color: #fff;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  border: none; border-radius: 7px; cursor: pointer; transition: background .15s;
+}
+.stc-cta-split__form input[type="submit"]:hover,
+.stc-cta-split__form .wpcf7-submit:hover { background: var(--stc-or2, #d4541a); }
+.stc-cta-split__form .wpcf7-acceptance,
+.stc-cta-split__form .wpcf7-checkbox { font-size: 10px; color: var(--stc-muted, #86868b); line-height: 1.45; }
+
+@media(max-width:1024px) {
+  .stc-cta-split { grid-template-columns: 1fr; }
+  .stc-cta-split__orange, .stc-cta-split__form { padding: 40px var(--stc-px,20px)!important; }
+  .stc-cta-split__form::before { width: 0; top: 0; left: 0; right: 0; bottom: auto; height: 4px; width: 100%; }
+  .stc-cta-split__heading { font-size: 22px!important; }
+  .stc-cta-split__phone { font-size: 24px!important; }
+}
+@media(max-width:640px) { .stc-cta-split__heading { font-size: 20px!important; } .stc-cta-split__phone { font-size: 20px!important; } }
+
+/* ══════════════════════════════════════════════════════
+   ПОПАПЫ — Magnific Popup + CF7
+   .white-popup-block: КП (575), Лизинг (576), Заявка (7731)
+══════════════════════════════════════════════════════ */
+
+/* MFP оверлей и враппер */
+.mfp-bg { background: rgba(0,0,0,.6) !important; opacity: 1 !important; }
+.mfp-wrap { z-index: 100001 !important; }
+.mfp-container { padding: 20px !important; box-sizing: border-box !important; }
+
+/* Белый контейнер */
+.white-popup-block {
+  position: relative;
+  background: #fff;
+  padding: 40px 36px 32px;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.25);
+  box-sizing: border-box;
+}
+
+/* Кнопка × */
+.mfp-inline-holder .mfp-close {
+  color: #686e73 !important;
+  font-size: 24px !important;
+  opacity: .7 !important;
+  top: 8px !important;
+  right: 8px !important;
+  width: 34px !important;
+  height: 34px !important;
+  background: rgba(0,0,0,.06) !important;
+  border-radius: 50% !important;
+  line-height: 34px !important;
+  text-align: center !important;
+}
+.mfp-inline-holder .mfp-close:hover { opacity: 1 !important; }
+
+/* Заголовок — первый <p> в попапе */
+.white-popup-block > p:first-child {
+  font-family: var(--font-heading, Montserrat), sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--stc-ink, #1d1d1f);
+  margin: 0 0 22px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* CF7 layout */
+.white-popup-block .wpcf7 { margin: 0; }
+.white-popup-block .wpcf7-form { display: flex; flex-direction: column; gap: 10px; }
+.white-popup-block .wpcf7-form p { margin: 0; }
+.white-popup-block .wpcf7-form p:empty { display: none; }
+.white-popup-block .wpcf7-form .wpcf7-form-control-wrap { display: block; width: 100%; box-sizing: border-box; }
+
+/* Поля */
+.white-popup-block .wpcf7-form input[type="text"],
+.white-popup-block .wpcf7-form input[type="tel"],
+.white-popup-block .wpcf7-form input[type="email"] {
+  display: block !important; width: 100% !important; box-sizing: border-box !important;
+  height: 50px; padding: 0 16px !important;
+  background: #fafafa !important; border: 1.5px solid #e0e0e4 !important;
+  border-radius: 9px !important; color: var(--stc-ink, #1d1d1f) !important;
+  font-size: 14px !important; font-family: var(--font-body, Manrope), sans-serif !important;
+  outline: none !important; appearance: none !important;
+  transition: border-color .15s !important; max-width: none !important; margin: 0 !important;
+}
+.white-popup-block .wpcf7-form input[type="text"]:focus,
+.white-popup-block .wpcf7-form input[type="tel"]:focus,
+.white-popup-block .wpcf7-form input[type="email"]:focus {
+  border-color: var(--stc-or, #ec621f) !important;
+  box-shadow: 0 0 0 3px rgba(236,98,31,.1) !important;
+  background: #fff !important;
+}
+
+/* Submit */
+.white-popup-block .wpcf7-form input[type="submit"],
+.white-popup-block .wpcf7-form .wpcf7-submit,
+.white-popup-block .wpcf7-form .main-product_btn2 {
+  display: block !important; width: 100% !important; box-sizing: border-box !important;
+  height: 52px; padding: 0 16px !important;
+  background: var(--stc-or, #ec621f) !important; border: none !important;
+  border-radius: 9px !important; color: #fff !important;
+  font-family: var(--font-heading, Montserrat), sans-serif !important;
+  font-size: 12px !important; font-weight: 700 !important;
+  letter-spacing: .08em !important; text-transform: uppercase !important;
+  cursor: pointer !important; transition: background .15s !important;
+  margin-top: 4px !important; max-width: none !important;
+}
+.white-popup-block .wpcf7-form input[type="submit"]:hover,
+.white-popup-block .wpcf7-form .wpcf7-submit:hover { background: var(--stc-or2, #d4541a) !important; }
+.white-popup-block .wpcf7-form input[type="submit"]:disabled,
+.white-popup-block .wpcf7-form .wpcf7-submit:disabled { opacity: .55 !important; cursor: default !important; }
+.white-popup-block .wpcf7-spinner { display: none !important; }
+
+/* Acceptance — НЕ flex, чтобы текст не ломался в 3 колонки */
+.white-popup-block .wpcf7-acceptance { margin-top: 4px; }
+.white-popup-block .wpcf7-acceptance .wpcf7-list-item { margin: 0; }
+.white-popup-block .wpcf7-acceptance .wpcf7-list-item-label,
+.white-popup-block .wpcf7-acceptance label {
+  display: block !important;
+  font-size: 11px !important;
+  color: var(--stc-muted, #86868b) !important;
+  line-height: 1.5 !important;
+  cursor: pointer !important;
+  padding-left: 22px !important;
+  position: relative !important;
+}
+.white-popup-block .wpcf7-acceptance input[type="checkbox"] {
+  position: absolute !important;
+  left: 0 !important;
+  top: 2px !important;
+  width: 14px !important;
+  height: 14px !important;
+  accent-color: var(--stc-or, #ec621f) !important;
+  margin: 0 !important;
+}
+.white-popup-block .wpcf7-acceptance a { color: var(--stc-or, #ec621f) !important; }
+
+/* Response */
+.white-popup-block .wpcf7-response-output {
+  font-size: 12px !important; text-align: center !important;
+  margin-top: 8px !important; padding: 8px 12px !important;
+  border-radius: 7px !important; border: 1px solid currentColor !important;
+}
+
+/* Заглушка кнопки (has_zh) */
+.stc-btn-placeholder { display: block; }
+
+@media (max-width: 480px) {
+  .white-popup-block { padding: 32px 20px 24px; border-radius: 12px; }
+}
+
+/* ════════════════════════════════════════════════════════
+   ПОДТАБЫ — i-tab1/i-tab2 + tabcontent
+   Структура: col-lg-12 > .tabspr > .i-tab1 > li.tab-link
+   Стили перенесены из style.css (строки 9742-9771)
+   и адаптированы под дизайн-систему stc
+════════════════════════════════════════════════════════ */
+
+/* Список кнопок */
+.i-tab1, .i-tab2 {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Кнопка подтаба */
+.i-tab1 li, .i-tab2 li {
+  background: none;
+  color: var(--color-dark, #222);
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-bottom: -4px;
+  margin-right: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-heading, Montserrat), sans-serif;
+  transition: background .15s, color .15s;
+}
+
+/* Активная кнопка — оранжевый фон, белый текст */
+.i-tab1 li.current, .i-tab2 li.current {
+  color: #fff;
+  margin-bottom: 0;
+  background: var(--color-orange, #ec621f);
+  border-radius: 4px 4px 0 0;
+}
+
+/* Контент подтабов */
+.tabcontent1, .tabcontent2 {
+  display: none;
+  padding: 20px 0;
+}
+.tabcontent1.current, .tabcontent2.current {
+  display: block;
+}
+
+/* col-lg-6 внутри tabcontent — фикс flex */
+.tabcontent1 .row,
+.tabcontent2 .row {
+  display: block !important;
+  width: 100% !important;
+}
+.tabcontent1 .col-lg-6,
+.tabcontent2 .col-lg-6 {
+  float: left !important;
+  width: calc(50% - 20px) !important;
+  box-sizing: border-box !important;
+  min-width: 0;
+}
+.tabcontent1 .col-lg-6:first-child,
+.tabcontent2 .col-lg-6:first-child { margin-right: 40px !important; }
+.tabcontent1 .col-lg-6:last-child,
+.tabcontent2 .col-lg-6:last-child  { margin-right: 0 !important; }
+
+/* Таблицы внутри tabcontent */
+.tabcontent1 table, .tabcontent2 table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.tabcontent1 table tr th, .tabcontent2 table tr th {
+  background: var(--color-gray-light, #f5f5f7);
+  padding: 10px 12px;
+  text-align: left;
+  font-family: var(--font-heading, Montserrat), sans-serif;
+  font-size: 13px;
+  border-bottom: 2px solid #e5e5ea;
+}
+.tabcontent1 tr td, .tabcontent2 tr td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f2;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.tabcontent1 tr td:last-child,
+.tabcontent2 tr td:last-child { text-align: right; }
+.table__tr-odd { background: #fafafa; }
+
+/* col-lg-6 в tabcontent — адаптив */
+@media (max-width: 768px) {
+  .tabcontent1 .col-lg-6,
+  .tabcontent2 .col-lg-6 {
+    float: none !important;
+    width: 100% !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   ИНФОГРАФИКА ДВИГАТЕЛЯ/КОРОБКИ
+   Структура из style.css — col-lg-3 (пусто) + col-lg-6 (контент)
+   infographic-item идут вертикально один под другим
+════════════════════════════════════════════════════════ */
+
+/* col-lg-3 с фото двигателя */
+#tab-other_products_tab > div:nth-child(1) > div.col-lg-3 > a > img,
+#tab-box > div:nth-child(1) > div.col-lg-3 > a > img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Враппёр инфографики */
+.b-model__item__main { display: block; }
+
+/* Подзаголовок над инфографикой */
+.b-model__item__sub-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-dark, #1d1d1f);
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+
+/* Один стат — вертикально, не inline */
+.infographic-item {
+  display: block !important;
+  margin: 0 0 16px !important;
+  text-align: left;
+}
+.infographic-item:last-child { margin-bottom: 0 !important; }
+
+/* Враппёр значения + единицы */
+.infographic-item__main { display: block; }
+.infographic-item__descr { display: block; }
+
+/* Строка с числом */
+.infographic-item__digit {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+/* Крупное число */
+.infographic-item__digit-num {
+  font-family: var(--font-heading, Montserrat), sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--color-orange, #ec621f);
+  line-height: 1;
+  display: inline-block;
+}
+
+/* Единица измерения рядом с числом */
+.infographic-item__digit-top {
+  font-family: var(--font-heading, Montserrat), sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-orange, #ec621f);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  line-height: 1.2;
+  display: inline-flex;
+  flex-direction: column;
+}
+.infographic-item__digit-top .i-br { display: block; }
+
+/* Подпись под числом */
+.infographic-item__title {
+  font-family: var(--font-heading, Montserrat), sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-gray, #86868b);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  display: block;
+}
+
+/* =====================================================
+   ГАЛЕРЕЯ КАБИНЫ / КОМПЛЕКТАЦИИ
+   ul.kabinagallery: большое фото сверху, миниатюры снизу
+===================================================== */
+ul.kabinagallery {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;    /* главное фото на 100% — миниатюры переносятся в следующую строку */
+  gap: 5px;
+}
+
+/* Главное фото — 100% ширины, переносит миниатюры вниз */
+ul.kabinagallery li.kabinagallery__main {
+  flex: 0 0 100%;
+  width: 100%;
+}
+ul.kabinagallery li.kabinagallery__main a {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: none !important;
+  border-radius: 6px;
+  overflow: hidden;
+}
+ul.kabinagallery li.kabinagallery__main a img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+}
+
+/* Миниатюры — маленькие, в строку */
+ul.kabinagallery li:not(.kabinagallery__main) {
+  flex: 0 0 auto;
+  margin: 0;
+}
+ul.kabinagallery li:not(.kabinagallery__main) a {
+  display: block;
+  width: 75px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 2px solid #e5e5ea;
+  transition: border-color .15s;
+}
+ul.kabinagallery li:not(.kabinagallery__main) a:hover {
+  border-color: var(--color-orange, #ec621f);
+}
+ul.kabinagallery li:not(.kabinagallery__main) a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+ul.kabinagallery li p { display: none; }
+
+/* Большое фото над галереей */
+.col-lg-6 > .image-popup-no-margins img,
+.col-lg-3 > .image-popup-no-margins img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+/* =====================================================
+   КОМПЛЕКТАЦИЯ — сворачиваемый список
+===================================================== */
+.stc-tabll-wrap { position: relative; }
+.stc-tabll-inner {
+  max-height: 600px;
+  overflow: hidden;
+  transition: max-height .4s ease;
+}
+.stc-tabll-inner.is-open { max-height: 9999px; }
+.stc-tabll-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, #fff);
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.stc-tabll-fade.is-hidden { opacity: 0; }
+.stc-tabll-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: none;
+  border: 1.5px solid var(--color-orange, #ec621f);
+  border-radius: 8px;
+  color: var(--color-orange, #ec621f);
+  font-family: var(--font-heading, Montserrat), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.stc-tabll-btn:hover {
+  background: var(--color-orange, #ec621f);
+  color: #fff;
+}

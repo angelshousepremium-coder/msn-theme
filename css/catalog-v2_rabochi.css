@@ -1,0 +1,2177 @@
+/* =====================================================
+   CATALOG V2 — spectechcom
+   Инженерный каталог официального дилера
+   Ориентир: Mercedes Trucks / Volvo Trucks / Caterpillar
+   Файл: /wp-content/themes/msn/css/catalog-v2.css
+===================================================== */
+
+/* ── ПЕРЕМЕННЫЕ ─────────────────────────────────── */
+:root {
+  --stc-ink:    #111111;
+  --stc-ink2:   #333333;
+  --stc-muted:  #686e73;
+  --stc-light:  #f5f5f5;
+  --stc-border: #e4e4e4;
+  --stc-white:  #ffffff;
+  --stc-or:     #ec621f;
+  --stc-or2:    #c94e14;
+  --stc-r:      16px;
+  --stc-r2:     20px;
+}
+
+/* ── КОНТЕЙНЕР ──────────────────────────────────── */
+.stc-container {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 32px;
+}
+.stc-section { margin-top: 72px; }
+.stc-cta-section.stc-section { margin-top: 56px; }
+
+/* ── SCROLL-АНИМАЦИИ ────────────────────────────── */
+.stc-animate,
+.stc-product-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity .6s cubic-bezier(.4,0,.2,1),
+    transform .6s cubic-bezier(.4,0,.2,1);
+}
+.stc-animate.stc-visible,
+.stc-product-card.stc-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── ХЛЕБНЫЕ КРОШКИ ─────────────────────────────── */
+.stc-bc-wrap { padding: 10px 0 0; }
+.stc-bc, .stc-bc p {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin: 0; font-size: 12px; font-family: var(--font-heading);
+  font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #aaa;
+}
+.stc-bc a { color: #aaa; text-decoration: none; }
+.stc-bc a:hover { color: var(--stc-or); }
+.stc-bc .separator { opacity: .3; font-size: 10px; }
+.stc-bc span:last-child { color: var(--stc-ink); }
+
+/* ── КНОПКИ ─────────────────────────────────────── */
+.stc-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 28px; border-radius: 999px;
+  font-family: var(--font-heading); font-size: 13px; font-weight: 700;
+  letter-spacing: .04em; text-decoration: none; cursor: pointer; border: none;
+  transition: background .2s, transform .15s, border-color .2s;
+  white-space: nowrap;
+}
+.stc-btn--primary { background: var(--stc-or); color: #fff; }
+.stc-btn--primary:hover { background: var(--stc-or2); transform: translateY(-1px); color: #fff; }
+.stc-btn--ghost {
+  background: transparent; color: var(--stc-ink);
+  border: 1.5px solid var(--stc-border);
+}
+.stc-btn--ghost:hover { border-color: var(--stc-ink); }
+
+/* ── HERO ───────────────────────────────────────── */
+.stc-hero { margin: 0px; }
+
+.stc-hero__topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+}
+.stc-hero__label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--stc-muted); font-family: var(--font-heading); font-weight: 600;
+}
+.stc-hero__topcta { display: flex; gap: 10px; }
+
+/* Gutenberg контент */
+.stc-hero__content {
+  border: 1px solid var(--stc-border);
+  border-radius: var(--stc-r2);
+  overflow: hidden;
+  background: var(--stc-white);
+}
+.stc-hero__content .wp-block-columns,
+.stc-hero__content .has-2-columns {
+  display: grid !important;
+  grid-template-columns: 1fr 1.4fr !important;
+  gap: 0 !important; margin: 0 !important; min-height: 480px;
+}
+/* Левая/правая — по позиции, не по классу (Gutenberg добавляет eplus-wrapper, is-layout-flow и др.) */
+.stc-hero__content .wp-block-columns > *:first-child,
+.stc-hero__content .wp-block-column:first-child {
+  background: #f8f8f8 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  border-right: 1px solid var(--stc-border); overflow: hidden;
+}
+/* Изображение — занимает всё доступное пространство сверху */
+.stc-hero__content .wp-block-columns > *:first-child figure,
+.stc-hero__content .wp-block-column:first-child figure {
+  margin: 0 !important; flex: 1 1 auto;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  min-height: 220px;
+}
+.stc-hero__content .wp-block-columns > *:first-child img,
+.stc-hero__content .wp-block-column:first-child img {
+  width: 100% !important; height: auto !important; max-height: 100%;
+  object-fit: contain !important; display: block !important; max-width: none !important; margin: 0 !important;
+  padding: 16px !important; box-sizing: border-box !important;
+}
+/* Gutenberg figure.wp-block-image внутри hero — убираем лишний padding (он на img) */
+.stc-hero__content .wp-block-columns > *:first-child figure.wp-block-image,
+.stc-hero__content .wp-block-column:first-child figure.wp-block-image {
+  width: 100% !important; flex: 1 1 auto; margin: 0 !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  padding: 0 !important;
+}
+/* Скрываем подпись к изображению в hero */
+.stc-hero__content .wp-block-columns > *:first-child figcaption,
+.stc-hero__content .wp-block-column:first-child figcaption {
+  display: none !important;
+}
+/* Benefits в левой колонке — под изображением */
+.stc-hero__content .wp-block-column:first-child .stc-hero__benefits {
+  flex: 0 0 auto;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 5px !important;
+  padding: 12px 16px !important;
+  margin: 0 !important;
+  border-top: 1px solid var(--stc-border);
+  background: var(--stc-white);
+}
+.stc-hero__content .wp-block-column:first-child .stc-benefit {
+  font-size: 11px !important;
+  padding: 5px 10px !important;
+}
+/* Правая колонка */
+.stc-hero__content .wp-block-columns > *:last-child,
+.stc-hero__content .wp-block-column:last-child {
+  padding: 46px 48px 34px !important;
+  display: flex !important; flex-direction: column !important;
+  justify-content: flex-start !important; gap: 0 !important;
+}
+.stc-hero__content .wp-block-columns > *:last-child h1,
+.stc-hero__content .has-2-columns > *:last-child h1,
+.stc-hero__content .wp-block-columns > *:last-child .wp-block-heading,
+.stc-hero__content .has-2-columns > *:last-child .wp-block-heading {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(26px, 3vw, 40px) !important;
+  font-weight: 800 !important; line-height: 1.05 !important;
+  color: var(--stc-ink) !important; letter-spacing: -.03em !important;
+  margin: 0 0 12px !important;
+}
+.stc-hero__content .wp-block-columns > *:last-child p,
+.stc-hero__content .has-2-columns > *:last-child p {
+  font-size: 15px !important; line-height: 1.7 !important;
+  color: var(--stc-muted) !important; margin: 0 0 20px !important;
+}
+.stc-hero__content .wp-block-column:last-child h1,
+.stc-hero__content .wp-block-column:last-child h2.wp-block-heading {
+  margin-bottom: 18px !important;
+}
+
+.stc-hero__content .wp-block-column:last-child p {
+  max-width: 620px !important;
+  font-size: 16px !important;
+  line-height: 1.75 !important;
+}
+
+/* Информационная строка */
+.stc-hero__infobar {
+  display: flex; flex-wrap: wrap; gap: 6px 16px;
+  padding: 14px 0; border-top: 1px solid var(--stc-border);
+  margin-bottom: 20px;
+}
+.stc-hero__infobar-item {
+  font-size: 13px; font-weight: 600; color: var(--stc-ink);
+  font-family: var(--font-heading);
+}
+.stc-hero__infobar-item + .stc-hero__infobar-item::before {
+  content: "·"; margin-right: 16px; color: var(--stc-border);
+}
+
+/* Блок преимуществ */
+.stc-hero__benefits {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 24px; margin-top: 16px;
+}
+.stc-benefit {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--stc-ink);
+  font-family: var(--font-heading);
+  padding: 6px 12px;
+  background: #f5f5f5;
+  border: 1px solid #e4e4e4;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.stc-benefit::before {
+  content: "";
+  width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  background: var(--stc-or);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7l3 3L11.5 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7l3 3L11.5 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* Подкатегории .horsmen-vnalicii */
+.stc-hero__content .horsmen-vnalicii {
+  border-top: 1px solid var(--stc-border); margin: 0 !important; padding: 0 !important;
+}
+.stc-hero__content .horsmen-vnalicii ul.slides,
+.stc-hero__content .horsmen-vnalicii ul.row {
+  display: flex !important; flex-wrap: wrap !important; gap: 0 !important;
+  list-style: none !important; margin: 0 !important; padding: 0 !important;
+}
+.stc-hero__content .horsmen-vnalicii .slide {
+  flex: 1 0 110px !important; min-width: 100px;
+  border-right: 1px solid var(--stc-border);
+  border-bottom: 1px solid var(--stc-border);
+}
+.stc-hero__content .horsmen-vnalicii .slide:last-child { border-right: none; }
+.stc-hero__content .horsmen-vnalicii .slide a {
+  display: flex !important; flex-direction: column !important;
+  align-items: center !important; gap: 8px !important;
+  padding: 16px 12px !important; text-decoration: none !important;
+  transition: background .18s !important;
+}
+.stc-hero__content .horsmen-vnalicii .slide a:hover { background: #fdf5f1 !important; }
+.stc-hero__content .horsmen-vnalicii .slide img {
+  height: 52px !important; width: auto !important; max-width: 110px !important;
+  object-fit: contain !important; display: block;
+}
+.stc-hero__content .horsmen-vnalicii .slide h2 {
+  font-size: 10px !important; font-weight: 700 !important;
+  font-family: var(--font-heading) !important; color: var(--stc-ink) !important;
+  text-align: center !important; text-transform: uppercase !important;
+  letter-spacing: .04em !important; margin: 0 !important; line-height: 1.3 !important;
+}
+
+/* Статистика */
+.stc-hero__stats {
+  display: flex; gap: 0;
+  margin-top: 24px;
+  border: 1px solid var(--stc-border);
+  border-radius: var(--stc-r2);
+  overflow: hidden;
+  background: var(--stc-white);
+}
+.stc-stat {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; padding: 24px 16px;
+  border-right: 1px solid var(--stc-border);
+  text-align: center;
+}
+.stc-stat:last-child { border-right: none; }
+.stc-stat__n {
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 900;
+  color: var(--stc-ink);
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+.stc-stat__l {
+  font-size: 13px; color: var(--stc-muted);
+  font-weight: 500; line-height: 1.3;
+}
+
+/* ── ТУЛБАР ─────────────────────────────────────── */
+/* Верхнюю строку со счётчиком/сортировкой скрываем.
+   Перки делаем крупными прямоугольными плитками. */
+.stc-toolbar {
+  padding: 24px 0 0;
+  border-top: 1px solid var(--stc-border);
+  margin-top: 40px !important;
+}
+
+/* Убираем верх тулбара везде: счётчик, сортировка, левая/правая части */
+.stc-toolbar__top,
+.stc-toolbar__left,
+.stc-toolbar__right,
+.stc-toolbar__count,
+.stc-toolbar__sort-label,
+.stc-toolbar__sort {
+  display: none !important;
+}
+
+
+/* ── СЕТКА ТОВАРОВ — 3 колонки ──────────────────── */
+.stc-products-wrap { margin-bottom: 48px;margin-top: 6px !important; }
+.stc-products-grid.products {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  list-style: none !important; margin: 0 !important; padding: 0 !important;
+  float: none !important; clear: both;
+}
+.stc-products-grid.products::before,
+.stc-products-grid.products::after { display: none !important; content: none !important; }
+
+/* Сброс WC стилей */
+.stc-products-grid.products li,
+.stc-products-grid.products li.product {
+  float: none !important; width: auto !important; margin: 0 !important;
+  clear: none !important; min-height: 0 !important; padding: 0 !important;
+  box-shadow: none !important; background-color: transparent !important;
+}
+
+/* ── КАРТОЧКА ТЕХНИКИ ───────────────────────────── */
+.stc-products-grid .stc-product-card {
+  background: var(--stc-white);
+  border: 1px solid var(--stc-border);
+  border-radius: var(--stc-r2);
+  overflow: hidden;
+  transition: box-shadow .25s ease, transform .25s ease, border-color .25s;
+  display: flex !important; flex-direction: column !important;
+}
+.stc-products-grid .stc-product-card:hover {
+  box-shadow: 0 8px 40px rgba(0,0,0,.1);
+  transform: translateY(-3px);
+  border-color: rgba(0,0,0,.15);
+}
+.stc-products-grid .stc-card-inner {
+  display: flex; flex-direction: column; flex: 1;
+  text-decoration: none; color: inherit;
+}
+
+/* Фото — занимает главное место */
+.stc-products-grid .stc-card-img-wrap {
+  aspect-ratio: 3/2 !important;
+  background: #f8f8f8;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.stc-products-grid .stc-card-img {
+  width: 100% !important; height: 100% !important;
+  object-fit: contain !important; object-position: center;
+  padding: 16px !important; display: block;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+}
+.stc-products-grid .stc-product-card:hover .stc-card-img { transform: scale(1.04); }
+
+/* Оверлей */
+.stc-products-grid .stc-card-overlay {
+  position: absolute; inset: 0; background: rgba(0,0,0,.22);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .25s;
+}
+.stc-products-grid .stc-product-card:hover .stc-card-overlay { opacity: 1; }
+.stc-products-grid .stc-card-overlay-btn {
+  color: #fff; font-size: 13px; font-weight: 700;
+  font-family: var(--font-heading); letter-spacing: .05em;
+  border: 1.5px solid rgba(255,255,255,.6);
+  padding: 10px 20px; border-radius: 999px;
+}
+
+/* Статус бейдж */
+.stc-card-badge {
+  position: absolute; top: 12px; left: 12px;
+  font-size: 11px; font-weight: 700; font-family: var(--font-heading);
+  padding: 4px 10px; border-radius: 999px; letter-spacing: .04em;
+}
+.stc-card-badge--instock { background: #ecf9f0; color: #15803d; }
+.stc-card-badge--order   { background: #f5f5f5; color: var(--stc-muted); }
+
+/* Тело карточки */
+.stc-products-grid .stc-card-body {
+  padding: 16px 18px 18px;
+  display: flex; flex-direction: column; gap: 0; flex: 1;
+}
+.stc-products-grid .stc-card-title {
+  font-family: var(--font-heading) !important;
+  font-size: 15px !important; font-weight: 700 !important;
+  line-height: 1.35 !important; color: var(--stc-ink) !important;
+  margin: 0 0 10px !important;
+}
+/* Параметры одной строкой */
+.stc-card-params-line {
+  font-size: 12px; color: var(--stc-muted); font-weight: 500;
+  letter-spacing: .02em; line-height: 1.4; min-height: 18px; margin-bottom: 12px;
+}
+/* Цена — главный элемент */
+.stc-products-grid .stc-card-price {
+  margin-top: auto; padding-top: 12px; border-top: 1px solid #f0f0f0;
+}
+.stc-products-grid .stc-card-price del {
+  font-size: 12px; color: #bbb; font-weight: 400;
+  display: block; margin-bottom: 3px; text-decoration: line-through;
+}
+.stc-products-grid .stc-card-price ins {
+  text-decoration: none; display: block;
+  font-family: var(--font-heading);
+  font-size: 24px; font-weight: 800; color: var(--stc-ink);
+  letter-spacing: -.03em; line-height: 1.1;
+}
+.stc-products-grid .stc-card-price .woocommerce-Price-amount { font-size: inherit !important; }
+/* CTA — кнопка с hover */
+.stc-card-cta {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 700; font-family: var(--font-heading);
+  color: var(--stc-or); letter-spacing: .02em;
+  margin-top: 10px; padding: 9px 18px;
+  background: rgba(236,98,31,.07);
+  border-radius: 999px; border: 1px solid rgba(236,98,31,.2);
+  transition: background .2s, border-color .2s, color .2s;
+  align-self: flex-start;
+}
+.stc-products-grid .stc-product-card:hover .stc-card-cta {
+  background: var(--stc-or); color: #fff; border-color: var(--stc-or);
+}
+/* ── ПАГИНАЦИЯ (скрыта — infinite scroll) ───────── */
+.stc-pagination { display: none; }
+
+/* ── INFINITE SCROLL LOADER ─────────────────────── */
+#stc-loader { display: none; justify-content: center; padding: 40px 0; }
+.stc-loader-dots { display: flex; gap: 8px; align-items: center; }
+.stc-loader-dots span {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--stc-or); animation: stcDot .9s ease-in-out infinite;
+}
+.stc-loader-dots span:nth-child(2) { animation-delay: .15s; }
+.stc-loader-dots span:nth-child(3) { animation-delay: .30s; }
+@keyframes stcDot {
+  0%, 80%, 100% { transform: scale(.55); opacity: .35; }
+  40%            { transform: scale(1);   opacity: 1;   }
+}
+
+/* ── БЛОК ПОДБОРА ТЕХНИКИ ───────────────────────── */
+.stc-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 48px 52px;
+  background: var(--stc-ink);
+  border-radius: var(--stc-r2);
+  margin: 48px 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+.stc-compare::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--stc-or);
+}
+.stc-compare__h {
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 800; color: #fff;
+  letter-spacing: -.02em; margin-bottom: 10px; line-height: 1.2;
+}
+.stc-compare__sub { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.65; }
+/* CF7 в блоке подбора */
+.stc-compare__form .wpcf7-form p {
+  display: flex !important; flex-direction: row !important;
+  gap: 10px !important; margin: 0 !important; flex-wrap: wrap;
+}
+.stc-compare__form .wpcf7-form-control-wrap { flex: 1; min-width: 140px; }
+.stc-compare__form .wpcf7-form-control.wpcf7-text,
+.stc-compare__form .wpcf7-form-control.wpcf7-tel {
+  width: 100% !important; padding: 12px 16px !important;
+  background: var(--stc-white) !important; border: 1px solid var(--stc-border) !important;
+  border-radius: 10px !important; color: var(--stc-ink) !important;
+  font-size: 14px !important; font-family: var(--font-body) !important; outline: none !important;
+  transition: border-color .2s !important;
+}
+.stc-compare__form .wpcf7-form-control.wpcf7-text:focus,
+.stc-compare__form .wpcf7-form-control.wpcf7-tel:focus {
+  border-color: var(--stc-or) !important;
+}
+.stc-compare__form .wpcf7-form-control.wpcf7-submit {
+  padding: 12px 24px !important; background: var(--stc-or) !important;
+  color: #fff !important; border: none !important; border-radius: 999px !important;
+  font-family: var(--font-heading) !important; font-size: 13px !important;
+  font-weight: 700 !important; letter-spacing: .04em !important;
+  cursor: pointer !important; transition: background .2s !important; white-space: nowrap;
+}
+.stc-compare__form .wpcf7-form-control.wpcf7-submit:hover { background: var(--stc-or2) !important; }
+.stc-compare__form .wpcf7-acceptance { display: none; }
+
+/* ── SEO-ТЕКСТ ──────────────────────────────────── */
+.stc-seo {
+margin-top: 42px !important;
+  padding: 42px 48px !important;
+  background: #f7f7f8 !important;
+  border: 1px solid var(--stc-border, #e4e4e4) !important;
+  border-left: 4px solid var(--stc-or, #ec621f) !important;
+  border-radius: 18px !important;
+}
+.stc-seo__body h2,
+.stc-seo__body h3 {
+  color: var(--stc-ink, #111) !important;
+}
+
+.stc-seo__body p,
+.stc-seo__body li {
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+}
+.stc-seo__label {
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--stc-or); font-family: var(--font-heading); font-weight: 700;
+  margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+.stc-seo__label::after {
+  content: ""; flex: 1; height: 1px; background: var(--stc-border);
+}
+.stc-seo__body { max-height: 190px; overflow: hidden; position: relative; transition: max-height .4s ease; }
+.stc-seo__body::after {
+  content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 52px;
+  background: linear-gradient(to bottom, transparent, #fff); pointer-events: none; transition: opacity .3s;
+}
+.stc-seo__body--open { max-height: 9999px; }
+.stc-seo__body--open::after { opacity: 0; }
+.stc-seo__body h1 { font-size: clamp(18px,1.8vw,22px); font-family: var(--font-heading); font-weight: 800; color: var(--stc-ink); margin: 0 0 10px; }
+.stc-seo__body h2 { font-size: clamp(16px,1.6vw,20px); font-family: var(--font-heading); font-weight: 800; color: var(--stc-ink); margin: 20px 0 8px; }
+.stc-seo__body h3,.stc-seo__body h4 { font-family: var(--font-heading); font-weight: 700; color: var(--stc-ink); margin: 16px 0 6px; }
+.stc-seo__body h3 { font-size: 16px; }
+.stc-seo__body h4 { font-size: 14px; }
+.stc-seo__body p { font-size: 14px; line-height: 1.8; color: var(--stc-muted); margin: 0 0 12px; }
+.stc-seo__body ul,.stc-seo__body ol { font-size: 14px; line-height: 1.75; color: var(--stc-muted); margin: 0 0 14px; padding-left: 20px; }
+.stc-seo__toggle {
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 14px;
+  font-size: 13px; font-weight: 700; font-family: var(--font-heading);
+  color: var(--stc-or); cursor: pointer; border: none; background: none; padding: 0;
+}
+.stc-seo__toggle:hover { color: var(--stc-or2); }
+
+/* ── ПАРТНЁРЫ ───────────────────────────────────── */
+.stc-partners {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
+}
+.stc-pcard {
+  position: relative; border-radius: var(--stc-r2); overflow: hidden; min-height: 240px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  text-decoration: none; cursor: pointer; transition: transform .2s ease;
+}
+.stc-pcard:hover { transform: translateY(-3px); }
+.stc-pcard__bg { position: absolute; inset: 0; z-index: 0; line-height: 0; }
+.stc-pcard__bg svg { width: 100%; height: 100%; display: block; }
+.stc-pcard__content { position: relative; z-index: 2; padding: 32px 36px; }
+.stc-pcard__icon {
+  width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.15);
+  border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; margin-bottom: 16px;
+}
+.stc-pcard__icon svg { width: 22px; height: 22px; }
+.stc-pcard__title {
+  font-family: var(--font-heading); font-size: 17px; font-weight: 800;
+  color: #fff; margin: 0 0 14px; line-height: 1.25;
+}
+.stc-pcard__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.stc-pcard__list li {
+  font-size: 14px; color: rgba(255,255,255,.65); font-weight: 500;
+  display: flex; align-items: center; gap: 8px;
+}
+.stc-pcard__list li::before {
+  content: ""; width: 4px; height: 4px; background: var(--stc-or);
+  border-radius: 50%; flex-shrink: 0;
+}
+.stc-pcard__link {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 20px;
+  font-size: 13px; font-weight: 700; font-family: var(--font-heading); color: #fff;
+  padding: 9px 20px; background: var(--stc-or); border-radius: 999px;
+  transition: background .2s; letter-spacing: .03em;
+}
+.stc-pcard__link:hover { background: var(--stc-or2); }
+
+/* ── CTA ────────────────────────────────────────── */
+.stc-cta-section { background: transparent; padding: 0; }
+.stc-cta-section .stc-container { padding-bottom: 72px; }
+.stc-cta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 64px;
+  align-items: start;
+  padding: 52px 56px;
+  background: var(--stc-white);
+  border-radius: var(--stc-r2);
+  border: 1px solid var(--stc-border);
+  border-left: 4px solid var(--stc-or);
+}
+.stc-cta__h {
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 800; color: var(--stc-ink);
+  letter-spacing: -.02em; margin-bottom: 10px; line-height: 1.2;
+}
+.stc-cta__sub { font-size: 14px; color: var(--stc-muted); line-height: 1.65; margin-bottom: 20px; }
+.stc-cta__perks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.stc-cta__perks li {
+  font-size: 14px; color: var(--stc-ink); font-weight: 500;
+  display: flex; align-items: center; gap: 10px;
+}
+.stc-cta__perks li::before {
+  content: "";
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+  background: var(--stc-or);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.stc-cta__right { min-width: 320px; }
+.stc-cta__right .wpcf7-form p { display: flex !important; flex-direction: column !important; gap: 10px !important; margin: 0 !important; }
+.stc-cta__right .wpcf7-form-control-wrap { display: block; }
+.stc-cta__right .wpcf7-form-control.wpcf7-text,
+.stc-cta__right .wpcf7-form-control.wpcf7-tel {
+  width: 100% !important; padding: 14px 18px !important;
+  background: var(--stc-light) !important; border: 1px solid var(--stc-border) !important;
+  border-radius: 12px !important; color: var(--stc-ink) !important;
+  font-size: 14px !important; font-family: var(--font-body) !important; outline: none !important;
+  transition: border-color .2s, background .2s !important;
+}
+.stc-cta__right .wpcf7-form-control.wpcf7-text:focus,
+.stc-cta__right .wpcf7-form-control.wpcf7-tel:focus {
+  border-color: var(--stc-or) !important; background: var(--stc-white) !important;
+}
+.stc-cta__right .wpcf7-form-control.wpcf7-submit {
+  width: 100% !important; padding: 15px 26px !important;
+  background: var(--stc-or) !important; color: #fff !important; border: none !important;
+  border-radius: 999px !important; font-family: var(--font-heading) !important;
+  font-size: 14px !important; font-weight: 700 !important; letter-spacing: .04em !important;
+  cursor: pointer !important; transition: background .2s, transform .15s !important;
+}
+.stc-cta__right .wpcf7-form-control.wpcf7-submit:hover {
+  background: var(--stc-or2) !important; transform: translateY(-1px) !important;
+}
+.stc-cta__right .wpcf7-acceptance { font-size: 12px !important; color: #aaa !important; line-height: 1.5 !important; margin-top: 10px !important; display: block !important; }
+.stc-compare .wpcf7-acceptance { margin-top: 8px !important; display: block !important; }
+
+/* ── ВСПОМОГАТЕЛЬНЫЕ ────────────────────────────── */
+.stc-admin-notice { padding: 16px 20px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; margin: 20px 0; font-size: 14px; }
+.stc-no-products { padding: 48px 0; text-align: center; color: var(--stc-muted); font-size: 15px; }
+
+/* ── АДАПТИВ ────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .stc-products-grid.products { grid-template-columns: repeat(2,1fr) !important; }
+}
+@media (max-width: 900px) {
+  .stc-hero__content .wp-block-columns,
+  .stc-hero__content .has-2-columns { grid-template-columns: 1fr !important; min-height: auto; }
+  .stc-hero__content .wp-block-column:first-child { border-right: none; border-bottom: 1px solid var(--stc-border); min-height: 260px; padding: 0 !important; }
+  .stc-hero__content .wp-block-column:last-child { padding: 32px 28px !important; }
+  .stc-hero__topbar { flex-direction: column; align-items: flex-start; }
+  .stc-partners { grid-template-columns: 1fr; }
+  .stc-cta { grid-template-columns: 1fr; gap: 28px; padding: 36px 32px; }
+  .stc-cta__right { min-width: 0; width: 100%; }
+  .stc-compare { grid-template-columns: 1fr; gap: 24px; padding: 32px 28px; }
+  .stc-compare__form .wpcf7-form p { flex-direction: column !important; }
+  .stc-section { margin-top: 56px; }
+  .stc-stat__n { font-size: 36px; }
+}
+@media (max-width: 640px) {
+  .stc-container { padding-inline: 20px; }
+  .stc-products-grid.products { grid-template-columns: 1fr !important; gap: 14px !important; }
+  .stc-hero__stats { flex-direction: column; border-radius: var(--stc-r); }
+  .stc-stat { border-right: none; border-bottom: 1px solid var(--stc-border); }
+  .stc-stat:last-child { border-bottom: none; }
+  .stc-seo { padding: 24px 0 24px 20px; }
+  .stc-pcard__content { padding: 22px 24px; }
+  .stc-cta { padding: 28px 22px; border-radius: var(--stc-r); }
+  .stc-section { margin-top: 40px; }
+}
+
+/* ── ПРАВКИ v1.5 — приоритеты по ТЗ ──────────────── */
+
+/* Чеклист внутри правой колонки hero */
+.stc-hero__content .wp-block-column:last-child .stc-hero__benefits {
+  margin-top: 16px !important;
+  margin-bottom: 20px !important;
+  padding-top: 16px !important;
+  border-top: 1px solid var(--stc-border) !important;
+}
+.stc-hero__content .wp-block-column:last-child .stc-benefit {
+  font-size: 14px !important;
+  color: var(--stc-ink) !important;
+  gap: 10px !important;
+}
+
+/* Цена — главный элемент, 28px */
+.stc-products-grid .stc-card-price ins {
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  letter-spacing: -.03em !important;
+}
+.stc-products-grid .stc-card-price del {
+  font-size: 13px !important;
+}
+
+/* Параметры строка — читаемо */
+.stc-card-params-line {
+  font-size: 14px !important;
+  color: var(--stc-muted) !important;
+  font-weight: 500 !important;
+  letter-spacing: .01em !important;
+  line-height: 1.4 !important;
+}
+
+/* Заголовок карточки — крупнее */
+.stc-products-grid .stc-card-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+}
+
+/* CF7 в блоке подбора — inline форма */
+.stc-compare .wpcf7 { width: 100%; }
+.stc-compare .wpcf7-form { width: 100%; }
+.stc-compare .wpcf7-form > p {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  align-items: center !important;
+}
+.stc-compare .wpcf7-form-control-wrap {
+  flex: 1 1 160px !important;
+  display: block !important;
+}
+.stc-compare .wpcf7-form-control.wpcf7-text,
+.stc-compare .wpcf7-form-control.wpcf7-tel,
+.stc-compare .wpcf7-form-control.wpcf7-textarea {
+  width: 100% !important;
+  padding: 12px 16px !important;
+  background: var(--stc-white) !important;
+  border: 1px solid var(--stc-border) !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  color: var(--stc-ink) !important;
+  outline: none !important;
+  font-family: var(--font-body) !important;
+}
+.stc-compare .wpcf7-form-control.wpcf7-text:focus,
+.stc-compare .wpcf7-form-control.wpcf7-tel:focus {
+  border-color: var(--stc-or) !important;
+}
+.stc-compare .wpcf7-form-control.wpcf7-submit {
+  flex-shrink: 0 !important;
+  padding: 12px 24px !important;
+  background: var(--stc-or) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-family: var(--font-heading) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: background .2s !important;
+}
+.stc-compare .wpcf7-form-control.wpcf7-submit:hover {
+  background: var(--stc-or2) !important;
+}
+.stc-compare .wpcf7-acceptance { display: none !important; }
+
+/* ── ХАРАКТЕРИСТИКИ КАРТОЧКИ — 3 блока ─────────────── */
+.stc-card-specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-bottom: 12px;
+  min-height: 52px;
+}
+.stc-card-specs--empty { min-height: 52px; }
+.stc-card-spec {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 6px 8px;
+  background: #f5f5f7;
+  border-radius: 6px;
+  min-width: 0;
+  overflow: hidden;
+}
+.stc-card-spec__label {
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--stc-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stc-card-spec__value {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--stc-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+/* ── CF7 В ТЁМНОМ COMPARE ──────────────────────────── */
+.stc-compare .wpcf7-form > p {
+  display: flex !important; flex-direction: column !important;
+  gap: 10px !important; margin: 0 !important;
+}
+.stc-compare .wpcf7-form-control-wrap { display: block !important; }
+.stc-compare .wpcf7-form-control.wpcf7-text,
+.stc-compare .wpcf7-form-control.wpcf7-tel,
+.stc-compare .wpcf7-form-control.wpcf7-textarea {
+  width: 100% !important; padding: 13px 16px !important;
+  background: rgba(255,255,255,.08) !important;
+  border: 1px solid rgba(255,255,255,.15) !important;
+  border-radius: 10px !important; color: #fff !important;
+  font-size: 14px !important; font-family: var(--font-body) !important; outline: none !important;
+}
+.stc-compare .wpcf7-form-control.wpcf7-text::placeholder,
+.stc-compare .wpcf7-form-control.wpcf7-tel::placeholder,
+.stc-compare .wpcf7-form-control.wpcf7-textarea::placeholder {
+  color: rgba(255,255,255,.35) !important;
+}
+.stc-compare .wpcf7-form-control.wpcf7-text:focus,
+.stc-compare .wpcf7-form-control.wpcf7-tel:focus {
+  border-color: var(--stc-or) !important;
+}
+.stc-compare .wpcf7-form-control.wpcf7-submit {
+  padding: 13px 28px !important; background: var(--stc-or) !important;
+  color: #fff !important; border: none !important; border-radius: 999px !important;
+  font-family: var(--font-heading) !important; font-size: 14px !important;
+  font-weight: 700 !important; cursor: pointer !important;
+  transition: background .2s !important;
+}
+.stc-compare .wpcf7-form-control.wpcf7-submit:hover { background: var(--stc-or2) !important; }
+.stc-compare .wpcf7-acceptance,
+.stc-compare .wpcf7-acceptance label,
+.stc-compare .wpcf7-acceptance .wpcf7-list-item-label {
+  font-size: 11px !important; color: rgba(255,255,255,.3) !important;
+  line-height: 1.5 !important; margin-top: 8px !important; display: block !important;
+}
+.stc-compare .wpcf7-acceptance a { color: rgba(255,255,255,.45) !important; }
+
+/* ── SEO BODY — градиент на светлом фоне ───────────── */
+.stc-seo__body::after {
+  background: linear-gradient(to bottom, transparent, var(--stc-light)) !important;
+}
+
+/* ── АДАПТИВ НОВЫХ БЛОКОВ ───────────────────────────── */
+@media (max-width: 900px) {
+  .stc-compare { grid-template-columns: 1fr; gap: 28px; padding: 36px 32px; }
+  .stc-seo { padding: 36px 32px; }
+  .stc-card-specs { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .stc-seo { padding: 28px 20px; }
+  .stc-compare { padding: 28px 20px; }
+  .stc-card-specs { grid-template-columns: repeat(3, 1fr); gap: 3px; }
+  .stc-card-spec { padding: 5px 6px; }
+}
+
+/* ── EDITORIAL CONTENT — статейный контент из Gutenberg ── */
+/* Выводится между сеткой товаров и блоком подбора          */
+.stc-editorial {
+  max-width: 860px;
+}
+.stc-editorial h1,
+.stc-editorial h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 800;
+  color: var(--stc-ink);
+  letter-spacing: -.02em;
+  line-height: 1.25;
+  margin: 0 0 16px;
+  clear: both;
+}
+.stc-editorial h3 {
+  font-family: var(--font-heading);
+  font-size: 17px; font-weight: 700; color: var(--stc-ink);
+  margin: 20px 0 10px; clear: both;
+}
+.stc-editorial h4 {
+  font-family: var(--font-heading);
+  font-size: 15px; font-weight: 700; color: var(--stc-ink); margin: 16px 0 8px;
+}
+.stc-editorial p {
+  font-size: 14px; line-height: 1.8; color: var(--stc-muted); margin: 0 0 14px;
+}
+.stc-editorial ul,
+.stc-editorial ol {
+  font-size: 14px; line-height: 1.75; color: var(--stc-muted);
+  margin: 0 0 16px; padding-left: 20px;
+}
+.stc-editorial li { margin-bottom: 6px; }
+.stc-editorial strong { color: var(--stc-ink); font-weight: 600; }
+.stc-editorial a { color: var(--stc-or); text-decoration: none; }
+.stc-editorial a:hover { text-decoration: underline; }
+
+/* Изображения внутри editorial */
+.stc-editorial img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+.stc-editorial .wp-block-image.alignleft,
+.stc-editorial figure.alignleft {
+  float: left;
+  margin: 0 28px 16px 0;
+  max-width: 42%;
+}
+.stc-editorial .wp-block-image.alignright,
+.stc-editorial figure.alignright {
+  float: right;
+  margin: 0 0 16px 28px;
+  max-width: 42%;
+}
+.stc-editorial .wp-block-image:not(.alignleft):not(.alignright),
+.stc-editorial figure:not(.alignleft):not(.alignright) {
+  margin: 20px 0;
+}
+/* Сброс float после блоков */
+.stc-editorial::after { content: ""; display: table; clear: both; }
+
+/* Таблицы в editorial */
+.stc-editorial table {
+  width: 100%; border-collapse: collapse;
+  font-size: 14px; margin: 20px 0;
+}
+.stc-editorial table th {
+  background: var(--stc-light); font-weight: 700;
+  font-family: var(--font-heading); padding: 10px 14px;
+  border: 1px solid var(--stc-border); text-align: left;
+}
+.stc-editorial table td {
+  padding: 9px 14px; border: 1px solid var(--stc-border);
+  color: var(--stc-muted);
+}
+.stc-editorial table tr:nth-child(even) td { background: #fafafa; }
+
+/* iframe / видео в editorial */
+.stc-editorial iframe,
+.stc-editorial .rutube-video-wrapper {
+  width: 100%; max-width: 100%;
+  border-radius: 12px; overflow: hidden;
+}
+.stc-editorial .rutube-video-item { position: relative; padding-bottom: 56.25%; height: 0; }
+.stc-editorial .rutube-video-item iframe {
+  position: absolute; top: 0; left: 0;
+  width: 100% !important; height: 100% !important;
+}
+
+/* Разделители — скрываем оранжевые HR из Gutenberg в editorial */
+.stc-editorial hr.wp-block-separator { display: none; }
+
+/* Адаптив editorial */
+@media (max-width: 640px) {
+  .stc-editorial .wp-block-image.alignleft,
+  .stc-editorial figure.alignleft,
+  .stc-editorial .wp-block-image.alignright,
+  .stc-editorial figure.alignright {
+    float: none; max-width: 100%; margin: 0 0 16px;
+  }
+}
+
+/* ── SECTION.WHY — блок "Почему клиенты выбирают нас?" ── */
+/* Кастомный HTML блок на страницах цистерн и др.         */
+.stc-editorial .why,
+.stc-editorial section.why {
+  margin: 40px 0;
+  max-width: 100%;
+}
+.stc-editorial .why .h2s,
+.stc-editorial .why h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 800;
+  color: var(--stc-ink);
+  letter-spacing: -.02em;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.stc-editorial .why .h2s span,
+.stc-editorial .why h2 span { color: var(--stc-or); }
+
+.stc-editorial .why-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  position: relative;
+}
+.stc-editorial .why-img {
+  display: none; /* скрываем декоративное фото-фон */
+}
+.stc-editorial .why-list-item {
+  background: var(--stc-light);
+  border-radius: 16px;
+  padding: 24px;
+  transition: box-shadow .2s;
+}
+.stc-editorial .why-list-item:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
+}
+.stc-editorial .why-list-item-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.stc-editorial .why-list-item-inner > img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 0 !important;
+  margin: 0;
+}
+.stc-editorial .why-list-item .tit {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--stc-ink);
+  margin: 0;
+  line-height: 1.3;
+}
+.stc-editorial .why-list-item .desc {
+  font-size: 13px;
+  color: var(--stc-muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Кнопка "Консультация по производству" из hero */
+.stc-hero__content .main-product_btn,
+/* стили main-product_btn1 перенесены в блок БЛОК КНОПКИ + ВИДЕО ниже */
+
+/* H1 в editorial (на страницах где H1 после horsmen) */
+.stc-editorial h1.wp-block-heading {
+  font-size: clamp(22px, 2.5vw, 30px) !important;
+  margin-bottom: 24px !important;
+  padding-bottom: 16px !important;
+  border-bottom: 1px solid var(--stc-border) !important;
+}
+
+/* Адаптив why */
+@media (max-width: 640px) {
+  .stc-editorial .why-list { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 400px) {
+  .stc-editorial .why-list { grid-template-columns: 1fr; }
+}
+
+/* ── БЛОК "ПОЧЕМУ КЛИЕНТЫ ВЫБИРАЮТ НАС" ── stc-why ── */
+.stc-why-section {
+  background: var(--stc-light);
+  padding: 72px 0 !important;
+  margin-top: 64px;
+}
+.stc-why__h {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 2.5vw, 32px);
+  font-weight: 800;
+  color: var(--stc-ink);
+  letter-spacing: -.03em;
+  text-align: center;
+  margin-bottom: 48px;
+  line-height: 1.2;
+}
+.stc-why__h span { color: var(--stc-or); }
+
+.stc-why-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.stc-why-card {
+  background: var(--stc-white);
+  border: 1px solid var(--stc-border);
+  border-radius: 16px;
+  min-height: 170px !important;
+  padding: 30px 24px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  transition: box-shadow .22s, transform .22s;
+}
+.stc-why-card:hover {
+  box-shadow: 0 6px 28px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+.stc-why-card__icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(236,98,31,.08);
+  border-radius: 14px;
+  flex-shrink: 0;
+  color: var(--stc-or);
+}
+.stc-why-card__icon img,
+.stc-why-card__icon svg {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+.stc-why-card__title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--stc-ink);
+  line-height: 1.3;
+  margin: 0;
+}
+.stc-why-card__desc {
+  font-size: 13px;
+  color: var(--stc-muted);
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+/* Адаптив why */
+@media (max-width: 1100px) {
+  .stc-why-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 700px) {
+  .stc-why-section { padding: 40px 0; }
+  .stc-why-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stc-why-card { padding: 20px 16px; }
+}
+@media (max-width: 400px) {
+  .stc-why-grid { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════════════
+   ШАБЛОН ЦИСТЕРН — специфичные правки hero блока
+   Отличается от стандартного: вложенные columns,
+   кнопка-popup, видео Rutube
+══════════════════════════════════════════════════ */
+
+/* ── Правки специфичные для hero цистерн/фургонов ── */
+/* (общие правила левой колонки уже в базовом блоке выше) */
+
+/* ══════════════════════════════════════════════════════════
+   БЛОК КНОПКИ + ВИДЕО внутри правой колонки hero
+   Структура Gutenberg: wp:column > wp:columns > [buttons][video]
+   Решение: серый контейнер-пилюля, кнопки слева, видео справа
+═══════════════════════════════════════════════════════════ */
+
+/* Контейнер кнопка+видео — видео на всю ширину, убираем серый фон */
+.stc-hero__content .wp-block-column .wp-block-columns,
+.stc-hero__content .wp-block-column > .wp-block-columns {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 0 !important;
+  height: 190px !important;
+  margin-top: 16px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 12px !important;
+  align-items: stretch !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Левая inner-колонка (кнопки из Gutenberg) — скрываем, заменены PHP-кнопками */
+.stc-hero__content .wp-block-column .wp-block-columns > div:first-child {
+  display: none !important;
+}
+
+/* Правая inner-колонка (видео) — занимает всю ширину */
+.stc-hero__content .wp-block-column .wp-block-columns > div:last-child {
+  flex: 1 1 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* zh_btn / main-product_btn — враппер кнопки */
+.stc-hero__content .zh_btn,
+.stc-hero__content .main-product_btn {
+  all: unset !important;
+  display: flex !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+}
+.stc-hero__content .zh_btn::before,
+.stc-hero__content .zh_btn::after,
+.stc-hero__content .main-product_btn::before,
+.stc-hero__content .main-product_btn::after {
+  display: none !important;
+  content: none !important;
+}
+/* Скрываем popup-форму */
+.stc-hero__content .white-popup-block.mfp-hide { display: none !important; }
+
+/* main-product_btn1 — сама кнопка/ссылка */
+.stc-hero__content .main-product_btn1,
+.stc-hero__content a.main-product_btn1,
+.stc-hero__content .main-product_btn1.ex {
+  all: unset !important;
+  display: flex !important;
+  flex: 1 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 0 12px !important;
+  background: var(--stc-ink) !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  font-family: var(--font-heading) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  line-height: 1.3 !important;
+  letter-spacing: .02em !important;
+  cursor: pointer !important;
+  transition: background .2s !important;
+  box-sizing: border-box !important;
+}
+.stc-hero__content .main-product_btn1:hover,
+.stc-hero__content a.main-product_btn1:hover {
+  background: #222 !important;
+  color: #fff !important;
+}
+
+/* Вторая кнопка — outline (О нашем производстве / О производстве) */
+.stc-hero__content .zh_btn + .zh_btn .main-product_btn1,
+.stc-hero__content .main-product_btn + .main-product_btn .main-product_btn1 {
+  background: var(--stc-white) !important;
+  color: var(--stc-ink) !important;
+  border: 1.5px solid #ddd !important;
+}
+.stc-hero__content .zh_btn + .zh_btn .main-product_btn1:hover,
+.stc-hero__content .main-product_btn + .main-product_btn .main-product_btn1:hover {
+  border-color: #bbb !important;
+  background: var(--stc-light) !important;
+}
+
+/* Rutube видео в контейнере */
+.stc-hero__content .rutube-video-wrapper {
+  flex: 1 !important;
+  display: block !important;
+  position: relative !important;
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.stc-hero__content .rutube-video {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.stc-hero__content .rutube-video-item {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+}
+.stc-hero__content .rutube-video-item iframe {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.stc-hero__content .rutube-video-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  cursor: pointer !important;
+  z-index: 1 !important;
+}
+.stc-hero__content .rutube-video-play-button-wrapper {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%,-50%) !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+.stc-hero__content .rutube-video-play-button {
+  width: 40px !important;
+  height: 40px !important;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.4)) !important;
+}
+
+/* 5. Orange badge "ПОЛНЫЙ ПРОИЗВОДСТВЕННЫЙ ЦИКЛ" */
+.stc-hero__content .wp-block-column p strong:only-child,
+.stc-hero__content .wp-block-column > p > strong:only-child {
+  font-size: 11px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+  color: var(--stc-or) !important;
+  font-family: var(--font-heading) !important;
+}
+
+/* 6а. H2 в правой колонке — не рвём слова (ALL CAPS + bold = агрессивный перенос) */
+.stc-hero__content > .wp-block-columns > div:last-child h2.wp-block-heading,
+.stc-hero__content .wp-block-column:last-child h2.wp-block-heading {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(20px, 1.8vw, 28px) !important;
+  font-weight: 800 !important;
+  line-height: 1.12 !important;
+  color: var(--stc-ink) !important;
+  letter-spacing: -.03em !important;
+  margin: 0 0 10px !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+}
+
+/* Скрываем Gutenberg-блок .why внутри hero — он заменён хардкоженным stc-why-section */
+.stc-hero__content .why,
+.stc-hero__content section.why { display: none !important; }
+
+/* ── PHP-кнопки под видео в hero ──────────────────────── */
+.stc-hero__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  align-items: center;
+}
+/* Первые две кнопки держим в одну строку */
+.stc-hero__buttons .stc-hero__btn:nth-child(1),
+.stc-hero__buttons .stc-hero__btn:nth-child(2) {
+  flex: 0 0 auto;
+}
+.stc-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .18s, border-color .18s, color .18s;
+  white-space: nowrap;
+  border: none;
+  line-height: 1;
+}
+.stc-hero__btn--dark {
+  background: var(--stc-ink);
+  color: #fff !important;
+}
+.stc-hero__btn--dark:hover { background: #2a2a2a; color: #fff !important; }
+.stc-hero__btn--outline {
+  background: transparent;
+  color: var(--stc-ink) !important;
+  border: 1.5px solid #d0d0d5;
+}
+.stc-hero__btn--outline:hover {
+  border-color: #bbb;
+  background: var(--stc-light);
+}
+.stc-hero__more-link {
+align-self: flex-start !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  margin: 4px 0 18px !important;
+  padding: 7px 13px !important;
+
+  background: rgba(236, 98, 31, .08) !important;
+  border: 1px solid rgba(236, 98, 31, .18) !important;
+  border-radius: 999px !important;
+
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--stc-or, #ec621f) !important;
+  line-height: 1 !important;
+}
+
+.stc-hero__more-link:hover {
+  background: var(--stc-or, #ec621f) !important;
+  color: #fff !important;
+}
+.stc-hero__more-link:hover { opacity: .75; color: var(--stc-or); }
+
+/* ══════════════════════════════════════════════════
+   TOPBAR ROW — хлебные крошки + кнопки в одну строку
+   Используется в template-furgoni.php и template-cisterni.php
+══════════════════════════════════════════════════ */
+.stc-topbar-row {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--stc-border);
+  margin-bottom: 0;
+}
+.stc-topbar-row .stc-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 0;
+}
+.stc-topbar-row .stc-bc,
+.stc-topbar-row .stc-bc p {
+  padding: 0;
+  font-size: 12px;
+}
+.stc-topbar-cta {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.stc-topbar-cta .stc-btn {
+  padding: 6px 14px;
+  font-size: 11px;
+}
+
+/* Hero без топбара (для furgoni/cisterni шаблонов) */
+.stc-hero .stc-hero__topbar { display: none; }
+/* Но оставляем для template-product-v2.php */
+.stc-catalog-page:not(.stc-has-topbar-row) .stc-hero .stc-hero__topbar { display: flex; }
+
+/* ── Стили section.why из Gutenberg для furgoni ──── */
+.stc-why-section .why {
+  margin: 0;
+}
+.stc-why-section .h2s {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(22px, 2.2vw, 28px) !important;
+  font-weight: 800 !important;
+  color: var(--stc-ink) !important;
+  text-align: center !important;
+  margin-bottom: 40px !important;
+  letter-spacing: -.02em !important;
+}
+.stc-why-section .h2s span { color: var(--stc-or) !important; }
+.stc-why-section .why-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  gap: 16px !important;
+}
+.stc-why-section .why-img { display: none !important; }
+.stc-why-section .why-list-item {
+  background: var(--stc-white) !important;
+  border: 1px solid var(--stc-border) !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  transition: box-shadow .2s !important;
+}
+.stc-why-section .why-list-item:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,.08) !important;
+}
+.stc-why-section .why-list-item-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+.stc-why-section .why-list-item-inner > img {
+  width: 40px !important; height: 40px !important;
+  object-fit: contain !important;
+  background: rgba(236,98,31,.08) !important;
+  padding: 8px !important;
+  border-radius: 10px !important;
+}
+.stc-why-section .tit {
+  font-family: var(--font-heading) !important;
+  font-size: 15px !important; font-weight: 700 !important;
+  color: var(--stc-ink) !important; margin: 0 !important;
+}
+.stc-why-section .desc {
+  font-size: 13px !important; color: var(--stc-muted) !important;
+  line-height: 1.65 !important; margin: 0 !important;
+}
+
+/* Адаптив topbar */
+@media (max-width: 640px) {
+  .stc-topbar-row .stc-container { flex-direction: column; align-items: flex-start; }
+  .stc-topbar-cta .stc-btn { padding: 8px 14px; font-size: 11px; }
+}
+
+/* ── ПОПАП: Получить КП (Magnific Popup + CF7 id=479) ── */
+#stc-popup-kp.white-popup-block {
+  position: relative;
+  background: #fff;
+  padding: 36px 32px 28px;
+  width: auto;
+  max-width: 480px;
+  margin: 20px auto;
+  border-radius: 16px;
+}
+.stc-popup__title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--stc-ink);
+  margin: 0 0 20px;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+/* CF7 внутри попапа */
+#stc-popup-kp .wpcf7-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#stc-popup-kp .wpcf7-form p { margin: 0; }
+#stc-popup-kp .wpcf7-form p:empty { display: none; }
+#stc-popup-kp .wpcf7-form label,
+#stc-popup-kp .wpcf7-form .wpcf7-form-control-wrap {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+#stc-popup-kp .wpcf7-form input[type="text"],
+#stc-popup-kp .wpcf7-form input[type="tel"],
+#stc-popup-kp .wpcf7-form input[type="email"] {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 16px;
+  background: var(--stc-light);
+  border: 1.5px solid var(--stc-border);
+  border-radius: 10px;
+  color: var(--stc-ink);
+  font-size: 15px;
+  font-family: var(--font-body), sans-serif;
+  transition: border-color .15s, box-shadow .15s;
+  outline: none;
+}
+#stc-popup-kp .wpcf7-form input[type="text"]:focus,
+#stc-popup-kp .wpcf7-form input[type="tel"]:focus,
+#stc-popup-kp .wpcf7-form input[type="email"]:focus {
+  border-color: var(--stc-or);
+  box-shadow: 0 0 0 3px rgba(236,98,31,.1);
+}
+#stc-popup-kp .wpcf7-form input[type="submit"],
+#stc-popup-kp .wpcf7-form .wpcf7-submit {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 16px;
+  background: var(--stc-or);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s;
+  margin-top: 4px;
+}
+#stc-popup-kp .wpcf7-form input[type="submit"]:hover,
+#stc-popup-kp .wpcf7-form .wpcf7-submit:hover {
+  background: var(--stc-or2);
+}
+#stc-popup-kp .wpcf7-form input[type="submit"]:disabled,
+#stc-popup-kp .wpcf7-form .wpcf7-submit:disabled {
+  opacity: .6;
+  cursor: default;
+}
+/* Принятие соглашения */
+#stc-popup-kp .wpcf7-acceptance label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--stc-muted);
+  line-height: 1.5;
+  cursor: pointer;
+}
+#stc-popup-kp .wpcf7-acceptance input[type="checkbox"] {
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--stc-or);
+}
+/* Сообщение об успехе/ошибке */
+#stc-popup-kp .wpcf7-response-output {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+/* =====================================================
+   FIX 2026-06-29 FINAL CLEAN
+   horsmen-vnalicii unified style
+   HTML структура: li.slide > a > img + h2
+
+   Работает для:
+   - template-furgoni.php
+   - template-product-v2.php
+   - template-cisterni.php
+
+   Важно:
+   - больше нет отдельных правил под p:first-child
+   - hover работает на всю плитку
+   - стили шаблонов не конфликтуют между собой
+===================================================== */
+
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  clear: both;
+
+  background: #fff !important;
+  border-top: 1px solid var(--stc-border, #e4e4e4) !important;
+  overflow: hidden !important;
+}
+
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii ul,
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii ul.slides,
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii ul.row,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii ul,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii ul.slides,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii ul.row,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii ul,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii ul.slides,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii ul.row {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  list-style: none !important;
+  background: #fff !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+
+@media (min-width: 1100px) {
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii ul:has(li:nth-child(5)),
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii ul:has(li:nth-child(5)),
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii ul:has(li:nth-child(5)) {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li,
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li.slide,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li.slide,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li.slide {
+  display: block !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+
+  height: 104px !important;
+  min-height: 104px !important;
+  max-height: none !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  background: #fff !important;
+  border: 0 !important;
+  border-right: 1px solid var(--stc-border, #e4e4e4) !important;
+  border-bottom: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  float: none !important;
+  list-style: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+
+  transition: background .18s ease !important;
+}
+
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li:last-child,
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li.slide:last-child,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li:last-child,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li.slide:last-child,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li:last-child,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li.slide:last-child {
+  border-right: 0 !important;
+}
+
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li:hover,
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li.slide:hover,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li:hover,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li.slide:hover,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li:hover,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li.slide:hover {
+  background: #fdf5f1 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Одна ссылка внутри плитки: картинка + заголовок */
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li > a,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li > a,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li > a {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  margin: 0 !important;
+  padding: 12px 10px 10px !important;
+  box-sizing: border-box !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  text-align: center !important;
+
+  overflow: hidden !important;
+}
+
+/* Картинка */
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li img,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li img,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  width: auto !important;
+  height: 42px !important;
+  max-width: 105px !important;
+  max-height: 52px !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  margin: 0 auto !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  filter: none !important;
+  transform: none !important;
+  position: static !important;
+  float: none !important;
+}
+
+/* Заголовок */
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li h2,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li h2,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li h2 {
+  display: block !important;
+
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: .01em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+
+  color: var(--stc-ink, #111) !important;
+
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+}
+
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li:hover h2,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li:hover h2,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li:hover h2 {
+  color: var(--stc-or, #ec621f) !important;
+}
+
+/* Убираем возможный мусор из старых Gutenberg/HTML блоков */
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii br,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii br,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii br,
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii mark,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii mark,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii mark,
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii .count,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii .count,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii .count {
+  display: none !important;
+}
+
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li > p,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li > p,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li > p,
+.page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li > a > p:empty,
+.page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li > a > p:empty,
+.page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li > a > p:empty {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Если блок на template-furgoni ещё не перенесён JS внутрь hero,
+   не скрываем его CSS-ом, чтобы не пропадали заголовки/подкатегории. */
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii ul,
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii ul.slides,
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii ul.row,
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii ul,
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii ul.slides,
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii ul.row,
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii ul,
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii ul.slides,
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii ul.row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li:nth-child(2n),
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li:nth-child(2n),
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li:nth-child(2n) {
+    border-right: 0 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li,
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li.slide,
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li,
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li.slide,
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li,
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li.slide {
+    height: 92px !important;
+    min-height: 92px !important;
+  }
+
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li > a,
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li > a,
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li > a {
+    gap: 5px !important;
+    padding: 9px 8px 7px !important;
+  }
+
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li img,
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li img,
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li img {
+    height: 34px !important;
+    max-width: 86px !important;
+  }
+
+  .page-template-template-furgoni .stc-hero__content .horsmen-vnalicii li h2,
+  .page-template-template-product-v2 .stc-hero__content .horsmen-vnalicii li h2,
+  .page-template-template-cisterni .stc-hero__content .horsmen-vnalicii li h2 {
+    font-size: 9px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+/* =====================================================
+   FIX 2026-06-29
+   Toolbar perks — variant 4 compact badges
+   Работает для:
+   - template-furgoni.php
+   - template-cisterni.php
+   - template-product-v2.php
+===================================================== */
+
+/* Убираем верхнюю строку тулбара */
+body.page-template-template-furgoni .stc-toolbar__top,
+body.page-template-template-cisterni .stc-toolbar__top,
+body.page-template-template-product-v2 .stc-toolbar__top,
+.stc-catalog-page .stc-toolbar__top {
+  display: none !important;
+}
+
+/* Сам тулбар */
+body.page-template-template-furgoni .stc-toolbar,
+body.page-template-template-cisterni .stc-toolbar,
+body.page-template-template-product-v2 .stc-toolbar,
+.stc-catalog-page .stc-toolbar {
+  padding: 0 !important;
+  margin: 32px 0 0 !important;
+  border-top: 0 !important;
+}
+
+/* Контейнер бейджей */
+body.page-template-template-furgoni .stc-toolbar__perks,
+body.page-template-template-cisterni .stc-toolbar__perks,
+body.page-template-template-product-v2 .stc-toolbar__perks,
+.stc-catalog-page .stc-toolbar__perks {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 10px !important;
+
+  width: 100% !important;
+  padding: 0 0 22px !important;
+  margin: 0 0 28px !important;
+
+  border-bottom: 1px solid var(--stc-border, #e4e4e4) !important;
+  background: transparent !important;
+
+  list-style: none !important;
+}
+
+/* Один бейдж */
+body.page-template-template-furgoni .stc-toolbar__perk,
+body.page-template-template-cisterni .stc-toolbar__perk,
+body.page-template-template-product-v2 .stc-toolbar__perk,
+.stc-catalog-page .stc-toolbar__perk {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  min-height: 42px !important;
+
+  margin: 0 !important;
+  padding: 10px 15px !important;
+
+  background: #fff !important;
+  border: 1px solid var(--stc-border, #e4e4e4) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, .04) !important;
+
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  color: var(--stc-ink, #111) !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+
+  box-sizing: border-box !important;
+
+  transition:
+    border-color .18s ease,
+    background .18s ease,
+    transform .18s ease,
+    box-shadow .18s ease !important;
+}
+
+/* Иконка */
+body.page-template-template-furgoni .stc-toolbar__perk::before,
+body.page-template-template-cisterni .stc-toolbar__perk::before,
+body.page-template-template-product-v2 .stc-toolbar__perk::before,
+.stc-catalog-page .stc-toolbar__perk::before {
+  content: "" !important;
+  display: inline-block !important;
+
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+
+  border-radius: 50% !important;
+  background: var(--stc-or, #ec621f) !important;
+
+  flex: 0 0 16px !important;
+
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7l3 3L11.5 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7l3 3L11.5 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat !important;
+}
+
+/* Hover */
+body.page-template-template-furgoni .stc-toolbar__perk:hover,
+body.page-template-template-cisterni .stc-toolbar__perk:hover,
+body.page-template-template-product-v2 .stc-toolbar__perk:hover,
+.stc-catalog-page .stc-toolbar__perk:hover {
+  background: #fff7f3 !important;
+  border-color: rgba(236, 98, 31, .32) !important;
+  box-shadow: 0 5px 18px rgba(236, 98, 31, .08) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  body.page-template-template-furgoni .stc-toolbar__perks,
+  body.page-template-template-cisterni .stc-toolbar__perks,
+  body.page-template-template-product-v2 .stc-toolbar__perks,
+  .stc-catalog-page .stc-toolbar__perks {
+    gap: 8px !important;
+    padding-bottom: 18px !important;
+    margin-bottom: 22px !important;
+  }
+
+  body.page-template-template-furgoni .stc-toolbar__perk,
+  body.page-template-template-cisterni .stc-toolbar__perk,
+  body.page-template-template-product-v2 .stc-toolbar__perk,
+  .stc-catalog-page .stc-toolbar__perk {
+    min-height: 38px !important;
+    padding: 9px 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  body.page-template-template-furgoni .stc-toolbar__perks,
+  body.page-template-template-cisterni .stc-toolbar__perks,
+  body.page-template-template-product-v2 .stc-toolbar__perks,
+  .stc-catalog-page .stc-toolbar__perks {
+    align-items: stretch !important;
+  }
+
+  body.page-template-template-furgoni .stc-toolbar__perk,
+  body.page-template-template-cisterni .stc-toolbar__perk,
+  body.page-template-template-product-v2 .stc-toolbar__perk,
+  .stc-catalog-page .stc-toolbar__perk {
+    width: 100% !important;
+    white-space: normal !important;
+  }
+}
+
+/* =====================================================
+   FIX 2026-06-29
+   Section backgrounds / visual separation
+   Для: template-furgoni, template-cisterni, template-product-v2
+===================================================== */
+
+/* База страницы */
+body.page-template-template-furgoni,
+body.page-template-template-cisterni,
+body.page-template-template-product-v2 {
+  background: #ffffff !important;
+}
+
+/* 1. HERO оставляем белым, но делаем чуть чище */
+body.page-template-template-furgoni .stc-hero,
+body.page-template-template-cisterni .stc-hero,
+body.page-template-template-product-v2 .stc-hero {
+  background: #ffffff !important;
+}
+
+/* 2. Зона каталога товаров — тоже белая, как основной рабочий контент */
+body.page-template-template-furgoni #stc-products,
+body.page-template-template-cisterni #stc-products,
+body.page-template-template-product-v2 #stc-products {
+  background: #ffffff !important;
+}
+
+/* 3. SEO-блок — мягко отделяем теплым светло-серым */
+body.page-template-template-furgoni .stc-seo,
+body.page-template-template-cisterni .stc-seo,
+body.page-template-template-product-v2 .stc-seo {
+  background: #f7f7f8 !important;
+  border: 1px solid var(--stc-border, #e4e4e4) !important;
+  border-left: 4px solid var(--stc-or, #ec621f) !important;
+  border-radius: 18px !important;
+  box-shadow: none !important;
+}
+
+/* 4. Блок "Почему клиенты выбирают нас" — отдельная светлая полоса */
+body.page-template-template-furgoni .stc-why-section,
+body.page-template-template-cisterni .stc-why-section,
+body.page-template-template-product-v2 .stc-why-section {
+  background: #f5f6f8 !important;
+  border-top: 1px solid #ececef !important;
+  border-bottom: 1px solid #ececef !important;
+}
+
+/* Внутри why-section добавим чуть больше воздуха */
+body.page-template-template-furgoni .stc-why-section .stc-container,
+body.page-template-template-cisterni .stc-why-section .stc-container,
+body.page-template-template-product-v2 .stc-why-section .stc-container {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+/* Карточки преимуществ на светлом фоне делаем белыми */
+body.page-template-template-furgoni .stc-why-card,
+body.page-template-template-cisterni .stc-why-card,
+body.page-template-template-product-v2 .stc-why-card {
+  background: #ffffff !important;
+  border: 1px solid var(--stc-border, #e4e4e4) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .04) !important;
+}
+
+/* 5. Партнёрские / сервисные карточки — снова белый блок, чтобы был ритм */
+body.page-template-template-furgoni .stc-partners,
+body.page-template-template-cisterni .stc-partners,
+body.page-template-template-product-v2 .stc-partners {
+  background: transparent !important;
+}
+
+/* 6. Нижний CTA-блок можно чуть сильнее отделить сверху */
+body.page-template-template-furgoni .stc-cta-section,
+body.page-template-template-cisterni .stc-cta-section,
+body.page-template-template-product-v2 .stc-cta-section {
+  background: #ffffff !important;
+  border-top: 1px solid #ececef !important;
+}
+
+/* 7. Дополнительный ритм между крупными секциями */
+body.page-template-template-furgoni .stc-compare,
+body.page-template-template-cisterni .stc-compare,
+body.page-template-template-product-v2 .stc-compare,
+body.page-template-template-furgoni .stc-seo,
+body.page-template-template-cisterni .stc-seo,
+body.page-template-template-product-v2 .stc-seo,
+body.page-template-template-furgoni .stc-partners,
+body.page-template-template-cisterni .stc-partners,
+body.page-template-template-product-v2 .stc-partners,
+body.page-template-template-furgoni .stc-cta,
+body.page-template-template-cisterni .stc-cta,
+body.page-template-template-product-v2 .stc-cta {
+  margin-top: 36px !important;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  body.page-template-template-furgoni .stc-seo,
+  body.page-template-template-cisterni .stc-seo,
+  body.page-template-template-product-v2 .stc-seo {
+    border-radius: 14px !important;
+  }
+
+  body.page-template-template-furgoni .stc-compare,
+  body.page-template-template-cisterni .stc-compare,
+  body.page-template-template-product-v2 .stc-compare,
+  body.page-template-template-furgoni .stc-seo,
+  body.page-template-template-cisterni .stc-seo,
+  body.page-template-template-product-v2 .stc-seo,
+  body.page-template-template-furgoni .stc-partners,
+  body.page-template-template-cisterni .stc-partners,
+  body.page-template-template-product-v2 .stc-partners,
+  body.page-template-template-furgoni .stc-cta,
+  body.page-template-template-cisterni .stc-cta,
+  body.page-template-template-product-v2 .stc-cta {
+    margin-top: 28px !important;
+  }
+}

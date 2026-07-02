@@ -1,0 +1,1213 @@
+/* ═══════════════════════════════════════════════════════
+   HEADER — v4
+   Содержит: топбар, основная строка, дропдаун, мобильное меню
+═══════════════════════════════════════════════════════ */
+
+:root {
+  --blue:      rgb(0, 102, 179);
+  --blue-h:    #005a9e;
+  --blue-soft: rgba(0, 102, 179, .08);
+
+  --red:      var(--blue);
+  --red-h:    var(--blue-h);
+  --red-soft: var(--blue-soft);
+
+  --ink:        #141516;
+  --ink2:       #23262a;
+  --ink3:       #3a3f45;
+  --muted:      #74797f;
+  --border:     #e4e4e0;
+  --bg:         #f6f5f2;
+  --white:      #ffffff;
+
+  --header-h:      102px;
+  --header-main-h: 64px;
+
+  --font-body: 'Manrope', Arial, sans-serif;
+  --font-head: 'Montserrat', sans-serif;
+
+  --max-w:  1320px;
+  --pad-x:  clamp(20px, 4vw, 48px);
+  --ease:   cubic-bezier(.22,.6,.36,1);
+}
+
+/* ════════════════════════════════════════════
+   ОБЁРТКА
+════════════════════════════════════════════ */
+.v4-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: var(--white);
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  transition: box-shadow .25s ease;
+}
+.v4-header.scrolled {
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.v4-wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+
+/* ════════════════════════════════════════════
+   ТОПБАР
+════════════════════════════════════════════ */
+.v4-header__topbar {
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 8px 0;
+  font-family: var(--font-body);
+}
+.v4-header__topbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.v4-header__topbar-left,
+.v4-header__topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.v4-header__addr,
+.v4-header__email-top,
+.v4-header__phone-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.6) !important;
+  font-size: 13px;
+  font-weight: 400;
+  text-decoration: none !important;
+  transition: color .2s;
+}
+.v4-header__topbar svg { opacity: .5; stroke: #fff; transition: opacity .2s; }
+.v4-header__topbar a:hover { color: #fff !important; }
+.v4-header__topbar a:hover svg { opacity: 1; }
+.v4-header__phone-top { color: rgba(255,255,255,.85) !important; font-weight: 600; }
+.v4-header__phone-top + .v4-header__phone-top::before {
+  content: "|";
+  margin-right: 20px;
+  color: rgba(255,255,255,.15);
+  font-weight: 300;
+}
+.v4-header__callback {
+  background: rgba(255,255,255,.1);
+  color: #fff !important;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  text-decoration: none !important;
+  border: 1px solid rgba(255,255,255,.2);
+  transition: background .2s, border-color .2s;
+}
+.v4-header__callback:hover {
+  background: var(--blue) !important;
+  border-color: var(--blue) !important;
+}
+
+/* ════════════════════════════════════════════
+   ОСНОВНАЯ СТРОКА
+════════════════════════════════════════════ */
+.v4-header__main {
+  height: 80px;
+  transition: height .25s ease;
+}
+.v4-header.scrolled .v4-header__main { height: 64px; }
+
+.v4-header__main-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 0;
+}
+
+/* ── Логотип ── */
+.v4-header__logo {
+  position: relative;
+  display: inline-block;
+  height: 56px;
+  min-width: 180px;
+  flex-shrink: 0;
+}
+.v4-header__logo img {
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  max-height: 56px;
+  width: auto;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.logo-main  { opacity: 1; }
+.logo-scroll { opacity: 0; transform: translateY(-50%) scale(.9); }
+.v4-header.scrolled .logo-main  { opacity: 0; transform: translateY(-50%) scale(.9); }
+.v4-header.scrolled .logo-scroll { opacity: 1; transform: translateY(-50%) scale(1); max-height: 36px; }
+
+/* ── Поиск ── */
+
+.v4-header__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index:60;
+  padding: 6px 10px;
+
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 999px;
+
+  transition: all .25s cubic-bezier(.22,.6,.36,1);
+}
+
+.v4-header__search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: .85rem;
+  width: 180px;
+}
+
+.v4-header__search button {
+  border: none;
+  background: var(--blue);
+  color: white;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: transform .2s, background .2s;
+}
+
+.v4-header__search button:hover {
+  transform: scale(1.1);
+  background: var(--blue-h);
+}
+
+/* focus эффект */
+.v4-header__search:focus-within {
+  box-shadow: 0 0 0 3px rgba(0,102,179,.15);
+  background: rgba(255,255,255,0.9);
+}
+
+
+
+/*.v4-header__search {
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  height: 40px;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: border-color .2s;
+}
+.v4-header__search:focus-within { border-color: var(--blue); }
+.v4-header__search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  padding: 0 14px;
+  width: 190px;
+  height: 100%;
+}*/
+.v4-header__search input::placeholder { color: #b0b4b8; }
+/*.v4-header__search button {
+  background: var(--blue);
+  border: none;
+  cursor: pointer;
+  width: 42px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+.v4-header__search button:hover { background: var(--blue-h); }*/
+
+/* ════════════════════════════════════════════
+   ДЕСКТОПНАЯ НАВИГАЦИЯ
+════════════════════════════════════════════ */
+.v4-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 auto;
+  min-width: 0;
+}
+      .v4-dropdown__section-label {
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--clr-accent, #005a9e);
+
+    padding: 0 0 10px 0;
+    margin-bottom: 14px;
+
+    border-bottom: 2px solid var(--clr-accent, #005a9e);
+      }
+      .v4-dropdown__section-label svg {
+        flex-shrink: 0;
+        opacity: .85;
+      }
+/* Обычные ссылки */
+.v4-header__nav > a {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink3);
+  padding: 7px 10px;
+  border-radius: 5px;
+  transition: color .15s, background .15s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.v4-header__nav > a:hover {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+/* ── Пункт с дропдауном ── */
+.v4-dropdown--compact .v4-dropdown__inner {
+    display: block;
+    padding: 16px 20px;
+    max-width: 300px;
+}
+.v4-dropdown--compact a {
+    display: block;
+    padding: 8px 0;
+    font-size: 15px;
+    color: #23262a;
+    text-decoration: none;
+}
+
+.v4-dropdown--compact a:hover {
+    color: #0066b3;
+}
+.v4-nav-item {
+  position: relative;
+}
+.v4-nav-item__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink3);
+  padding: 7px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color .15s, background .15s;
+  cursor: pointer;
+}
+.v4-nav-item:hover .v4-nav-item__link,
+.v4-nav-item--has-dropdown:hover > .v4-nav-item__link {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+.v4-nav-item__chevron {
+  transition: transform .2s var(--ease);
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.v4-nav-item--has-dropdown:hover .v4-nav-item__chevron {
+  transform: rotate(180deg);
+}
+
+/* ════════════════════════════════════════════
+   МЕГА-ДРОПДАУН
+════════════════════════════════════════════ */
+.v4-dropdown {
+  /* position:fixed — JS выставляет top/left/width по координатам v4-wrap */
+  position: fixed;
+  top: auto;
+  left: auto;
+  transform: translateY(10px);
+
+  /* width и max-width управляются только через JS */
+  width: auto;
+  max-width: none;
+
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+
+  box-shadow: 0 30px 70px rgba(0,0,0,.15);
+
+  padding: 36px 40px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  z-index: 300;
+
+  transition:
+    opacity .25s cubic-bezier(.22,.61,.36,1),
+    transform .25s cubic-bezier(.22,.61,.36,1),
+    visibility .25s;
+}
+
+/* Открытие */
+.v4-nav-item--has-dropdown:hover .v4-dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.v4__tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--red);
+  background: var(--red-soft);
+  border: 1.5px solid rgba(0, 102, 179, .25);
+  padding: 8px 18px; border-radius: 8px;
+  margin-bottom: 0px;
+}
+
+/* GRID */
+
+.v4-dropdown__inner {
+
+display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 равных колонки */
+  gap: 40px;
+  max-width: var(--max-w, 1320px);
+  margin: 0 auto;
+  padding: 20px var(--pad-x, 20px);
+
+}
+.v4-dropdown__group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Общий заголовок над двумя колонками */
+.v4-dropdown__group-heading {
+  grid-column: span 2;
+  display: block;
+  font-family: var(--font-head, 'Montserrat', sans-serif);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--blue, #0066b3);
+  text-decoration: none;
+  line-height: 1.3;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border, #e4e4e0);
+  align-self: end; /* прижать к нижнему краю своей строки */
+}
+.v4-dropdown__group-heading:hover {
+  color: var(--blue-h, #005a9e);
+}
+
+/* Две колонки внутри группы */
+.v4-dropdown__group-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+}
+
+/* колонка */
+
+.v4-dropdown__col {
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.v4-dropdown__col + .v4-dropdown__col {
+
+  border-left: 1px solid #eee;
+  padding-left: 32px;
+
+}
+
+
+/* заголовок */
+
+.v4-dropdown__heading {
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: .04em;
+
+  margin-bottom: 16px;
+
+  text-decoration: none;
+  color: #111;
+
+}
+
+
+/* подзаголовок */
+
+.v4-dropdown__subheading {
+
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+
+  color: #9ca3af;
+
+  margin-top: 14px;
+  margin-bottom: 6px;
+
+}
+
+
+/* ссылки */
+
+.v4-dropdown__col a {
+
+  font-size: 14px;
+  color: #374151;
+
+  text-decoration: none;
+
+  padding: 5px 0;
+
+  transition: all .18s ease;
+
+}
+
+
+.v4-dropdown__col a:hover {
+
+  color: #1d4ed8;
+  transform: translateX(4px);
+
+}
+
+
+/* ссылка "смотреть все" */
+
+.v4-dropdown__all {
+
+  margin-top: 12px;
+
+  font-weight: 600;
+
+  color: #1d4ed8;
+
+}
+
+/* ===== объединённая колонка ===== */
+.v4-dropdown__col--wide {
+  grid-column: span 3;
+}
+
+/* внутренний grid из 3 блоков */
+.v4-dropdown__grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 20px;
+}
+
+/* визуально как колонки */
+.v4-dropdown__subcol {
+  display: flex;
+  flex-direction: column;
+}
+
+/* чтобы не конфликтовало с глобальным стилем колонок */
+.v4-dropdown__subcol a {
+  font-size: 14px;
+  color: #374151;
+  text-decoration: none;
+  padding: 5px 0;
+  transition: all .18s ease;
+}
+
+.v4-dropdown__subcol a:hover {
+  color: #1d4ed8;
+  transform: translateX(4px);
+}
+
+/* заголовки внутри subcol не должны ломать верхний стиль */
+.v4-dropdown__subcol .v4-dropdown__heading {
+  margin-bottom: 12px;
+}
+
+/* ════════════════════════════════════════════
+   МОБИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ
+════════════════════════════════════════════ */
+.v4-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  background: none; border: none;
+  cursor: pointer;
+  order: -1;
+  flex-shrink: 0;
+}
+.v4-mobile-toggle span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: .3s;
+}
+
+/* ════════════════════════════════════════════
+   МОБИЛЬНОЕ МЕНЮ (выезжающая панель)
+════════════════════════════════════════════ */
+.v4-mobile-menu {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  visibility: hidden;
+}
+.v4-mobile-menu.is-active { visibility: visible; }
+
+.v4-mobile-menu__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20,21,22,.6);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.v4-mobile-menu.is-active .v4-mobile-menu__overlay { opacity: 1; }
+
+.v4-mobile-menu__content {
+  position: absolute;
+  left: -300px; top: 0; bottom: 0;
+  width: 300px;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 0 40px rgba(0,0,0,.12);
+  transition: transform .3s var(--ease);
+  overflow: hidden;
+}
+.v4-mobile-menu.is-active .v4-mobile-menu__content {
+  transform: translateX(300px);
+}
+
+.v4-mobile-menu__header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  font-family: var(--font-head);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.v4-mobile-close {
+  font-size: 28px;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 0 4px;
+}
+
+.v4-mobile-menu__footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.v4-mobile-menu__footer .v4-header__phone-top {
+  color: var(--ink) !important;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* ── Скролл внутри меню ── */
+.v4-mobile-nav {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.v4-mobile-nav__section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Прямые ссылки верхнего уровня */
+.v4-mobile-nav__section > a {
+  display: block;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid #f0f0f0;
+  transition: color .15s, background .15s;
+}
+.v4-mobile-nav__section > a:hover {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+/* ════════════════════════════════════════════
+   АККОРДЕОН — ОБЩИЙ
+════════════════════════════════════════════ */
+.v4-mob-accordion {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Кнопка-триггер */
+.v4-mob-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: left;
+  transition: color .15s, background .15s;
+}
+.v4-mob-accordion__trigger:hover {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+.v4-mob-accordion__trigger[aria-expanded="true"] {
+  color: var(--blue);
+}
+
+/* Шеврон */
+.v4-mob-accordion__chevron {
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: transform .25s var(--ease);
+}
+.v4-mob-accordion__trigger[aria-expanded="true"] .v4-mob-accordion__chevron {
+  transform: rotate(180deg);
+  color: var(--blue);
+}
+
+/* Тело аккордеона — управляется JS через maxHeight */
+.v4-mob-accordion__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── Вложенный аккордеон ── */
+.v4-mob-accordion--nested {
+  border-bottom: none;
+  border-top: 1px solid #f5f5f5;
+}
+.v4-mob-accordion--nested:first-child { border-top: none; }
+
+.v4-mob-accordion__trigger--nested {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px 20px 11px 28px;
+  color: var(--ink2);
+}
+.v4-mob-accordion__trigger--nested:hover { color: var(--blue); background: var(--blue-soft); }
+.v4-mob-accordion__trigger--nested[aria-expanded="true"] { color: var(--blue); }
+
+/* ── Ссылки внутри аккордеонов ── */
+.v4-mob-link {
+  display: block;
+  padding: 8px 20px 8px 36px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink3);
+  text-decoration: none;
+  transition: color .15s, background .15s;
+}
+.v4-mob-link:hover {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+/* "Все категории →" — выделенная */
+.v4-mob-link--all {
+  font-weight: 700;
+  color: var(--blue);
+  padding-left: 28px;
+  margin-bottom: 4px;
+}
+
+/* Раздел без подкатегорий (Коммерческий транспорт) */
+.v4-mob-link--section {
+  display: block;
+  padding: 12px 20px 12px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink2);
+  text-decoration: none;
+  transition: color .15s, background .15s;
+  border-top: 1px solid #f5f5f5;
+}
+.v4-mob-link--section:hover {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+/* Подзаголовок внутри аккордеона */
+.v4-mob-subheading {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  padding: 10px 20px 4px 36px;
+}
+
+/* ════════════════════════════════════════════
+   АДАПТИВ
+════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  :root { --pad-x: 12px; }
+
+  .v4-header__logo--right { display: none !important; }
+
+  .v4-header__nav { gap: 2px; }
+  .v4-header__nav > a,
+  .v4-nav-item__link { font-size: 13px; padding: 6px 8px; }
+
+  .v4-header__search { max-width: 160px; height: 36px; }
+  .v4-header__search input { width: 110px; font-size: 12px; }
+
+  /* .v4-dropdown min-width убран — ширина управляется JS */
+}
+
+@media (max-width: 960px) {
+  .v4-header__topbar { display: none; }
+  .v4-header__nav { display: none !important; }
+  .v4-header__main { height: 64px !important; }
+
+  .v4-mobile-toggle { display: flex; }
+
+  .v4-header__search {
+    flex: 1;
+    max-width: none;
+    margin-left: 12px;
+  }
+  .v4-header__search input { width: 100%; }
+}
+
+@media (max-width: 425px) {
+  .v4-header__main-inner { padding: 0 10px; gap: 5px; }
+  .v4-header__logo { min-width: 100px !important; }
+  .v4-header__logo img { max-height: 34px !important; }
+  .v4-header__search { height: 34px; }
+  .v4-header__search button { width: 34px; }
+}
+
+/* 1. ИСПРАВЛЕНИЕ «ИСЧЕЗАЮЩЕГО» МЕНЮ (НЕВИДИМЫЙ МОСТ) */
+.v4-dropdown {
+    /* Задержка перед закрытием — мышка успевает долететь */
+    transition-delay: 0.1s;
+}
+
+.v4-nav-item:hover .v4-dropdown {
+    /* При наведении открываем мгновенно */
+    transition-delay: 0s;
+}
+
+/* Создаем невидимую область между кнопкой и выпадающим окном */
+.v4-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -25px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: transparent;
+}
+
+
+/* 2. СТИЛИ ДЛЯ КОЛОНОК (GRID) */
+.v4-dropdown__inner {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 0;
+}
+
+/* Заголовки колонок */
+.v4-dropdown__heading {
+    display: block;
+    font-family: var(--font-head, 'Montserrat', sans-serif);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--blue, #0066b3);
+    text-decoration: none;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+/* Подзаголовки (например, "Собственное производство") */
+.v4-dropdown__subheading {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted, #74797f);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+/* Текст описания (для 4-й колонки) */
+.v4-dropdown__description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted, #74797f);
+    margin-bottom: 20px;
+}
+
+/* Обычные ссылки в колонках */
+.v4-dropdown__col a:not(.v4-dropdown__heading):not(.v4-dropdown__all) {
+    display: block;
+    padding: 5px 0;
+    font-size: 14px;
+    color: var(--ink, #141516);
+    text-decoration: none;
+    transition: color .15s;
+}
+
+.v4-dropdown__col a:hover {
+    color: var(--blue, #0066b3);
+}
+
+/* Ссылка "Смотреть весь раздел" */
+.v4-dropdown__all {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue, #0066b3);
+    text-decoration: none;
+    border-bottom: 1px dotted transparent;
+}
+
+.v4-dropdown__all:hover {
+    border-bottom-color: var(--blue, #0066b3);
+}
+.plt-contacts__eyebrow {
+    font-family: var(--font-body);
+    font-size: 16px!important;
+    font-weight: 800!important;
+}
+
+.plt-about__hero {
+    padding: clamp(80px, 12vw, 160px) 0 clamp(56px, 7vw, 96px)!important;
+}
+
+
+
+/* ===== LAYOUT КОЛОНОК ВНУТРИ WIDE-БЛОКА ===== */
+
+/* Широкая колонка: оборачивает grid-3 и subcol--stock */
+.v4-dropdown__col--wide {
+    display: flex;
+    gap: 0;
+    padding: 0;
+}
+
+/* Три подколонки с основными ссылками */
+.v4-dropdown__grid-3 {
+    display: flex;
+    gap: 0;
+}
+
+/* Базовый subcol */
+.v4-dropdown__subcol {
+    padding: 20px 20px;
+    min-width: 170px;
+}
+
+/* Разделитель между subcol */
+.v4-dropdown__subcol + .v4-dropdown__subcol {
+    border-left: 1px solid var(--border, #e4e4e0);
+}
+
+/* ── Блок «Закупная продукция» — выделенный ── */
+.v4-dropdown__subcol--stock {
+    /*min-width: 195px;
+    max-width: 210px;*/
+    padding: 20px 10px;
+    background: linear-gradient(160deg, #eef5ff 0%, #f6f9ff 100%);
+    /*border-left: 2px solid var(--blue, #0066b3) !important;*/
+    /*border-radius: 0 12px 12px 0;*/
+    display: flex;
+    flex-direction: column;
+}
+
+.v4-dropdown__subcol--stock .v4-dropdown__heading {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.v4-dropdown__subcol--stock .v4-dropdown__note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.v4-dropdown__subcol--stock .v4-dropdown__all {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: var(--blue-soft);
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+    border-bottom: none;
+    text-decoration: none;
+    transition: background .2s, color .2s, transform .2s;
+    align-self: flex-start;
+}
+
+.v4-dropdown__subcol--stock .v4-dropdown__all:hover {
+    background: var(--blue);
+    color: #fff;
+    transform: translateX(3px);
+    border-bottom: none;
+}
+
+/* ===== ПРИОРИТЕТ СОБСТВЕННОГО ПРОИЗВОДСТВА ===== */
+
+.v4-dropdown__col--own {
+    position: relative;
+    background: linear-gradient(180deg,#f8fbff 0%,#ffffff 100%);
+    border: 1px solid rgba(0,102,179,.12);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 8px 30px rgba(0,102,179,.06);
+}
+
+.v4-dropdown__col--own::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    border-top: 3px solid var(--blue);
+    pointer-events: none;
+}
+
+/* heading */
+
+.v4-dropdown__heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+/* icon */
+
+.v4-heading-icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* badge */
+
+.v4-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 10px;
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+
+    background: var(--blue);
+    color: #fff;
+}
+
+/* notes */
+
+.v4-dropdown__note {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--muted);
+    margin-bottom: 18px;
+    font-weight: 500;
+}
+
+/* own links stronger */
+
+.v4-dropdown__col--own a:not(.v4-dropdown__heading) {
+    font-weight: 600;
+}
+
+/* stock block CTA */
+
+.v4-dropdown__col--stock .v4-dropdown__all {
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--blue-soft);
+    border-radius: 8px;
+    transition: all .2s ease;
+}
+
+.v4-dropdown__col--stock .v4-dropdown__all:hover {
+    background: var(--blue);
+    color: #fff;
+    transform: translateX(4px);
+}
+
+/* hover */
+
+.v4-dropdown__col--own:hover {
+    transform: translateY(-3px);
+    transition: all .25s ease;
+}
+
+#callback-modal > div.v4-modal__body > h3{
+    color: #374151;
+}
+
+.v4-hero,
+.v4-hero__inner,
+.v4-hero__left {
+    overflow: visible !important;
+}
+.v4-search-block {
+    position: relative;
+}
+
+.v4-search-drop {
+  position:absolute;
+  margin-top:6px;
+  top:calc(100% + 10px);
+  left:0;
+  width:100%;
+
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+
+  box-shadow:0 18px 48px rgba(0,0,0,.18);
+
+  overflow:hidden;
+
+  z-index:9999;
+}
+/* ══ КНОПКИ ПРАЙС-ЛИСТОВ ══════════════════════════════════════ */
+
+/* Контейнер кнопок в дропдауне — прижат вправо внутри section-label */
+.v4-dropdown__section-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.v4-price-btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.v4-price-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--blue);
+  background: var(--blue-soft);
+  border: 1px solid rgba(0,102,179,.18);
+  border-radius: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .15s, color .15s, border-color .15s;
+  line-height: 1;
+}
+
+.v4-price-btn:hover {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+
+.v4-price-btn svg {
+  flex-shrink: 0;
+}
+
+/* Кнопки на страницах категорий и товаров — рядом с хлебными крошками */
+.v4-breadcrumbs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.v4-price-btns--page {
+  flex-shrink: 0;
+}
+
+.v4-price-btns--page .v4-price-btn {
+  padding: 5px 12px;
+  font-size: .75rem;
+}
+
+@media (max-width: 560px) {
+  .v4-breadcrumbs-row { gap: 8px; }
+  .v4-price-btns--page { gap: 4px; }
+  .v4-price-btns--page .v4-price-btn { padding: 4px 8px; font-size: .68rem; }
+}

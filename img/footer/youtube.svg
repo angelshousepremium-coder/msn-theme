@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffb370;
+        fill-rule: evenodd;
+        filter: url(#filter);
+      }
+    </style>
+    <filter id="filter" x="417" y="128" width="50" height="50" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" dy="-2" in="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood result="flood" flood-opacity="0.2"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+      <feFlood result="flood-2" flood-color="#fff"/>
+      <feComposite result="composite-2" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend-2" in2="blend"/>
+    </filter>
+  </defs>
+  <path id="youtube" class="cls-1" d="M441.5,134c2.485,0,4.5,3.358,4.5,7.5s-2.015,7.5-4.5,7.5-4.5-3.358-4.5-7.5S439.015,134,441.5,134Zm0,3c0.828,0,1.5,2.015,1.5,4.5s-0.672,4.5-1.5,4.5-1.5-2.015-1.5-4.5S440.672,137,441.5,137Zm-8.5,3v9h-3v-9l-4-10h4l1,6,0.5,1.5L432,136l1-6h4Zm15,6s-0.1,2.848,2,3c0,0,1.594.449,4-3,0,0-2.149,1.1-3,0S448,146,448,146Zm5-11h3v14h-3V135Zm-5,0h3v11h-3V135Zm-23,18h34a8,8,0,0,1,8,8v9a8,8,0,0,1-8,8H425a8,8,0,0,1-8-8v-9A8,8,0,0,1,425,153Zm5,5v14h-3V158h-3v-2h9v2h-3Zm8,15v-1.739c-1.834,2.044-3,1.739-3,1.739-2.1-.152-2-3-2-3V160h2v9c0.876,2.012,2.32.538,3,.362V160h2v13h-2Zm7.5,0a21.788,21.788,0,0,1-3.5-1V156h2v4.65a2.274,2.274,0,0,1,1.5-.65c1.933,0,3.5,2.91,3.5,6.5S447.433,173,445.5,173ZM445,162c-0.828,0-1,2.015-1,4.5s0.172,3.5,1,3.5,1-1.015,1-3.5S445.828,162,445,162Zm10.983,5h-2.966c0.084,2.247.212,4,.983,4,0.652,0,.8-1.257,1-3h2.9c-0.366,2.863-2.007,5-3.9,5-2.209,0-4-2.91-4-6.5s1.791-6.5,4-6.5,4,2.91,4,6.5c0,0.171-.02.332-0.027,0.5h-1.99ZM454,162c-0.652,0-.7,1.256-0.908,3H455C454.793,163.256,454.652,162,454,162Z" transform="translate(-417 -128)"/>
+</svg>

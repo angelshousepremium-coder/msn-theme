@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="52" viewBox="0 0 50 52">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffb370;
+        fill-rule: evenodd;
+        filter: url(#filter);
+      }
+    </style>
+    <filter id="filter" x="330" y="128" width="50" height="52" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" dy="-2" in="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood result="flood" flood-opacity="0.2"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+      <feFlood result="flood-2" flood-color="#fff"/>
+      <feComposite result="composite-2" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend-2" in2="blend"/>
+    </filter>
+  </defs>
+  <path id="instagram" class="cls-1" d="M371,180H339a9,9,0,0,1-9-9V139a9,9,0,0,1,9-9h32a9,9,0,0,1,9,9v32A9,9,0,0,1,371,180Zm-29-5h26a7,7,0,0,0,7-7V150H335v18A7,7,0,0,0,342,175Zm24-39h8v8h-8v-8Zm-11,5a14,14,0,1,1-14,14A14,14,0,0,1,355,141Zm0,6a8,8,0,1,1-8,8A8,8,0,0,1,355,147Z" transform="translate(-330 -128)"/>
+</svg>

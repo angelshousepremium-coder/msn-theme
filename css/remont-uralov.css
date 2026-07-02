@@ -1,0 +1,750 @@
+/* =====================================================
+   REMONT URALOV PAGE
+   Файл: /wp-content/themes/msn/css/remont-uralov.css
+   Страница: /remont-uralov/
+===================================================== */
+
+.stc-repair-page {
+  --stc-repair-orange: var(--color-orange, #ec621f);
+  --stc-repair-orange-dark: var(--color-orange-dark, #d4541a);
+  --stc-repair-ink: var(--color-dark, #1d1d1f);
+  /* Более контрастный muted: #686e73 на кириллице выглядит бледно */
+  --stc-repair-muted: #4f565c;
+  --stc-repair-soft: #f5f5f7;
+  --stc-repair-border: #e8e8ed;
+  --stc-repair-radius: 24px;
+  background: #fff;
+  color: var(--stc-repair-ink);
+  overflow: hidden;
+  font-family: var(--font-body, Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.stc-repair-container {
+  width: 100%;
+  max-width: var(--stc-mw, 1400px);
+  margin: 0 auto;
+  padding: 0 var(--stc-px, 40px);
+  box-sizing: border-box;
+}
+
+.stc-repair-page h1,
+.stc-repair-page h2,
+.stc-repair-page h3,
+.stc-repair-page p {
+  margin-top: 0;
+}
+
+.stc-repair-page h1,
+.stc-repair-page h2,
+.stc-repair-page h3 {
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  /* Для кириллицы сильный отрицательный трекинг ухудшает читаемость */
+  letter-spacing: -0.006em;
+}
+
+.stc-repair-page p,
+.stc-repair-page li {
+  font-family: var(--font-body, Manrope, sans-serif);
+}
+
+
+/* Базовая читабельность кириллицы */
+.stc-repair-page p,
+.stc-repair-page li,
+.stc-repair-page span,
+.stc-repair-page a,
+.stc-repair-page input,
+.stc-repair-page textarea,
+.stc-repair-page button {
+  font-synthesis-weight: none;
+}
+
+.stc-repair-page p,
+.stc-repair-page li {
+  letter-spacing: 0;
+  word-spacing: .01em;
+}
+
+.stc-repair-page h1,
+.stc-repair-page h2,
+.stc-repair-page h3 {
+  text-wrap: balance;
+}
+
+.stc-repair-page p {
+  text-wrap: pretty;
+}
+
+/* Cyrillic readability v2: softer tracking and safer rendering for Russian text */
+.stc-repair-page h1 { letter-spacing: -0.006em; }
+.stc-repair-page h2 { letter-spacing: -0.004em; }
+.stc-repair-page h3 { letter-spacing: 0; }
+.stc-repair-page p,
+.stc-repair-page li {
+  font-weight: 450;
+  line-height: 1.78;
+}
+
+.stc-repair-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--stc-repair-orange);
+}
+
+.stc-repair-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  border-radius: 99px;
+  background: currentColor;
+}
+
+.stc-repair-breadcrumbs,
+.stc-repair-breadcrumbs p {
+  margin: 0 0 34px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255,255,255,.7);
+}
+
+.stc-repair-breadcrumbs a { color: rgba(255,255,255,.78); }
+.stc-repair-breadcrumbs a:hover { color: #fff; }
+
+.stc-repair-hero {
+  position: relative;
+  min-height: 680px;
+  display: flex;
+  align-items: stretch;
+  background: #111 var(--hero-bg) center / cover no-repeat;
+  color: #fff;
+}
+
+.stc-repair-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.58) 46%, rgba(0,0,0,.20) 100%),
+    linear-gradient(0deg, rgba(0,0,0,.28), rgba(0,0,0,.12));
+  pointer-events: none;
+}
+
+.stc-repair-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 70px;
+  padding-bottom: 54px;
+}
+
+.stc-repair-hero__content {
+  max-width: 760px;
+}
+
+.stc-repair-hero h1 {
+  max-width: 720px;
+  margin-bottom: 22px;
+  font-size: clamp(34px, 4.3vw, 62px);
+  font-weight: 800;
+  line-height: 1.13;
+  color: #fff;
+}
+
+.stc-repair-hero p {
+  max-width: 690px;
+  margin-bottom: 42px;
+  font-size: clamp(17px, 1.35vw, 20px);
+  line-height: 1.72;
+  color: rgba(255,255,255,.93);
+  text-shadow: 0 1px 2px rgba(0,0,0,.28);
+}
+
+.stc-repair-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stc-repair-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-decoration: none !important;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.stc-repair-btn:hover { transform: translateY(-1px); }
+.stc-repair-btn--primary { background: var(--stc-repair-orange); color: #fff !important; }
+.stc-repair-btn--primary:hover { background: var(--stc-repair-orange-dark); }
+.stc-repair-btn--ghost { border: 1px solid rgba(255,255,255,.38); color: #fff !important; background: rgba(255,255,255,.08); }
+.stc-repair-btn--ghost:hover { border-color: #fff; background: rgba(255,255,255,.14); }
+
+.stc-repair-hero__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  max-width: 920px;
+  margin-top: 72px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+}
+
+.stc-repair-hero__stats div {
+  padding: 22px 24px;
+  background: rgba(0,0,0,.20);
+}
+
+.stc-repair-hero__stats strong {
+  display: block;
+  margin-bottom: 5px;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.stc-repair-hero__stats span {
+  display: block;
+  font-size: 14px;
+  line-height: 1.62;
+  color: rgba(255,255,255,.86);
+}
+
+.stc-repair-section {
+  padding: 92px 0;
+}
+
+.stc-repair-intro {
+  background: #fff;
+  border-bottom: 1px solid var(--stc-repair-border);
+}
+
+.stc-repair-intro__grid,
+.stc-repair-dark__grid {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.stc-repair-intro h2,
+.stc-repair-section-head h2,
+.stc-repair-split h2,
+.stc-repair-dark h2,
+.stc-repair-final h2 {
+  margin-bottom: 0;
+  font-size: clamp(28px, 2.8vw, 44px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--stc-repair-ink);
+}
+
+.stc-repair-lead p,
+.stc-repair-section-head p,
+.stc-repair-split p,
+.stc-repair-dark p,
+.stc-repair-final p {
+  font-size: 17px;
+  line-height: 1.76;
+  color: var(--stc-repair-muted);
+}
+
+.stc-repair-lead p { margin-bottom: 0; }
+
+.stc-repair-why,
+.stc-repair-steps,
+.stc-before-after-section {
+  background: var(--stc-repair-soft);
+}
+
+.stc-repair-section-head {
+  display: flex;
+  flex-direction: column;
+  max-width: 760px;
+  margin-bottom: 42px;
+}
+
+.stc-repair-section-head--center {
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stc-repair-section-head p {
+  max-width: 720px;
+  margin: 18px auto 0;
+}
+
+.stc-repair-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stc-repair-card,
+.stc-repair-step,
+.stc-ba-card,
+.stc-repair-form-card {
+  background: #fff;
+  border: 1px solid var(--stc-repair-border);
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.05);
+}
+
+.stc-repair-card {
+  min-height: 260px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.stc-repair-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(236,98,31,.28);
+  box-shadow: 0 24px 70px rgba(0,0,0,.10);
+}
+
+.stc-repair-card__num {
+  margin-bottom: 34px;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--stc-repair-orange);
+}
+
+.stc-repair-card h3,
+.stc-repair-step h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.stc-repair-card p,
+.stc-repair-step p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--stc-repair-muted);
+}
+
+.stc-repair-card--accent {
+  background: #111;
+  border-color: #111;
+}
+
+.stc-repair-card--accent h3,
+.stc-repair-card--accent p { color: #fff; }
+.stc-repair-card--accent p { opacity: .86; }
+
+.stc-repair-steps__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  counter-reset: repairStep;
+}
+
+.stc-repair-step {
+  position: relative;
+  padding: 32px 28px;
+  overflow: hidden;
+}
+
+.stc-repair-step span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(236,98,31,.10);
+  color: var(--stc-repair-orange);
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-weight: 900;
+}
+
+.stc-repair-split {
+  background: #fff;
+}
+
+.stc-repair-split__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .78fr);
+  gap: 44px;
+  align-items: center;
+}
+
+.stc-repair-split__media {
+  margin: 0;
+  border-radius: var(--stc-repair-radius);
+  overflow: hidden;
+  background: #eee;
+  box-shadow: 0 24px 70px rgba(0,0,0,.12);
+}
+
+.stc-repair-split__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.stc-repair-split__content {
+  padding: 24px 0;
+}
+
+.stc-repair-split__content p {
+  margin: 20px 0 20px;
+}
+
+.stc-repair-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stc-repair-list li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--stc-repair-ink);
+}
+
+.stc-repair-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .55em;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--stc-repair-orange);
+  box-shadow: inset 0 0 0 4px #fff, 0 0 0 1px rgba(236,98,31,.28);
+}
+
+.stc-repair-dark {
+  background: #111;
+  color: #fff;
+}
+
+.stc-repair-dark h2 { color: #fff; }
+.stc-repair-dark p { margin-bottom: 0; color: rgba(255,255,255,.88); }
+
+.stc-ba-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stc-ba-card {
+  padding: 12px;
+  overflow: hidden;
+}
+
+.stc-ba {
+  --pos: 50%;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #d9d9de;
+  user-select: none;
+}
+
+.stc-ba__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.stc-ba__img--after {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  z-index: 2;
+}
+
+.stc-ba__label {
+  position: absolute;
+  top: 14px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.62);
+  color: #fff;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.stc-ba__label--before { left: 14px; }
+.stc-ba__label--after { right: 14px; background: rgba(236,98,31,.86); }
+
+.stc-ba__line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  z-index: 3;
+  width: 2px;
+  transform: translateX(-1px);
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.10), 0 0 20px rgba(0,0,0,.28);
+  pointer-events: none;
+}
+
+.stc-ba__handle {
+  position: absolute;
+  left: var(--pos);
+  top: 50%;
+  z-index: 4;
+  width: 46px;
+  height: 46px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,.28);
+  pointer-events: none;
+}
+
+.stc-ba__handle::before,
+.stc-ba__handle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid var(--stc-repair-orange);
+  border-left: 2px solid var(--stc-repair-orange);
+}
+
+.stc-ba__handle::before {
+  left: 13px;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.stc-ba__handle::after {
+  right: 13px;
+  transform: translateY(-50%) rotate(135deg);
+}
+
+.stc-ba__range {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.stc-repair-final {
+  padding: 92px 0;
+  background: linear-gradient(135deg, #fff 0%, #fff4ef 100%);
+}
+
+.stc-repair-final__grid {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(360px, .64fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.stc-repair-final h2 {
+  max-width: 760px;
+}
+
+.stc-repair-final p {
+  max-width: 620px;
+  margin: 22px 0 20px;
+}
+
+.stc-repair-phone {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading, Montserrat, sans-serif);
+  font-size: clamp(26px, 3vw, 42px);
+  font-weight: 850;
+  letter-spacing: -0.012em;
+  color: var(--stc-repair-orange) !important;
+  text-decoration: none !important;
+}
+
+.stc-repair-form-card {
+  padding: 30px;
+}
+
+.stc-repair-form-card__title {
+  margin: 0 0 18px !important;
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  color: var(--stc-repair-ink) !important;
+}
+
+.stc-repair-form-card .wpcf7-form p { margin: 0 0 12px; }
+.stc-repair-form-card input[type="text"],
+.stc-repair-form-card input[type="tel"],
+.stc-repair-form-card input[type="email"],
+.stc-repair-form-card textarea {
+  width: 100% !important;
+  min-height: 48px;
+  box-sizing: border-box;
+  border: 1px solid var(--stc-repair-border) !important;
+  border-radius: 12px !important;
+  padding: 0 14px !important;
+  background: #fff !important;
+}
+
+.stc-repair-form-card input[type="submit"],
+.stc-repair-form-card .wpcf7-submit {
+  width: 100% !important;
+  min-height: 50px;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--stc-repair-orange) !important;
+  color: #fff !important;
+  font-family: var(--font-heading, Montserrat, sans-serif) !important;
+  font-weight: 800 !important;
+  cursor: pointer;
+}
+
+.stc-repair-form-card input[type="submit"]:hover,
+.stc-repair-form-card .wpcf7-submit:hover { background: var(--stc-repair-orange-dark) !important; }
+
+
+/* Плавное появление без зависимости от WOW/Editor Plus */
+.stc-repair-animate {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+.stc-repair-animate.stc-repair-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stc-repair-page *,
+  .stc-repair-page *::before,
+  .stc-repair-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+  .stc-repair-animate {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1180px) {
+  .stc-repair-card-grid,
+  .stc-repair-steps__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 920px) {
+  .stc-repair-hero { min-height: 620px; }
+  .stc-repair-hero__stats,
+  .stc-repair-intro__grid,
+  .stc-repair-dark__grid,
+  .stc-repair-split__grid,
+  .stc-repair-final__grid { grid-template-columns: 1fr; }
+  .stc-repair-hero__stats { margin-top: 44px; }
+  .stc-ba-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .stc-repair-container { padding: 0 18px; }
+  .stc-repair-section,
+  .stc-repair-final { padding: 64px 0; }
+  .stc-repair-hero__inner { padding-top: 48px; padding-bottom: 42px; }
+  .stc-repair-hero__actions { flex-direction: column; }
+  .stc-repair-btn { width: 100%; }
+  .stc-repair-hero__stats,
+  .stc-repair-card-grid,
+  .stc-repair-steps__grid { grid-template-columns: 1fr; }
+  .stc-repair-card { min-height: auto; }
+  .stc-ba { aspect-ratio: 4 / 3; }
+}
+
+
+/* Дополнительная адаптация текста на узких экранах */
+@media (max-width: 640px) {
+  .stc-repair-hero h1 {
+    font-size: clamp(32px, 11vw, 44px);
+    line-height: 1.16;
+  }
+  .stc-repair-intro h2,
+  .stc-repair-section-head h2,
+  .stc-repair-split h2,
+  .stc-repair-dark h2,
+  .stc-repair-final h2 {
+    font-size: clamp(26px, 8vw, 34px);
+    line-height: 1.22;
+  }
+  .stc-repair-lead p,
+  .stc-repair-section-head p,
+  .stc-repair-split p,
+  .stc-repair-dark p,
+  .stc-repair-final p {
+    font-size: 16px;
+    line-height: 1.72;
+  }
+  .stc-repair-card,
+  .stc-repair-step,
+  .stc-repair-form-card {
+    padding: 26px 22px;
+  }
+  .stc-repair-card h3,
+  .stc-repair-step h3 {
+    font-size: 19px;
+  }
+  .stc-repair-hero h1,
+  .stc-repair-intro h2,
+  .stc-repair-section-head h2,
+  .stc-repair-split h2,
+  .stc-repair-dark h2,
+  .stc-repair-final h2 {
+    letter-spacing: 0;
+  }
+}

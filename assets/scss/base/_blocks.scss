@@ -1,0 +1,21 @@
+.section6 {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+.products {
+  &.columns-4 {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    li {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+ /*/Rank Math WordPress SEO плагин*/
+@import "localhost/wordpress/wp-includes/css/dashicons.min.css" screen;
+@import "localhost/wordpress/wp-includes/css/admin-bar.min.css" screen;
+@import "localhost/wordpress/wp-includes/css/dist/block-library/style.min.css" screen;
+@import "localhost/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/style.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/font-awesome/fontawesome.min.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/frontend/estp-frontend.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/jquery.mCustomScrollbar.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/backend/available_icons/font-awesome/font-awesome.min.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/backend/available_icons/genericons.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/backend/available_icons/flaticons/flaticon.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/backend/available_icons/icomoon/icomoon.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/backend/available_icons/linecon/linecon.css" screen;
+@import "localhost/wp-content/plugins/easy-side-tab-pro/css/frontend/estp-custom-animation.css" screen;
+@import "localhost/wp-content/plugins/seo-by-rank-math/assets/front/css/rank-math.css" screen;
+@import "localhost/wp-content/themes/msn/style.css" screen;
+@import "localhost/wp-content/themes/msn/woocommerce.css" screen;
+@import "//spectechcom.ru/wp-content/plugins/a3-lazy-load/assets/css/jquery.lazyloadxt.spinner.css" screen;
+@import "//spectechcom.ru/wp-content/uploads/sass/a3_lazy_load.min.css" screen;
+@import "localhost/wp-content/plugins/woocommerce-product-table/assets/css/datatables/datatables.min.css" screen;
+@import "localhost/wp-content/plugins/woocommerce-product-table/assets/css/wc-product-table.min.css" screen;
+@import "localhost/wp-content/plugins/prdctfltr/includes/css/style.min.css" screen;
+
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+@font-face {
+			font-family: "star";
+			src: url("localhost/wp-content/plugins/woocommerce/assets/fonts/star.eot");
+			src: url("localhost/wp-content/plugins/woocommerce/assets/fonts/star.eot?#iefix") format("embedded-opentype"),
+				url("localhost/wp-content/plugins/woocommerce/assets/fonts/star.woff") format("woff"),
+				url("localhost/wp-content/plugins/woocommerce/assets/fonts/star.ttf") format("truetype"),
+				url("localhost/wp-content/plugins/woocommerce/assets/fonts/star.svg#star") format("svg");
+			font-weight: normal;
+			font-style: normal;
+		}
+.home-list img {
+	margin-right: 20px;
+}
