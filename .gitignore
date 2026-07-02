@@ -1,5 +1,7 @@
 node_modules/
-vendor/
+/vendor/
+/assets/js/vendor/
+
 .DS_Store
 Thumbs.db
 
@@ -27,3 +29,7 @@ functions1.php
 functions2.php
 functions3.php
 functions4.php
+
+/inc/google-api-php-client-2.2.3/
+/inc/google-api.json
+/inc/log.txt
