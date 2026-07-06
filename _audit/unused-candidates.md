@@ -295,3 +295,45 @@ main.css и includeCss.css пока оставить на отдельную п�
 - _legacy-unused/2026-07-06/root/includeCss.css
 
 Статус: архивированы как legacy CSS.
+
+### 2026-07-06 — second wave legacy templates check
+
+Проверка прямых ссылок по теме для legacy-файлов ничего не нашла.
+
+Найдены файлы с Template Name:
+- template-cisterni_rabochi.php — Template Name: Цистерны и топливозаправщики
+- template-contacts_old.php — Template Name: Контакты
+- template-product-v2_old.php.bak — Template Name: Страница категории товара v2
+- template-product-v2_rabochi.php.bak — Template Name: Страница категории товара v2
+
+Перед архивированием нужно проверить БД:
+- meta_key = _wp_page_template
+- meta_value в списке legacy-шаблонов
+
+Статус:
+- прямых подключений нет;
+- ждём проверку назначенных page templates в БД.
+
+### 2026-07-06 — second wave legacy files archived
+
+Проверка БД по _wp_page_template:
+- MySQL вернул пустой результат;
+- legacy-шаблоны не назначены страницам.
+
+Архивированы файлы:
+
+- archive-product_old.php
+- archive-product_rabochi.php
+- template-cisterni_rabochi.php
+- template-contacts_old.php
+- template-product-v2_old.php.bak
+- template-product-v2_rabochi.php.bak
+- css/catalog_old.css
+- css/catalog-v2_old.css
+- css/catalog-v2_rabochi.css
+
+Перемещены в:
+- _legacy-unused/2026-07-06/root/
+- _legacy-unused/2026-07-06/css/
+
+Статус: архивировано.
