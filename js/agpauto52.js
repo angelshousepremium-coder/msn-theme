@@ -120,18 +120,31 @@
   /* ──────────────────────────────────────────────
      6. Smooth anchor scroll for nav links
   ────────────────────────────────────────────── */
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      const offset = 80;
-      window.scrollTo({
-        top: target.getBoundingClientRect().top + window.scrollY - offset,
-        behavior: 'smooth',
-      });
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+
+    if (!href || href === '#' || href.length < 2) {
+      return;
+    }
+
+    const targetId = href.slice(1);
+    const target = document.getElementById(targetId);
+
+    if (!target) {
+      return;
+    }
+
+    e.preventDefault();
+
+    const offset = 80;
+
+    window.scrollTo({
+      top: target.getBoundingClientRect().top + window.scrollY - offset,
+      behavior: 'smooth',
     });
   });
+});
 
   /* ──────────────────────────────────────────────
      7. Light parallax on Hero — mouse move
