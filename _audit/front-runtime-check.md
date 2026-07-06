@@ -451,3 +451,29 @@ url
 - отправить тестовую форму;
 - убедиться, что нет ошибок в Console;
 - проверить цели Метрики/GA.
+
+### 2026-07-06 — CSS/JS duplicate runtime check
+
+Проверены страницы:
+
+- /
+- /avtofurgony
+- /avtotsisterny-ural
+- /masterskaya-asv7722g4-10-ural-4320-6952-72
+- /kupit-ural-v-lizing
+- /contact
+
+Результат:
+
+- themeErrors: [] на всех страницах;
+- duplicatedCss: [] на всех страницах;
+- duplicatedJs: [] после точной перепроверки /avtotsisterny-ural;
+- magnific-popup.css грузится один раз;
+- catalog.css грузится на стандартных WooCommerce-категориях;
+- catalog-v2.css грузится на кастомных шаблонах;
+- product.css грузится на single product;
+- page.css грузится на обычных страницах/кастомных шаблонах, где нужен;
+- Font Awesome грузится условно, не глобально на всех страницах.
+
+Вывод:
+Дублей CSS/JS по runtime-проверке не обнаружено. Патч в functions.php по дублям enqueue не требуется.
