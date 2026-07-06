@@ -2351,18 +2351,27 @@ add_action('wp_footer', function () {
 });
 
 add_action('wp_footer', function () {
-  if ( ! is_page('remont-uralov') ) return;
-  ?>
-  <script>
-    jQuery(window).on('load', function () {
-      jQuery('.before-after').twentytwenty({
-        before_label: 'До',
-        after_label: 'После',
-        default_offset_pct: 0.5
+    if ( ! is_page('remont-uralov') ) {
+        return;
+    }
+    ?>
+    <script>
+      jQuery(window).on('load', function () {
+        if (
+          typeof jQuery.fn.twentytwenty !== 'function' ||
+          !jQuery('.before-after').length
+        ) {
+          return;
+        }
+
+        jQuery('.before-after').twentytwenty({
+          before_label: 'До',
+          after_label: 'После',
+          default_offset_pct: 0.5
+        });
       });
-    });
-  </script>
-  <?php
+    </script>
+    <?php
 });
 
 /* ══════════════════════════════════════════════
