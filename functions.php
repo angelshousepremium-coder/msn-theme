@@ -2372,13 +2372,33 @@ add_action('wp_footer', function () {
 ══════════════════════════════════════════════ */
 
 function agp52_enqueue_assets() {
-    if ( is_page_template( 'page-agp52.php' ) ) {
-        wp_enqueue_style(  'agp52-style',  get_template_directory_uri() . '/css/agp52.css',  [], '1.1.0' );
-        wp_enqueue_script( 'agp52-script', get_template_directory_uri() . '/js/agp52.js',    [], '1.1.0', true );
+    if ( ! is_page_template( 'page-agpauto52.php' ) ) {
+        return;
     }
-    if ( is_page_template( 'page-agpauto52.php' ) ) {
-        wp_enqueue_style(  'agp52-style',  get_template_directory_uri() . '/css/agpauto52.css', [], '1.1.0' );
-        wp_enqueue_script( 'agp52-script', get_template_directory_uri() . '/js/agpauto52.js',   [], '1.1.0', true );
+
+    $theme_dir = get_template_directory();
+    $theme_uri = get_template_directory_uri();
+
+    $css = '/css/agpauto52.css';
+    $js  = '/js/agpauto52.js';
+
+    if ( file_exists( $theme_dir . $css ) ) {
+        wp_enqueue_style(
+            'agp52-style',
+            $theme_uri . $css,
+            array(),
+            filemtime( $theme_dir . $css )
+        );
+    }
+
+    if ( file_exists( $theme_dir . $js ) ) {
+        wp_enqueue_script(
+            'agp52-script',
+            $theme_uri . $js,
+            array(),
+            filemtime( $theme_dir . $js ),
+            true
+        );
     }
 }
 add_action( 'wp_enqueue_scripts', 'agp52_enqueue_assets' );
