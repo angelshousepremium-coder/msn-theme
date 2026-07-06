@@ -251,3 +251,25 @@ Select-String -Pattern "functions1.php","functions2.php","functions3.php","funct
 main.css и includeCss.css пока оставить на отдельную проверку.
 
 Статус: архивирование очевидных backup-файлов разрешено.
+
+### 2026-07-06 — main-rabochi.js
+
+Найден untracked-файл:
+
+- js/main-rabochi.js — 6.3 KB
+
+Сравнение с рабочим js/main.js показало, что main-rabochi.js содержит старую аварийную логику:
+
+- loadAndInitOwlCarousel()
+- удаление script[src*="owl.carousel"]
+- ручную догрузку Owl Carousel с CDN
+- старые битые комментарии в кодировке
+
+Решение:
+файл не использовать как рабочий main.js и не оставлять в js/.
+
+Перемещён в:
+
+- _legacy-unused/2026-07-06/js/main-rabochi.js
+
+Статус: архивирован как legacy backup.
