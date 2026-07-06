@@ -1376,7 +1376,7 @@ html {
     gap: 2px !important;
   }
 
-  .woocommerce-tabs .tabs.wc-tabs li a {
+  body:not(.single-product) .woocommerce-tabs .tabs.wc-tabs li a {
     padding: 12px 0 !important;
     margin: 0 6px !important;
     font-size: 14px;
@@ -4024,7 +4024,7 @@ li.pa_spalnoe-mesto {
     display: inline-block;
   }
 
-  .woocommerce-tabs .tabs.wc-tabs li a {
+  body:not(.single-product) .woocommerce-tabs .tabs.wc-tabs li a {
     padding: 12px 0 !important;
     margin: 0 26px !important;
     min-width: 74px;

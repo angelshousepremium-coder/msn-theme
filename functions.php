@@ -351,7 +351,60 @@ function final_theme_styles() {
     // Архивы WooCommerce
     if ( is_product_category() || is_post_type_archive('product') )
         wp_enqueue_style('stc-catalog', $css . 'catalog.css', ['msn-style'], '2.1');
+    if ( is_tax('zh') ) {
+    wp_enqueue_style('stc-catalog', $css . 'catalog.css', ['msn-style'], '2.1');
+    wp_enqueue_style('stc-taxonomy-zh', $css . 'taxonomy-zh.css', ['stc-catalog'], '1.0');
+    }
+	/**
+ * Скрыть вкладки "Двигатель" и "Коробка"
+ * у товаров из раздела zh:
+ * /zh/dorabotki-i-dopolnitelnoe-oborudovanie
+ *
+ * Работает и для дочерних zh-терминов.
+ */
+add_filter('woocommerce_product_tabs', 'stc_hide_engine_box_tabs_for_zh_dorabotki', 1000);
 
+function stc_hide_engine_box_tabs_for_zh_dorabotki($tabs) {
+    if ( ! is_product() ) {
+        return $tabs;
+    }
+
+    $product_id = get_queried_object_id();
+
+    if ( ! $product_id || ! stc_product_in_zh_term_tree($product_id, 'dorabotki-i-dopolnitelnoe-oborudovanie') ) {
+        return $tabs;
+    }
+
+    foreach ($tabs as $key => $tab) {
+        $title = isset($tab['title']) ? trim(wp_strip_all_tags($tab['title'])) : '';
+
+        if (in_array($title, ['Двигатель', 'Коробка'], true)) {
+            unset($tabs[$key]);
+        }
+    }
+
+    return $tabs;
+}
+
+function stc_product_in_zh_term_tree($product_id, $root_slug) {
+    $root = get_term_by('slug', $root_slug, 'zh');
+
+    if ( ! $root || is_wp_error($root) ) {
+        return false;
+    }
+
+    $term_ids = [(int) $root->term_id];
+
+    $children = get_term_children((int) $root->term_id, 'zh');
+
+    if ( ! is_wp_error($children) && ! empty($children) ) {
+        $term_ids = array_merge($term_ids, array_map('intval', $children));
+    }
+
+    return has_term($term_ids, 'zh', $product_id);
+}
+	
+	
     // Кастомные шаблоны страниц (catalog-v2)
     /*if ( in_array($tpl, ['template-cisterni.php', 'template-furgoni.php']) )
         wp_enqueue_style('stc-catalog-v2', $css . 'catalog-v2.css', ['msn-style'], '2.1');

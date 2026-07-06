@@ -329,14 +329,23 @@ ct_l(ct_d[0]);
                 </div>
 
                 <div class="top-mail-block">
-                    <a href="#test-form1" class="popup popup-with-form callback-btn">Обратный звонок</a>
-                </div>
+    <a href="#test-form1" class="popup popup-with-form callback-btn">Обратный звонок</a>
+</div>
 
-                <div class="header-call">
-                    <a href="tel:+78006004142">
-                        <img src="/wp-content/uploads/2020/12/phone.svg" alt="">
-                    </a>
-                </div>
+<div class="header-search">
+    <a href="#test-form2" class="popup popup-with-form mobile-search-btn" aria-label="Поиск по сайту">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16.5 16.5L21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+    </a>
+</div>
+
+<div class="header-call">
+    <a href="tel:+78006004142">
+        <img src="/wp-content/uploads/2020/12/phone.svg" alt="">
+    </a>
+</div>
 
                 <!-- Бургер -->
                 <div class="header-bars">
@@ -475,20 +484,28 @@ ct_l(ct_d[0]);
         <p>Заказать звонок</p>
         <?php echo do_shortcode('[contact-form-7 id="5" title="Заказать звонок в Header"]'); ?>
     </div>
-    <div id="test-form2" class="white-popup-block mfp-hide form-search stc-search-popup">
-        <p>Поиск по сайту</p>
-        <?php
-        if ( function_exists('stc_render_site_search_form') ) {
-            stc_render_site_search_form(array(
-                'placeholder' => 'Модель, категория или артикул',
-                'title'       => '',
-                'note'        => 'Поиск по технике, товарам, новостям и страницам сайта.',
-                'class'       => 'stc-site-search-wrap--popup',
-            ));
-        } else {
-            get_search_form();
-        }
-        ?>
-    </div>
+<div id="test-form2" class="white-popup-block mfp-hide form-search stc-search-popup">
+    <p class="stc-search-popup__title">Поиск по сайту</p>
+
+    <form class="stc-search-popup__form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+        <label class="screen-reader-text" for="stc-popup-search">Поиск по сайту</label>
+
+        <input
+            id="stc-popup-search"
+            class="stc-search-popup__input search-form__input"
+            type="search"
+            name="s"
+            value="<?php echo esc_attr( get_search_query() ); ?>"
+            placeholder="Введите название техники, услуги или категории"
+            autocomplete="off"
+        >
+
+        <button class="stc-search-popup__submit" type="submit">
+            Найти
+        </button>
+
+        <div class="ajax-search stc-search-popup__results"></div>
+    </form>
+</div>
 
     <div class="main"></div>

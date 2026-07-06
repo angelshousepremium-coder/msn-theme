@@ -45,6 +45,61 @@ if ($sub_count === 0 && $term instanceof WP_Term) {
 }
 $has_tiles = ($sub_count > 0 || !empty($child_cats));
 
+
+
+/**
+ * FIX 2026-07-05: картинки в левом меню каталога.
+ * Сначала берём стабильную карту по slug, затем Woo thumbnail_id.
+ * Это не затрагивает верхние плитки подкатегорий и карточки товаров.
+ */
+if ( ! function_exists('stc_catalog_nav_thumb_url') ) {
+    function stc_catalog_nav_thumb_url( $term ) {
+        if ( ! ( $term instanceof WP_Term ) ) {
+            return '';
+        }
+
+        $static = [
+            'tehnika-v-nalichii'                    => 'uploads/2020/05/1.png',
+            'bortovye-avtomobili-ural'              => 'uploads/2020/05/1.png',
+            'bortovye-avtomobili'                   => 'uploads/2020/05/1.png',
+            'sedelnye-tyagachi'                     => 'uploads/2020/05/7.jpg',
+            'tyagachi-ural'                         => 'uploads/2020/05/7.jpg',
+            'avtokrany'                             => 'uploads/2021/02/avtokrani.jpg',
+            'avtokrani-ural'                        => 'uploads/2021/02/avtokrani.jpg',
+            'manipulyatornye-ustanovki'             => 'uploads/2020/05/12.jpg',
+            'vahtovye-avtobusy-ural'                => 'uploads/2020/05/2.png',
+            'vahtovka-ural'                         => 'uploads/2020/05/2.png',
+            'spetstehnika-s-kmu'                    => 'uploads/2020/05/5.png',
+            'avtofurgony'                           => 'uploads/2020/05/165-original-1.png',
+            'furgony-ural'                          => 'uploads/2020/05/165-original-1.png',
+            'pozharnye-mashiny'                     => 'uploads/2021/03/pojarnie-mashini-ural.png',
+            'shassi-ural'                           => 'uploads/2020/05/3.jpg',
+            'shassi-ural-kupit'                     => 'uploads/2020/05/3.jpg',
+            'lesovozy-sortimentovozy-trubopletevozy'=> 'uploads/2020/05/6.jpg',
+            'tsisterny-i-toplivozapravshhiki-ural'  => 'uploads/2020/05/9.png',
+            'avtotsisterny-ural'                    => 'uploads/2020/05/9.png',
+            'kommunalnaya-i-uborochnaya-tehnika'    => 'uploads/2020/05/13.jpg',
+            'samosvaly'                             => 'uploads/2020/05/4.png',
+            'pritsepnaya-tehnika'                   => 'uploads/2020/05/8.jpg',
+            'tehnika-dlya-neftegazodobychi'         => 'uploads/2020/05/11.jpg',
+        ];
+
+        if ( isset( $static[ $term->slug ] ) ) {
+            return content_url( $static[ $term->slug ] );
+        }
+
+        $thumb_id = (int) get_term_meta( $term->term_id, 'thumbnail_id', true );
+        if ( $thumb_id ) {
+            $thumb = wp_get_attachment_image_url( $thumb_id, 'thumbnail' );
+            if ( $thumb ) {
+                return $thumb;
+            }
+        }
+
+        return '';
+    }
+}
+
 // Короткое описание: первые 2 предложения
 $cat_desc_short = '';
 $cat_desc_rest  = '';
@@ -164,15 +219,32 @@ if ($cat_desc_html) {
                     $open     = ($cat->term_id === $current_id || $cat->term_id === $parent_id);
                 ?>
                 <li class="stc-nav__row<?php echo $open ? ' is-active' : ''; ?>">
+                    <?php $nav_thumb = stc_catalog_nav_thumb_url($cat); ?>
                     <a class="stc-nav__link" href="<?php echo esc_url(get_term_link($cat)); ?>">
-                        <?php echo esc_html($cat->name); ?>
+                        <span class="stc-nav__media" aria-hidden="true">
+                            <?php if ($nav_thumb) : ?>
+                                <img class="stc-nav__thumb"
+                                     src="<?php echo esc_url($nav_thumb); ?>"
+                                     alt=""
+                                     loading="lazy"
+                                     width="84"
+                                     height="84">
+                            <?php else : ?>
+                                <span class="stc-nav__thumb stc-nav__thumb--placeholder"></span>
+                            <?php endif; ?>
+                        </span>
+                        <span class="stc-nav__text"><?php echo esc_html($cat->name); ?></span>
                     </a>
                     <?php if ($has_ch) : ?>
+                    <?php $children_id = 'stc-nav-children-' . (int) $cat->term_id; ?>
                     <button class="stc-nav__arrow"
-                            aria-hidden="true" tabindex="-1">
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls="<?php echo esc_attr($children_id); ?>"
+                            aria-label="<?php echo esc_attr('Показать подкатегории: ' . $cat->name); ?>">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
                     </button>
-                    <ul class="stc-nav__children<?php echo $open ? ' is-open' : ''; ?>">
+                    <ul class="stc-nav__children" id="<?php echo esc_attr($children_id); ?>">
                         <?php foreach ($children as $ch) : ?>
                         <li class="<?php echo ($ch->term_id === $current_id) ? 'is-active' : ''; ?>">
                             <a href="<?php echo esc_url(get_term_link($ch)); ?>"><?php echo esc_html($ch->name); ?></a>
@@ -304,15 +376,80 @@ $pcard_parts_img = get_theme_file_uri('/img/img-parts2.jpg');
             navBody.classList.toggle('is-open');
         });
     }
-    document.querySelectorAll('.stc-nav__row').forEach(function(row){
+    var navMobileMq = window.matchMedia('(max-width: 860px)');
+
+    function closeOtherNavChildren(currentChildren, currentArrow) {
+        document.querySelectorAll('.stc-nav__children.is-open').forEach(function(opened){
+            if (opened !== currentChildren) opened.classList.remove('is-open');
+        });
+        document.querySelectorAll('.stc-nav__arrow.is-open').forEach(function(openedArrow){
+            if (openedArrow !== currentArrow) {
+                openedArrow.classList.remove('is-open');
+                openedArrow.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    function toggleNavRow(row, forceOpen) {
+        if (!row) return;
         var arrow = row.querySelector('.stc-nav__arrow');
         var ch    = row.querySelector('.stc-nav__children');
         if (!arrow || !ch) return;
-        /* Flyout через CSS :hover — JS только подсвечивает стрелку активной категории */
-        if (row.classList.contains('is-active')) {
-            arrow.classList.add('is-open');
+
+        var willOpen = (typeof forceOpen === 'boolean') ? forceOpen : !ch.classList.contains('is-open');
+        closeOtherNavChildren(ch, arrow);
+
+        ch.classList.toggle('is-open', willOpen);
+        arrow.classList.toggle('is-open', willOpen);
+        arrow.setAttribute('aria-expanded', String(willOpen));
+    }
+
+    // Важно: обработчик в capture-фазе. Так мы перехватываем тап по стрелке
+    // раньше, чем браузер/сторонний JS успеет обработать ссылку категории.
+    document.addEventListener('click', function(e){
+        var arrow = e.target.closest && e.target.closest('.stc-nav__arrow');
+        if (!arrow) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === 'function') {
+            e.stopImmediatePropagation();
         }
-    });
+
+        if (!navMobileMq.matches) {
+            return false;
+        }
+
+        toggleNavRow(arrow.closest('.stc-nav__row'));
+        return false;
+    }, true);
+
+    // Страховка: если из-за наложения слоёв тап попал не в button, а в правую
+    // зону ссылки, считаем это кликом по стрелке и не переходим в категорию.
+    document.addEventListener('click', function(e){
+        if (!navMobileMq.matches) return;
+
+        var link = e.target.closest && e.target.closest('.stc-nav__link');
+        if (!link) return;
+
+        var row = link.closest('.stc-nav__row');
+        if (!row || !row.querySelector('.stc-nav__children')) return;
+
+        var rect = link.getBoundingClientRect();
+        var x = typeof e.clientX === 'number' ? e.clientX : 0;
+        var arrowZone = 52;
+
+        if (x >= rect.right - arrowZone) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof e.stopImmediatePropagation === 'function') {
+                e.stopImmediatePropagation();
+            }
+            toggleNavRow(row);
+            return false;
+        }
+    }, true);
+
     var seoBtn  = document.getElementById('stc-seo-btn');
     var seoFull = document.getElementById('stc-seo-full');
     if (seoBtn && seoFull) {

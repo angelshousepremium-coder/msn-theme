@@ -1549,3 +1549,1128 @@ body:has(.ubermenu-active)::before {
     min-width: 210px;
   }
 }
+
+/* =====================================================
+   FIX 2026-07-02: Mobile header normalization
+   Причина: старое правило `.section-header, .section-header *`
+   насильно делало display:flex для всех вложенных элементов.
+   Правка scoped только на mobile header / mobile panel.
+===================================================== */
+
+@media (width <= 768px) {
+  /* Старая мобильная шапка остаётся активной */
+  .section-header {
+    display: flex !important;
+    flex-direction: column !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 500 !important;
+    background: #fff !important;
+    border-bottom: 1px solid rgba(0,0,0,.08) !important;
+  }
+
+  .section-header .navmenu-mobile,
+  .section-header .nm_df {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .section-header .navmenu-mobile {
+    padding: 8px 16px !important;
+  }
+
+  .section-header .nm_df {
+    gap: 10px !important;
+  }
+
+  .section-header .header-logo {
+    display: flex !important;
+    align-items: center !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    height: auto !important;
+  }
+
+  .section-header .site-logo,
+  .section-header .site-logo a {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-width: 0 !important;
+    text-decoration: none !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    display: block !important;
+    width: auto !important;
+    height: 30px !important;
+    max-width: 190px !important;
+    object-fit: contain !important;
+  }
+
+  .section-header .header-actions,
+  .section-header .header-call,
+  .section-header .top-mail-block,
+  .section-header .burger,
+  .section-header #stk-burger {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+  }
+
+  .section-header .header-call a,
+  .section-header .top-mail-block a,
+  .section-header #stk-burger {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 999px !important;
+  }
+
+  /* Внутри мобильной панели возвращаем нормальное поведение списков и ссылок */
+  #stk-mobile-panel,
+  #stk-mobile-panel * {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  #stk-mobile-panel {
+    display: block !important;
+    max-width: min(420px, 92vw) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  #stk-mobile-panel ul,
+  #stk-mobile-panel ol {
+    display: block !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #stk-mobile-panel li {
+    display: block !important;
+  }
+
+  #stk-mobile-panel a {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 38px !important;
+    line-height: 1.35 !important;
+    text-decoration: none !important;
+  }
+
+  #stk-mobile-panel img,
+  #stk-mobile-panel svg {
+    flex: 0 0 auto !important;
+  }
+}
+
+/* =====================================================
+   FIX 2026-07-02: Mobile panel overlay/content separation
+   #stk-mobile-panel должен быть полноэкранным overlay.
+   Ширина задаётся только .stk-mobile-panel__content.
+===================================================== */
+
+@media (width <= 768px) {
+  #stk-mobile-panel {
+    position: fixed !important;
+    inset: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    display: block !important;
+    overflow: hidden !important;
+    z-index: 20000 !important;
+  }
+
+  #stk-mobile-panel .stk-mobile-panel__overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    background: rgba(0,0,0,.55) !important;
+  }
+
+  #stk-mobile-panel .stk-mobile-panel__content {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: min(340px, 88vw) !important;
+    max-width: min(340px, 88vw) !important;
+    height: 100vh !important;
+    background: #fff !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    box-shadow: 4px 0 30px rgba(0,0,0,.18) !important;
+    transform: translateX(-100%) !important;
+    transition: transform .3s cubic-bezier(.22,.61,.36,1) !important;
+  }
+
+  #stk-mobile-panel.is-active .stk-mobile-panel__content {
+    transform: translateX(0) !important;
+  }
+
+  #stk-mobile-panel .stk-mobile-nav {
+    display: block !important;
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  #stk-mobile-panel .stk-mobile-panel__header,
+  #stk-mobile-panel .stk-mobile-panel__footer {
+    display: flex !important;
+    flex: 0 0 auto !important;
+  }
+}
+
+/* =====================================================
+   FIX 2026-07-02: Mobile panel inactive state
+   Панель должна перекрывать сайт только когда есть .is-active
+===================================================== */
+
+@media (width <= 768px) {
+  #stk-mobile-panel {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #stk-mobile-panel .stk-mobile-panel__overlay {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #stk-mobile-panel .stk-mobile-panel__content {
+    transform: translate3d(-100%, 0, 0) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  #stk-mobile-panel.is-active {
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  #stk-mobile-panel.is-active .stk-mobile-panel__overlay {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  #stk-mobile-panel.is-active .stk-mobile-panel__content {
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
+
+
+/* =====================================================
+   FIX 2026-07-02: Mobile header visual cleanup
+   Компактная мобильная шапка: логотип + действия + бургер.
+   Не трогает desktop #stk-header.
+===================================================== */
+
+@media (width <= 768px) {
+  .section-header {
+    display: block !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10000 !important;
+    background: rgba(255,255,255,.96) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(0,0,0,.08) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,.045) !important;
+  }
+
+  .section-header .navmenu-mobile {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: 64px !important;
+    padding: 0 18px !important;
+    box-sizing: border-box !important;
+  }
+
+  .section-header .nm_df {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    height: 64px !important;
+  }
+
+  .section-header .header-logo {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    height: auto !important;
+  }
+
+  .section-header .site-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    max-width: 170px !important;
+    min-width: 0 !important;
+    text-decoration: none !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    display: block !important;
+    width: auto !important;
+    height: 34px !important;
+    max-width: 170px !important;
+    object-fit: contain !important;
+  }
+
+  .section-header .top-mail-block {
+    display: flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin-left: auto !important;
+    padding: 0 !important;
+    background: none !important;
+  }
+
+  .section-header .top-mail-block .callback-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    max-width: none !important;
+    height: 38px !important;
+    padding: 0 14px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(236,98,31,.35) !important;
+    background: #fff7f2 !important;
+    color: #ec621f !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+  }
+
+  .section-header .header-call {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  .section-header .header-call a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 999px !important;
+    background: #ec621f !important;
+    border: 1px solid rgba(236,98,31,.25) !important;
+    box-shadow: 0 8px 18px rgba(236,98,31,.18) !important;
+    animation: none !important;
+    padding: 0 !important;
+  }
+
+  .section-header .header-call img {
+    display: block !important;
+    width: 17px !important;
+    height: 17px !important;
+    filter: brightness(0) invert(1) !important;
+  }
+
+  .section-header .header-bars {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(0,0,0,.1) !important;
+    background: #fff !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,.06) !important;
+    padding: 0 !important;
+  }
+
+  .section-header #stk-burger span,
+  .section-header .stk-burger span {
+    display: block !important;
+    width: 20px !important;
+    height: 2px !important;
+    border-radius: 2px !important;
+    background: #1d1d1f !important;
+  }
+
+  /* Закрытая мобильная панель не должна перекрывать сайт */
+  #stk-mobile-panel {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #stk-mobile-panel.is-active {
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* На телефонах убираем длинную кнопку "Обратный звонок",
+   чтобы остались: логотип + телефон + бургер */
+@media (width <= 560px) {
+  .section-header .navmenu-mobile {
+    height: 60px !important;
+    padding: 0 14px !important;
+  }
+
+  .section-header .nm_df {
+    height: 60px !important;
+    gap: 8px !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    height: 31px !important;
+    max-width: 150px !important;
+  }
+
+  .section-header .top-mail-block {
+    display: none !important;
+  }
+
+  .section-header .header-call a {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
+@media (width <= 360px) {
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    max-width: 132px !important;
+  }
+}
+
+/* =====================================================
+   FIX 2026-07-02: Mobile header logo + search
+   Логотип занимает высоту шапки, добавлена кнопка поиска.
+   Scoped only to mobile .section-header.
+===================================================== */
+
+@media (width <= 768px) {
+  .section-header .navmenu-mobile {
+    height: 68px !important;
+    padding: 0 18px !important;
+  }
+
+  .section-header .nm_df {
+    height: 68px !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .section-header .header-logo {
+    align-self: stretch !important;
+    height: 68px !important;
+    display: flex !important;
+    align-items: stretch !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin-right: auto !important;
+  }
+
+  .section-header .site-logo {
+    display: flex !important;
+    align-items: stretch !important;
+    height: 100% !important;
+    max-width: 190px !important;
+    min-width: 0 !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    display: block !important;
+    height: 100% !important;
+    max-height: 68px !important;
+    width: auto !important;
+    max-width: 190px !important;
+    object-fit: contain !important;
+  }
+
+  .section-header .top-mail-block,
+  .section-header .header-search,
+  .section-header .header-call,
+  .section-header .header-bars {
+    align-self: center !important;
+  }
+
+  .section-header .header-search {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+  }
+
+  .section-header .mobile-search-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(0,0,0,.1) !important;
+    background: #fff !important;
+    color: #1d1d1f !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,.06) !important;
+    text-decoration: none !important;
+  }
+
+  .section-header .mobile-search-btn svg {
+    display: block !important;
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .section-header .top-mail-block .callback-btn {
+    height: 42px !important;
+    padding: 0 18px !important;
+    font-size: 14px !important;
+  }
+
+  .section-header .header-call a {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    width: 46px !important;
+    height: 46px !important;
+  }
+}
+
+@media (width <= 560px) {
+  .section-header .navmenu-mobile {
+    height: 62px !important;
+    padding: 0 14px !important;
+  }
+
+  .section-header .nm_df {
+    height: 62px !important;
+    gap: 8px !important;
+  }
+
+  .section-header .header-logo {
+    height: 62px !important;
+  }
+
+  .section-header .site-logo {
+    max-width: 160px !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    height: 100% !important;
+    max-height: 62px !important;
+    max-width: 160px !important;
+  }
+
+  .section-header .top-mail-block {
+    display: none !important;
+  }
+
+  .section-header .mobile-search-btn,
+  .section-header .header-call a,
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .section-header .mobile-search-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+@media (width <= 380px) {
+  .section-header .site-logo {
+    max-width: 142px !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    max-width: 142px !important;
+  }
+
+  .section-header .mobile-search-btn,
+  .section-header .header-call a,
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    width: 38px !important;
+    height: 38px !important;
+  }
+}
+
+/* =====================================================
+   FIX 2026-07-02: Final mobile header layout
+   Лаконичная мобильная шапка: логотип во всю высоту,
+   крупные одинаковые кнопки, поиск, телефон, бургер.
+===================================================== */
+
+@media (width <= 768px) {
+  .section-header {
+    display: block !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10000 !important;
+    background: rgba(255,255,255,.97) !important;
+    backdrop-filter: blur(14px) !important;
+    border-bottom: 1px solid rgba(0,0,0,.08) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.055) !important;
+  }
+
+  .section-header .navmenu-mobile {
+    display: flex !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    height: 68px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .section-header .nm_df {
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    width: 100% !important;
+    height: 68px !important;
+    padding: 0 18px 0 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .section-header .header-logo {
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    align-self: stretch !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    height: 68px !important;
+    margin: 0 auto 0 0 !important;
+    padding: 0 !important;
+  }
+
+  .section-header .site-logo {
+    display: flex !important;
+    align-items: stretch !important;
+    height: 68px !important;
+    max-width: 210px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    display: block !important;
+    width: auto !important;
+    height: 68px !important;
+    max-height: 68px !important;
+    max-width: 210px !important;
+    object-fit: contain !important;
+    object-position: left center !important;
+    margin: 0 !important;
+  }
+
+  .section-header .top-mail-block,
+  .section-header .header-search,
+  .section-header .header-call,
+  .section-header .header-bars {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: stretch !important;
+    flex: 0 0 auto !important;
+    height: 68px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .section-header .top-mail-block .callback-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 52px !important;
+    padding: 0 22px !important;
+    border-radius: 18px !important;
+    border: 1px solid rgba(236,98,31,.35) !important;
+    background: #fff7f2 !important;
+    color: #ec621f !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  .section-header .mobile-search-btn,
+  .section-header .header-call a,
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    border-radius: 18px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    text-decoration: none !important;
+  }
+
+  .section-header .mobile-search-btn,
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    background: #fff !important;
+    color: #1d1d1f !important;
+    border: 1px solid rgba(0,0,0,.1) !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,.06) !important;
+  }
+
+  .section-header .header-call a {
+    background: #ec621f !important;
+    border: 1px solid rgba(236,98,31,.22) !important;
+    box-shadow: 0 10px 22px rgba(236,98,31,.22) !important;
+    animation: none !important;
+  }
+
+  .section-header .mobile-search-btn svg {
+    display: block !important;
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .section-header .header-call img {
+    display: block !important;
+    width: 21px !important;
+    height: 21px !important;
+    filter: brightness(0) invert(1) !important;
+  }
+
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+
+  .section-header #stk-burger span,
+  .section-header .stk-burger span {
+    display: block !important;
+    width: 24px !important;
+    height: 2px !important;
+    border-radius: 999px !important;
+    background: #1d1d1f !important;
+  }
+}
+
+/* Телефон: только логотип + поиск + телефон + бургер */
+@media (width <= 560px) {
+  .section-header .navmenu-mobile {
+    height: 64px !important;
+    padding: 0 !important;
+  }
+
+  .section-header .nm_df {
+    height: 64px !important;
+    gap: 7px !important;
+    padding: 0 12px 0 0 !important;
+  }
+
+  .section-header .header-logo,
+  .section-header .site-logo {
+    height: 64px !important;
+  }
+
+  .section-header .site-logo {
+    max-width: 165px !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    height: 64px !important;
+    max-height: 64px !important;
+    max-width: 165px !important;
+  }
+
+  .section-header .top-mail-block {
+    display: none !important;
+  }
+
+  .section-header .header-search,
+  .section-header .header-call,
+  .section-header .header-bars {
+    height: 64px !important;
+  }
+
+  .section-header .mobile-search-btn,
+  .section-header .header-call a,
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    border-radius: 16px !important;
+  }
+
+  .section-header .mobile-search-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .section-header .header-call img {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .section-header #stk-burger span,
+  .section-header .stk-burger span {
+    width: 22px !important;
+  }
+}
+
+@media (width <= 380px) {
+  .section-header .site-logo {
+    max-width: 145px !important;
+  }
+
+  .section-header .site-logo img,
+  .section-header .header-logo img {
+    max-width: 145px !important;
+  }
+
+  .section-header .nm_df {
+    gap: 6px !important;
+    padding-right: 10px !important;
+  }
+
+  .section-header .mobile-search-btn,
+  .section-header .header-call a,
+  .section-header #stk-burger,
+  .section-header .stk-burger {
+    width: 43px !important;
+    height: 43px !important;
+    min-width: 43px !important;
+    border-radius: 15px !important;
+  }
+}
+/* =====================================================
+   FIX 2026-07-02: Search popup form
+===================================================== */
+
+.stc-search-popup {
+  width: min(620px, calc(100vw - 32px)) !important;
+  margin: 40px auto !important;
+  padding: 34px !important;
+  border-radius: 24px !important;
+  background: #fff !important;
+  box-shadow: 0 30px 80px rgba(0,0,0,.22) !important;
+  box-sizing: border-box !important;
+}
+
+.stc-search-popup__title {
+  margin: 0 0 20px !important;
+  color: #111827 !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+}
+
+.stc-search-popup__form {
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  gap: 12px !important;
+  margin: 0 !important;
+}
+
+.stc-search-popup__input {
+  width: 100% !important;
+  height: 56px !important;
+  padding: 0 18px !important;
+  border: 1px solid rgba(0,0,0,.14) !important;
+  border-radius: 16px !important;
+  background: #f7f8fa !important;
+  color: #111827 !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+}
+
+.stc-search-popup__input:focus {
+  border-color: rgba(236,98,31,.65) !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 4px rgba(236,98,31,.12) !important;
+}
+
+.stc-search-popup__submit {
+  height: 56px !important;
+  padding: 0 24px !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #ec621f !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  box-shadow: 0 12px 24px rgba(236,98,31,.22) !important;
+}
+
+.stc-search-popup__results {
+  grid-column: 1 / -1 !important;
+  display: none;
+  margin-top: 8px !important;
+}
+
+@media (width <= 560px) {
+  .stc-search-popup {
+    width: calc(100vw - 24px) !important;
+    margin: 20px auto !important;
+    padding: 24px 18px !important;
+    border-radius: 20px !important;
+  }
+
+  .stc-search-popup__title {
+    font-size: 23px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .stc-search-popup__form {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .stc-search-popup__input,
+  .stc-search-popup__submit {
+    height: 52px !important;
+    border-radius: 14px !important;
+  }
+
+  .stc-search-popup__submit {
+    width: 100% !important;
+  }
+}
+
+/* =====================================================
+   FIX 2026-07-02: Magnific search popup visibility
+   Форма #test-form2 есть в DOM, но popup показывал только overlay.
+===================================================== */
+
+.mfp-bg {
+  z-index: 30000 !important;
+}
+
+.mfp-wrap {
+  z-index: 30001 !important;
+}
+
+.mfp-container {
+  padding: 20px !important;
+}
+
+.mfp-content {
+  width: auto !important;
+  max-width: none !important;
+  vertical-align: middle !important;
+}
+
+.mfp-content #test-form2.stc-search-popup,
+.mfp-content #test-form2.form-search,
+.mfp-content #test-form2.mfp-hide {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.mfp-content #test-form2.stc-search-popup {
+  position: relative !important;
+  width: min(620px, calc(100vw - 32px)) !important;
+  margin: 0 auto !important;
+  padding: 34px !important;
+  border-radius: 24px !important;
+  background: #fff !important;
+  box-shadow: 0 30px 80px rgba(0,0,0,.24) !important;
+  box-sizing: border-box !important;
+}
+
+.mfp-content #test-form2 .stc-search-popup__title {
+  display: block !important;
+  margin: 0 0 20px !important;
+  color: #111827 !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+}
+
+.mfp-content #test-form2 .stc-search-popup__form {
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  gap: 12px !important;
+  margin: 0 !important;
+}
+
+.mfp-content #test-form2 .stc-search-popup__input {
+  display: block !important;
+  width: 100% !important;
+  height: 56px !important;
+  padding: 0 18px !important;
+  border: 1px solid rgba(0,0,0,.14) !important;
+  border-radius: 16px !important;
+  background: #f7f8fa !important;
+  color: #111827 !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+}
+
+.mfp-content #test-form2 .stc-search-popup__input:focus {
+  border-color: rgba(236,98,31,.65) !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 4px rgba(236,98,31,.12) !important;
+}
+
+.mfp-content #test-form2 .stc-search-popup__submit {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 56px !important;
+  padding: 0 24px !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #ec621f !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  box-shadow: 0 12px 24px rgba(236,98,31,.22) !important;
+}
+
+.mfp-close {
+  color: #111827 !important;
+  opacity: .75 !important;
+}
+
+@media (width <= 560px) {
+  .mfp-container {
+    padding: 12px !important;
+  }
+
+  .mfp-content #test-form2.stc-search-popup {
+    width: calc(100vw - 24px) !important;
+    padding: 24px 18px !important;
+    border-radius: 20px !important;
+  }
+
+  .mfp-content #test-form2 .stc-search-popup__title {
+    font-size: 23px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .mfp-content #test-form2 .stc-search-popup__form {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .mfp-content #test-form2 .stc-search-popup__input,
+  .mfp-content #test-form2 .stc-search-popup__submit {
+    height: 52px !important;
+    border-radius: 14px !important;
+  }
+
+  .mfp-content #test-form2 .stc-search-popup__submit {
+    width: 100% !important;
+  }
+}
+
+/* FIX: visible search input in Magnific popup */
+.mfp-content #test-form2.stc-search-popup .stc-search-popup__form {
+  display: flex !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.mfp-content #test-form2.stc-search-popup .stc-search-popup__input {
+  display: block !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  padding: 0 18px !important;
+  border: 1px solid rgba(0,0,0,.16) !important;
+  border-radius: 16px !important;
+  background: #f7f8fa !important;
+  color: #111827 !important;
+  font-size: 16px !important;
+  line-height: 56px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  box-sizing: border-box !important;
+}
+
+.mfp-content #test-form2.stc-search-popup .stc-search-popup__input::placeholder {
+  color: rgba(17,24,39,.55) !important;
+  opacity: 1 !important;
+}
+
+@media (width <= 560px) {
+  .mfp-content #test-form2.stc-search-popup .stc-search-popup__form {
+    flex-direction: column !important;
+  }
+
+  .mfp-content #test-form2.stc-search-popup .stc-search-popup__input,
+  .mfp-content #test-form2.stc-search-popup .stc-search-popup__submit {
+    width: 100% !important;
+  }
+}
