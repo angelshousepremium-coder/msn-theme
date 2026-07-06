@@ -316,11 +316,23 @@ main.css и includeCss.css пока оставить на отдельную п�
 
 ### 2026-07-06 — second wave legacy files archived
 
+Проверка прямых ссылок по теме:
+- совпадений не найдено.
+
 Проверка БД по _wp_page_template:
 - MySQL вернул пустой результат;
 - legacy-шаблоны не назначены страницам.
 
-Архивированы файлы:
+Архивированы tracked CSS-файлы:
+
+- css/catalog_old.css
+- css/catalog-v2_old.css
+- css/catalog-v2_rabochi.css
+
+Перемещены в:
+- _legacy-unused/2026-07-06/css/
+
+Также вручную перемещены в _legacy-unused/2026-07-06/root/ неотслеживаемые Git backup-файлы:
 
 - archive-product_old.php
 - archive-product_rabochi.php
@@ -328,12 +340,8 @@ main.css и includeCss.css пока оставить на отдельную п�
 - template-contacts_old.php
 - template-product-v2_old.php.bak
 - template-product-v2_rabochi.php.bak
-- css/catalog_old.css
-- css/catalog-v2_old.css
-- css/catalog-v2_rabochi.css
 
-Перемещены в:
-- _legacy-unused/2026-07-06/root/
-- _legacy-unused/2026-07-06/css/
+Примечание:
+git ls-files по этим PHP-файлам вернул пустой результат, поэтому как rename в коммит они не попадают.
 
 Статус: архивировано.
