@@ -119,3 +119,135 @@ common.js пока нужен для попапов, галерей товара
 FlexSlider-библиотеку пока не удаляли.
 
 Статус: исправлено.
+
+### 2026-07-06 — FlexSlider audit
+
+Поиск по теме показал:
+
+- js/common.js содержит встроенную библиотеку FlexSlider;
+- product.css содержит стили .flex-viewport и .flex-control-thumbs для single product gallery;
+- style.css содержит старый блок FlexSlider и font-face flexslider-icon;
+- main.css / style_old.css / style.bak.css также содержат старые FlexSlider-блоки, но это кандидаты на backup/legacy.
+
+Runtime-проверка на ключевых страницах:
+- .flexslider: 0;
+- .flex-viewport: 0 на проверенных страницах;
+- flexLoaded: true.
+
+Вывод:
+FlexSlider из common.js пока не удалять. Сначала отдельно проверить все варианты single product gallery и WooCommerce gallery.
+
+Статус: кандидат на будущую чистку, сейчас оставить.
+
+### 2026-07-06 — backup / legacy files PHP reference check
+
+Проверка PHP-подключений не нашла ссылок на следующие файлы:
+
+- functions1.php
+- functions2.php
+- functions3.php
+- functions4.php
+- header1.php
+- template-home_old.php
+- style_old.css
+- style.bak.css
+- home_old.css
+- main.css
+- includeCss.css
+- sel.css
+- common.orig.js
+- common1.js
+- main.orig.js
+
+Команда проверки:
+
+Get-ChildItem -Recurse -File -Include *.php |
+Where-Object { $_.FullName -notmatch "\\_audit\\" } |
+Select-String -Pattern "functions1.php","functions2.php","functions3.php","functions4.php","header1.php","template-home_old.php","style_old.css","style.bak.css","home_old.css","main.css","includeCss.css","sel.css","common.orig.js","common1.js","main.orig.js"
+
+Результат:
+- совпадений не найдено.
+
+Вывод:
+Файлы не подключаются напрямую из PHP темы. Пока не удалять, оставить кандидатами на архивирование/удаление после финальной проверки фронта.
+
+Статус: кандидаты.
+
+
+### 2026-07-06 — backup / legacy files physical check
+
+Физически найдены в теме:
+
+- functions1.php — 76 KB
+- functions2.php — 76.4 KB
+- functions3.php — 76.4 KB
+- functions4.php — 76.9 KB
+- header1.php — 7.9 KB
+- template-home_old.php — 26.1 KB
+- style_old.css — 122.9 KB
+- style.bak.css — 312 KB
+- css/home_old.css — 20 KB
+- main.css — 207.8 KB
+- includeCss.css — 2.7 KB
+- js/common.orig.js — 161.7 KB
+- js/common1.js — 161.8 KB
+- assets/js/main.orig.js — 3.2 KB
+- js/main.orig.js — 5.7 KB
+
+Не найден:
+
+- sel.css
+
+Предыдущая PHP-проверка не нашла подключений этих файлов из файлов темы.
+
+Статус:
+- не удалять сразу;
+- оставить кандидатами на архивирование/удаление после проверки frontend resources.
+
+### 2026-07-06 — backup / legacy files frontend resource check
+
+Проверка frontend resources на ключевых страницах показала, что backup/legacy-файлы не загружаются:
+
+Проверены страницы:
+- /
+- /avtofurgony
+- /avtotsisterny-ural
+- /kupit-ural-v-lizing
+- /contact
+- /masterskaya-asv7722g4-10-ural-4320-6952-72
+
+Файлы не найдены в resource list:
+- functions1.php
+- functions2.php
+- functions3.php
+- functions4.php
+- header1.php
+- template-home_old.php
+- style_old.css
+- style.bak.css
+- home_old.css
+- common.orig.js
+- common1.js
+- main.orig.js
+
+Активно загружаются рабочие файлы:
+- style.css
+- css/header.css
+- css/footer.css
+- css/home.css / css/catalog.css / css/catalog-v2.css / css/product.css
+- css/popup.css
+- css/magnific-popup.css
+- woocommerce.css
+- js/main.js
+- js/common.js
+- js/ajax-search.js
+- js/tabs-fix.js
+- js/header.js
+- js/script.js
+
+Решение:
+очевидные backup/legacy-файлы переместить в _legacy-unused/2026-07-06/.
+
+main.css и includeCss.css пока оставить на отдельную проверку.
+
+Статус: архивирование очевидных backup-файлов разрешено.
