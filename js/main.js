@@ -1,55 +1,27 @@
-// FIX 2026-06-27: WordPress loads jQuery in noConflict mode.
-// The theme used a manually injected jQuery in header.php before; after removing it,
-// global `$` may be undefined and Owl Carousel init fails, leaving .owl-carousel hidden.
-// Keep all old logic, but pass WordPress jQuery as `$` safely.
+// FIX 2026-07-06:
+// WordPress loads jQuery in noConflict mode.
+// Owl Carousel is enqueued in functions.php as a dependency.
+// This file only initializes the main slider when Owl is already available.
 (function($) {
     if (!$) {
         return;
     }
 
-    // Функция для принудительной загрузки и инициализации Owl Carousel
-    function loadAndInitOwlCarousel() {
-        const $slider = $(".main-slider");
+    function initOwlSlider() {
+        var $slider = $('.main-slider');
 
-        // Если слайдера нет на странице - выходим
-        if ($slider.length === 0) {
+        if (!$slider.length) {
             return;
         }
 
-        // Если Owl Carousel уже загружен - инициализируем сразу
-        if (typeof $.fn.owlCarousel === 'function') {
-            initOwlSlider($slider);
-            return;
-        }
-
-        // Если не загружен - загружаем принудительно
-        // Удаляем старые скрипты Owl Carousel
-        $('script[src*="owl.carousel"]').remove();
-
-        // Загружаем CSS если еще не загружен
-        if (!$('link[href*="owl.carousel"]').length) {
-            $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">');
-            $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">');
-        }
-
-        // Создаем и загружаем скрипт
-        var owlScript = document.createElement('script');
-        owlScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js';
-        owlScript.integrity = 'sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==';
-        owlScript.crossOrigin = 'anonymous';
-
-        owlScript.onload = function() {
-            setTimeout(function() {
-                initOwlSlider($slider);
-            }, 100);
-        };
-
-        document.head.appendChild(owlScript);
-    }
-
-    // Функция инициализации слайдера
-    function initOwlSlider($slider) {
         if (typeof $.fn.owlCarousel !== 'function') {
+            if (window.console && console.warn) {
+                console.warn('[STC main.js] Owl Carousel is not loaded');
+            }
+            return;
+        }
+
+        if ($slider.hasClass('owl-loaded')) {
             return;
         }
 
@@ -59,26 +31,27 @@
                 autoplayTimeout: 5000,
                 autoplayHoverPause: true,
                 items: 1,
-                animateOut: "fadeOut",
+                animateOut: 'fadeOut',
                 margin: 0,
                 loop: true,
                 navRewind: true,
                 nav: false,
                 navText: [],
-                dots: true,
+                dots: true
             });
         } catch (error) {
-            console.error('Ошибка при инициализации Owl Carousel:', error);
+            if (window.console && console.error) {
+                console.error('[STC main.js] Owl Carousel init error:', error);
+            }
         }
     }
 
     // Основной код
-    jQuery(function($) {
-        // Запускаем загрузку и инициализацию Owl Carousel
-        setTimeout(loadAndInitOwlCarousel, 100);
+    $(function() {
+        initOwlSlider();
 
         $('#mob').on('click', function() {
-            let el = $('.webazex-container');
+            var el = $('.webazex-container');
             if (el.is(':visible')) {
                 el.removeClass('show fadeInLeft');
                 el.addClass('hide fadeInRight');
@@ -88,9 +61,12 @@
             }
         });
 
-        if (screen.width <= 768) {
-            let s = $('.searchwp-modal-form-trigger-el.search').html();
-            $('.searchwp-modal-form-trigger-el.search').html('<span class="pc">' + s + '</span>');
+        if (window.screen && screen.width <= 768) {
+            var $searchTrigger = $('.searchwp-modal-form-trigger-el.search');
+            if ($searchTrigger.length) {
+                var s = $searchTrigger.html();
+                $searchTrigger.html('<span class="pc">' + s + '</span>');
+            }
         }
 
         $('.litoul_div').on('click', function(e) {
@@ -136,28 +112,33 @@
         });
     });
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const videoPlayButton = document.querySelector('.rutube-video-play-button'),
-              rutubePlayer = document.getElementById('rutube-video-content'),
-              rutubePlayerOverlay = document.querySelector('.rutube-video-overlay'), 
-              videoPlayButtonWrapper = document.querySelector('.rutube-video-play-button-wrapper');
+    document.addEventListener('DOMContentLoaded', function() {
+        var videoPlayButton = document.querySelector('.rutube-video-play-button');
+        var rutubePlayer = document.getElementById('rutube-video-content');
+        var rutubePlayerOverlay = document.querySelector('.rutube-video-overlay');
+        var videoPlayButtonWrapper = document.querySelector('.rutube-video-play-button-wrapper');
 
-        if (videoPlayButton) videoPlayButton.onclick = function() {
-            rutubePlayerOverlay.style.display = 'none'; 
-            videoPlayButtonWrapper.style.display = 'none';
+        if (!videoPlayButton || !rutubePlayer || !rutubePlayer.contentWindow) {
+            return;
+        }
 
-            rutubePlayer.contentWindow.postMessage(JSON.stringify(
-                {
-                    type: 'player:play',
-                    data: {}
-                }
-            ), '*');	
+        videoPlayButton.onclick = function() {
+            if (rutubePlayerOverlay) {
+                rutubePlayerOverlay.style.display = 'none';
+            }
 
-            rutubePlayer.contentWindow.postMessage(JSON.stringify(
-                {
-                    type: 'player:unMute'
-                }
-            ), '*');
+            if (videoPlayButtonWrapper) {
+                videoPlayButtonWrapper.style.display = 'none';
+            }
+
+            rutubePlayer.contentWindow.postMessage(JSON.stringify({
+                type: 'player:play',
+                data: {}
+            }), '*');
+
+            rutubePlayer.contentWindow.postMessage(JSON.stringify({
+                type: 'player:unMute'
+            }), '*');
         };
     });
 
