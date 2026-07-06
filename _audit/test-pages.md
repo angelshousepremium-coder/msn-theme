@@ -33,6 +33,7 @@
 - [ ] http://localhost/avtomobili-dlya-perevozki-vzryvchatyh-veshhestv
 - [ ] http://localhost/vahtovye-avtobusy-ural
 - [ ] http://localhost/avtotsisterny-ural
+- [ ] http://localhost/lesovozy-sortimentovozy-trubopletevozy
 
 Проверить:
 - hero-блок;
