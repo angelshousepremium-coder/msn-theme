@@ -273,3 +273,25 @@ main.css и includeCss.css пока оставить на отдельную п�
 - _legacy-unused/2026-07-06/js/main-rabochi.js
 
 Статус: архивирован как legacy backup.
+
+### 2026-07-06 — main.css / includeCss.css
+
+Проверка по теме не нашла подключений:
+
+- main.css
+- includeCss.css
+
+Команда проверяла *.php, *.js, *.css, исключая:
+
+- _audit/
+- _legacy-unused/
+
+Ранее frontend resource check также не показал загрузку этих файлов на ключевых страницах.
+
+Решение:
+переместить в архив:
+
+- _legacy-unused/2026-07-06/root/main.css
+- _legacy-unused/2026-07-06/root/includeCss.css
+
+Статус: архивированы как legacy CSS.
