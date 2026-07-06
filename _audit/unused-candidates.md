@@ -55,3 +55,41 @@
 
 Не удалять массово.
 Сначала проверить DOM и Network.
+
+## js/common.js — runtime-аудит
+
+Дата: 2026-07-06
+
+Статус: не удалять.
+
+Проверка показала:
+
+- .popup-with-form есть на всех ключевых страницах: 6–8 элементов;
+- .zoom-gallery есть на single product: 2 элемента;
+- .image-popup-no-margins есть на single product: 2 элемента;
+- .zoom-gallery1 на проверенных страницах не найден;
+- .noloop на проверенных страницах не найден.
+
+Вывод:
+common.js пока нужен для попапов, галерей товара и старой логики вкладок.
+
+Кандидаты на будущую точечную чистку:
+
+- дублирующая инициализация .popup-with-form;
+- .zoom-gallery1, если не найдётся на других товарах;
+- .noloop, если не найдётся на других страницах;
+- .loop / .info_slider после отдельной проверки;
+- FlexSlider после подтверждения, что .flexslider отсутствует на фронте.
+
+Удаление всего common.js запрещено.
+
+### 2026-07-06 — common.js / popup init
+
+Удалена дублирующая инициализация .popup-with-form в js/common.js.
+
+Проверка:
+- главная: popupLinks 6, magnificPopup true, commonLoaded true;
+- single product: popupLinks 8, magnificPopup true, commonLoaded true;
+- попапы открываются.
+
+Статус: исправлено.

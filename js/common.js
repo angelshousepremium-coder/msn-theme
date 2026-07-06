@@ -15,16 +15,7 @@ jQuery(function(a) {
                     }
                 })
             }
-			 a(".popup-with-form").magnificPopup({
-            type: "inline",
-            preloader: !1,
-            focus: "#name",
-            callbacks: {
-                beforeOpen: function() {
-                    this.st.focus = a(window).width() < 700 ? !1 : "#name"
-                }
-            }
-        })
+
             a(".sub-tabs-pr a").click(function() {
                 a(".sub-tab-pane").hide(), a("#prods-" + this.href.split("#")[1]).fadeIn("fast")
             }), a(".product .add-to-order").click(function(c) {
