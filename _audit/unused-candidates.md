@@ -93,3 +93,29 @@ common.js пока нужен для попапов, галерей товара
 - попапы открываются.
 
 Статус: исправлено.
+
+### 2026-07-06 — common.js / old Owl init
+
+Проверка показала:
+- .loop есть на главной: 1;
+- .noloop на ключевых страницах не найден;
+- .info_slider на ключевых страницах не найден;
+- .flexslider на ключевых страницах не найден.
+
+Из common.js удалены пустые инициализации:
+- .noloop
+- .info_slider
+
+Оставлена рабочая инициализация:
+- .loop
+
+Контроль после правки:
+- главная: loop 1, loopOwl true, owlLoaded true, wow function, commonLoaded true;
+- single product: popupLinks 8, zoomGallery 2, imagePopup 2, magnificPopup true, commonLoaded true;
+- попап открывается;
+- фото товара открывается;
+- вкладки товара работают.
+
+FlexSlider-библиотеку пока не удаляли.
+
+Статус: исправлено.
