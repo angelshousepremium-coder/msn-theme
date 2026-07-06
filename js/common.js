@@ -101,39 +101,29 @@ jQuery(function(a) {
             }
             msnScopedProductTabs("ul.i-tab1 > li[data-tab]");
             msnScopedProductTabs("ul.i-tab2 > li[data-tab]");
-        }), (new WOW).init(), a(".noloop").owlCarousel({
-            center: !0,
-            items: 1,
-            loop: !0,
-            margin: 10,
-            autoplay: 5000,
-            autoplayTimeout: 5000,
-            lazyLoad: true,
-            autoplayHoverPause: !0
-        }), a(".loop").owlCarousel({
-            center: !0,
-            items: 5,
-            loop: !0,
-            margin: 10,
-            autoplay: 7000,
-            autoplayTimeout: 7000,
-            smartSpeed: 5000,
-            autoplayHoverPause: !true,
-            responsive: {
-                600: {
-                    items: 5
-                }
+            });
+
+if (typeof WOW === "function") {
+    (new WOW).init();
+}
+
+if (a(".loop").length && typeof a.fn.owlCarousel === "function") {
+    a(".loop").owlCarousel({
+        center: !0,
+        items: 5,
+        loop: !0,
+        margin: 10,
+        autoplay: 7000,
+        autoplayTimeout: 7000,
+        smartSpeed: 5000,
+        autoplayHoverPause: !true,
+        responsive: {
+            600: {
+                items: 5
             }
-        }), a(".info_slider").owlCarousel({
-            items: 1,
-            nav: !0,
-            navText: ["<", ">"],
-            loop: !0,
-            margin: 10,
-            autoplay: !0,
-            autoplayTimeout: 3e3,
-            autoplayHoverPause: !0
-        });
+        }
+    });
+}
         var b, c = document.getElementsByClassName("accordion");
         for (b = 0; b < c.length; b++) c[b].addEventListener("click", function() {
             this.classList.toggle("active");
