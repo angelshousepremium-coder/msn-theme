@@ -137,16 +137,6 @@ function my_deregister_styles()    {
    //wp_deregister_style( 'dashicons' ); 
 }
 
-// ПРАВИЛЬНОЕ ПОДКЛЮЧЕНИЕ СКРИПТОВ
-// УДАЛЯЕМ ВСЕ СТАРЫЕ ПОДКЛЮЧЕНИЯ СКРИПТОВ
-function clean_script_loading() {
-    // Удаляем все старые обработчики
-    remove_action('wp_enqueue_scripts', 'theme_scripts');
-    remove_action('wp_enqueue_scripts', 'my_scripts_method'); 
-    remove_action('wp_enqueue_scripts', 'msn_scripts');
-    remove_action('wp_enqueue_scripts', 'proper_theme_scripts');
-}
-add_action('wp_head', 'clean_script_loading', 1);
 
 // ПРАВИЛЬНОЕ ПОДКЛЮЧЕНИЕ СКРИПТОВ
 function final_theme_scripts() {
@@ -312,17 +302,6 @@ add_action('wp_enqueue_scripts', function () {
         }
     }
 
-    if ( is_page_template('template-info.php') || is_page('informaczionnye-materialy') ) {
-        if ( file_exists($js_dir . 'info-load-more-v5.js') && ! wp_script_is('stc-info-load-more', 'enqueued') ) {
-            wp_enqueue_script('stc-info-load-more', $js_uri . 'info-load-more-v5.js', array('jquery'), '20260701-info-ajax-v5', true);
-            wp_localize_script('stc-info-load-more', 'stcInfoLoadMore', array(
-                'ajaxUrl' => admin_url('admin-ajax.php'),
-                'url'     => admin_url('admin-ajax.php'),
-                'action'  => 'stc_info_load_more_v5',
-                'nonce'   => wp_create_nonce('stc_info_load_more_v5'),
-            ));
-        }
-    }
 
     if ( is_page('remont-uralov') ) {
         if ( file_exists($css_dir . 'remont-uralov.css') && ! wp_style_is('stc-remont-uralov', 'enqueued') ) {
@@ -2598,57 +2577,78 @@ add_filter( 'rank_math/frontend/breadcrumb/show', '__return_false' );
 <?php
 /**
  * STC INFO MATERIALS — FINAL AJAX RESTORE
- * Вставить в конец /wp-content/themes/msn/functions.php.
- * Цель: /informaczionnye-materialy/ — 9 карточек сразу + догрузка до всех статей из рубрики 830.
- * Не требует nonce, чтобы кеш старого JS не давал HTTP 400: 0.
+ *
+ * /informaczionnye-materialy/:
+ * - 9 карточек сразу;
+ * - догрузка остальных статей из рубрики 830;
+ * - один рабочий JS: js/info-load-more-v5.js;
+ * - старые AJAX action v2/v3/v4 оставлены для совместимости;
+ * - nonce НЕ обязателен, чтобы старый кешированный JS не ловил HTTP 400.
+ *
+ * ВАЖНО:
+ * AJAX-карточка не использует get_the_excerpt(), the_content(), do_blocks(),
+ * apply_filters('the_content') и старые render-функции, чтобы не запускать
+ * WP_Block_Parser и не ловить memory exhausted на старых материалах.
  */
 
-if ( ! defined('STC_INFO_CATEGORY_ID') ) {
-    define('STC_INFO_CATEGORY_ID', 830);
-}
-if ( ! defined('STC_INFO_PER_PAGE') ) {
-    define('STC_INFO_PER_PAGE', 9);
+if ( ! defined( 'STC_INFO_CATEGORY_ID' ) ) {
+    define( 'STC_INFO_CATEGORY_ID', 830 );
 }
 
-if ( ! function_exists('stc_info_asset_url') ) {
+if ( ! defined( 'STC_INFO_PER_PAGE' ) ) {
+    define( 'STC_INFO_PER_PAGE', 9 );
+}
+
+if ( ! function_exists( 'stc_info_asset_url' ) ) {
     function stc_info_asset_url( $relative_path ) {
-        $relative_path = ltrim((string) $relative_path, '/');
+        $relative_path = ltrim( (string) $relative_path, '/' );
 
-        $child_file = trailingslashit(get_stylesheet_directory()) . $relative_path;
-        if ( file_exists($child_file) ) {
-            return trailingslashit(get_stylesheet_directory_uri()) . $relative_path;
+        $child_file = trailingslashit( get_stylesheet_directory() ) . $relative_path;
+
+        if ( file_exists( $child_file ) ) {
+            return trailingslashit( get_stylesheet_directory_uri() ) . $relative_path;
         }
 
-        $parent_file = trailingslashit(get_template_directory()) . $relative_path;
-        if ( file_exists($parent_file) ) {
-            return trailingslashit(get_template_directory_uri()) . $relative_path;
+        $parent_file = trailingslashit( get_template_directory() ) . $relative_path;
+
+        if ( file_exists( $parent_file ) ) {
+            return trailingslashit( get_template_directory_uri() ) . $relative_path;
         }
 
         return '';
     }
 }
 
-if ( ! function_exists('stc_info_asset_ver') ) {
+if ( ! function_exists( 'stc_info_asset_ver' ) ) {
     function stc_info_asset_ver( $relative_path ) {
-        $relative_path = ltrim((string) $relative_path, '/');
+        $relative_path = ltrim( (string) $relative_path, '/' );
 
-        $child_file = trailingslashit(get_stylesheet_directory()) . $relative_path;
-        if ( file_exists($child_file) ) {
-            return (string) filemtime($child_file);
+        $child_file = trailingslashit( get_stylesheet_directory() ) . $relative_path;
+
+        if ( file_exists( $child_file ) ) {
+            return (string) filemtime( $child_file );
         }
 
-        $parent_file = trailingslashit(get_template_directory()) . $relative_path;
-        if ( file_exists($parent_file) ) {
-            return (string) filemtime($parent_file);
+        $parent_file = trailingslashit( get_template_directory() ) . $relative_path;
+
+        if ( file_exists( $parent_file ) ) {
+            return (string) filemtime( $parent_file );
         }
 
-        return '20260702-info-final';
+        return '20260707-info-final';
     }
 }
 
-/* Только информационные материалы: CSS + один правильный JS. */
-add_action('wp_enqueue_scripts', function () {
-    $is_info = is_page('informaczionnye-materialy') || is_page_template('template-info.php') || is_page_template('page-informaczionnye-materialy.php');
+
+/**
+ * Информационные материалы: CSS + один правильный JS.
+ */
+add_action( 'wp_enqueue_scripts', function () {
+    $is_info =
+        is_page( 'informaczionnye-materialy' ) ||
+        is_page_template( 'template-info.php' ) ||
+        is_page_template( 'page-informaczionnye-materialy.php' );
+
     if ( ! $is_info ) {
         return;
     }
@@ -2663,63 +2663,115 @@ add_action('wp_enqueue_scripts', function () {
         'info-load-more-v3',
         'info-load-more-v4',
     );
+
     foreach ( $old_handles as $handle ) {
-        wp_dequeue_script($handle);
-        wp_deregister_script($handle);
+        wp_dequeue_script( $handle );
+        wp_deregister_script( $handle );
     }
 
-    $page_css = stc_info_asset_url('css/page.css');
-    if ( $page_css && ! wp_style_is('stc-page', 'enqueued') ) {
-        wp_enqueue_style('stc-page', $page_css, array('msn-style'), stc_info_asset_ver('css/page.css'));
+    $page_css = stc_info_asset_url( 'css/page.css' );
+
+    if ( $page_css && ! wp_style_is( 'stc-page', 'enqueued' ) ) {
+        wp_enqueue_style(
+            'stc-page',
+            $page_css,
+            array( 'msn-style' ),
+            stc_info_asset_ver( 'css/page.css' )
+        );
     }
 
-    $info_css = stc_info_asset_url('css/info.css');
-    if ( $info_css && ! wp_style_is('stc-info', 'enqueued') ) {
-        wp_enqueue_style('stc-info', $info_css, array('msn-style', 'stc-page'), stc_info_asset_ver('css/info.css'));
+    $info_css = stc_info_asset_url( 'css/info.css' );
+
+    if ( $info_css && ! wp_style_is( 'stc-info', 'enqueued' ) ) {
+        wp_enqueue_style(
+            'stc-info',
+            $info_css,
+            array( 'msn-style', 'stc-page' ),
+            stc_info_asset_ver( 'css/info.css' )
+        );
     }
 
-    $info_js = stc_info_asset_url('js/info-load-more-v5.js');
+    $info_js = stc_info_asset_url( 'js/info-load-more-v5.js' );
+
     if ( $info_js ) {
         wp_enqueue_script(
             'stc-info-load-more-v5',
             $info_js,
-            array('jquery'),
-            stc_info_asset_ver('js/info-load-more-v5.js'),
+            array( 'jquery' ),
+            stc_info_asset_ver( 'js/info-load-more-v5.js' ),
             true
         );
 
         $config = array(
-            'ajaxUrl' => admin_url('admin-ajax.php'),
-            'url'     => admin_url('admin-ajax.php'),
-            'action'  => 'stc_info_load_more_v5',
-            'nonce'   => wp_create_nonce('stc_info_load_more_v5'),
-            'cat'     => STC_INFO_CATEGORY_ID,
-            'category'=> STC_INFO_CATEGORY_ID,
-            'perPage' => STC_INFO_PER_PAGE,
+            'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+            'url'      => admin_url( 'admin-ajax.php' ),
+            'action'   => 'stc_info_load_more_v5',
+            'nonce'    => wp_create_nonce( 'stc_info_load_more_v5' ),
+            'cat'      => STC_INFO_CATEGORY_ID,
+            'category' => STC_INFO_CATEGORY_ID,
+            'perPage'  => STC_INFO_PER_PAGE,
         );
 
-        wp_localize_script('stc-info-load-more-v5', 'stcInfoLoadMore', $config);
-        wp_localize_script('stc-info-load-more-v5', 'stcInfoAjax', $config);
-        wp_localize_script('stc-info-load-more-v5', 'stcInfo', $config);
+        wp_localize_script( 'stc-info-load-more-v5', 'stcInfoLoadMore', $config );
+        wp_localize_script( 'stc-info-load-more-v5', 'stcInfoAjax', $config );
+        wp_localize_script( 'stc-info-load-more-v5', 'stcInfo', $config );
     }
-}, 1000);
+}, 1000 );
 
-if ( ! function_exists('stc_info_render_ajax_card_final') ) {
+
+if ( ! function_exists( 'stc_info_render_ajax_card_final' ) ) {
     function stc_info_render_ajax_card_final( $post_id ) {
-        if ( function_exists('stc_info_render_card') ) {
-            stc_info_render_card($post_id);
+        $post_id = absint( $post_id );
+
+        if ( ! $post_id ) {
             return;
         }
+
+        $title = get_the_title( $post_id );
+        $url   = get_permalink( $post_id );
+        $date  = get_the_date( 'd.m.Y', $post_id );
+
+        /*
+         * Не используем get_the_excerpt(), the_content(), do_blocks(),
+         * apply_filters('the_content') и stc_info_render_card().
+         *
+         * На части старых/сложных материалов WP_Block_Parser уходит в память,
+         * из-за чего admin-ajax.php отдаёт HTTP 500.
+         */
+        $excerpt = (string) get_post_field( 'post_excerpt', $post_id, 'raw' );
+
+        if ( $excerpt === '' ) {
+            $raw_content = (string) get_post_field( 'post_content', $post_id, 'raw' );
+
+            if ( function_exists( 'mb_substr' ) ) {
+                $raw_content = mb_substr( $raw_content, 0, 5000 );
+            } else {
+                $raw_content = substr( $raw_content, 0, 5000 );
+            }
+
+            $raw_content = strip_shortcodes( $raw_content );
+            $raw_content = wp_strip_all_tags( $raw_content );
+            $excerpt     = $raw_content;
+        }
+
+        $excerpt = trim( preg_replace( '/\s+/u', ' ', $excerpt ) );
+        $excerpt = wp_trim_words( $excerpt, 24, '…' );
         ?>
         <article class="stc-info-card stc-animate stc-visible">
-            <a class="stc-info-card__link" href="<?php echo esc_url(get_permalink($post_id)); ?>">
-                <?php if ( has_post_thumbnail($post_id) ) : ?>
-                    <span class="stc-info-card__media"><?php echo get_the_post_thumbnail($post_id, 'medium_large'); ?></span>
+            <a class="stc-info-card__link" href="<?php echo esc_url( $url ); ?>">
+                <?php if ( has_post_thumbnail( $post_id ) ) : ?>
+                    <span class="stc-info-card__media">
+                        <?php echo get_the_post_thumbnail( $post_id, 'medium_large' ); ?>
+                    </span>
                 <?php endif; ?>
+
                 <span class="stc-info-card__body">
-                    <span class="stc-info-card__date"><?php echo esc_html(get_the_date('d.m.Y', $post_id)); ?></span>
-                    <span class="stc-info-card__title"><?php echo esc_html(get_the_title($post_id)); ?></span>
-                    <span class="stc-info-card__excerpt"><?php echo esc_html(wp_trim_words(get_the_excerpt($post_id), 24)); ?></span>
+                    <span class="stc-info-card__date"><?php echo esc_html( $date ); ?></span>
+                    <span class="stc-info-card__title"><?php echo esc_html( $title ); ?></span>
+
+                    <?php if ( $excerpt !== '' ) : ?>
+                        <span class="stc-info-card__excerpt"><?php echo esc_html( $excerpt ); ?></span>
+                    <?php endif; ?>
                 </span>
             </a>
         </article>
@@ -2727,66 +2779,81 @@ if ( ! function_exists('stc_info_render_ajax_card_final') ) {
     }
 }
 
-if ( ! function_exists('stc_info_load_more_v5_final') ) {
+
+if ( ! function_exists( 'stc_info_load_more_v5_final' ) ) {
     function stc_info_load_more_v5_final() {
-        $paged = isset($_POST['page']) ? max(1, absint($_POST['page'])) : 1;
+        $paged = isset( $_POST['page'] ) ? max( 1, absint( $_POST['page'] ) ) : 1;
 
         $cat = STC_INFO_CATEGORY_ID;
-        foreach ( array('cat', 'category', 'category_id', 'categoryId') as $key ) {
-            if ( isset($_POST[$key]) && absint($_POST[$key]) > 0 ) {
-                $cat = absint($_POST[$key]);
+
+        foreach ( array( 'cat', 'category', 'category_id', 'categoryId' ) as $key ) {
+            if ( isset( $_POST[ $key ] ) && absint( $_POST[ $key ] ) > 0 ) {
+                $cat = absint( $_POST[ $key ] );
                 break;
             }
         }
 
-        $per_page = isset($_POST['perPage']) ? max(1, min(30, absint($_POST['perPage']))) : STC_INFO_PER_PAGE;
+        $per_page = isset( $_POST['perPage'] )
+            ? max( 1, min( 30, absint( $_POST['perPage'] ) ) )
+            : STC_INFO_PER_PAGE;
 
-        $query = new WP_Query(array(
-            'post_type'           => 'post',
-            'post_status'         => 'publish',
-            'cat'                 => $cat,
-            'posts_per_page'      => $per_page,
-            'paged'               => $paged,
-            'ignore_sticky_posts' => true,
-            'no_found_rows'       => false,
-        ));
+        $query = new WP_Query(
+            array(
+                'post_type'              => 'post',
+                'post_status'            => 'publish',
+                'cat'                    => $cat,
+                'posts_per_page'         => $per_page,
+                'paged'                  => $paged,
+                'ignore_sticky_posts'    => true,
+                'no_found_rows'          => false,
+                'fields'                 => 'ids',
+                'update_post_meta_cache' => true,
+                'update_post_term_cache' => false,
+            )
+        );
 
         ob_start();
 
-        if ( $query->have_posts() ) {
-            while ( $query->have_posts() ) {
-                $query->the_post();
-                stc_info_render_ajax_card_final(get_the_ID());
+        if ( ! empty( $query->posts ) ) {
+            foreach ( $query->posts as $post_id ) {
+                stc_info_render_ajax_card_final( $post_id );
             }
-            wp_reset_postdata();
         }
 
-        $html = ob_get_clean();
+        $html     = ob_get_clean();
         $max_page = (int) $query->max_num_pages;
 
-        wp_send_json_success(array(
-            'html'      => $html,
-            'posts'     => $html,
-            'page'      => $paged,
-            'nextPage'  => $paged + 1,
-            'maxPage'   => $max_page,
-            'hasMore'   => $paged < $max_page,
-            'found'     => (int) $query->found_posts,
-            'count'     => (int) $query->post_count,
-            'cat'       => $cat,
-            'perPage'   => $per_page,
-        ));
+        wp_send_json_success(
+            array(
+                'html'     => $html,
+                'posts'    => $html,
+                'page'     => $paged,
+                'nextPage' => $paged + 1,
+                'maxPage'  => $max_page,
+                'hasMore'  => $paged < $max_page,
+                'found'    => (int) $query->found_posts,
+                'count'    => (int) $query->post_count,
+                'cat'      => $cat,
+                'perPage'  => $per_page,
+            )
+        );
     }
 }
 
-/* Регистрируем все старые action, чтобы кеш старого JS не возвращал 400: 0. */
-foreach ( array(
-    'stc_info_load_more_v5',
-    'stc_info_load_more_v4',
-    'stc_info_load_more_v3',
-    'stc_info_load_more_v2',
-    'stc_info_load_more',
-) as $stc_info_action ) {
-    add_action('wp_ajax_' . $stc_info_action, 'stc_info_load_more_v5_final');
-    add_action('wp_ajax_nopriv_' . $stc_info_action, 'stc_info_load_more_v5_final');
+
+/**
+ * Регистрируем старые action, чтобы старый кешированный JS
+ * не возвращал 400 / 0.
+ */
+foreach (
+    array(
+        'stc_info_load_more_v5',
+        'stc_info_load_more_v4',
+        'stc_info_load_more_v3',
+        'stc_info_load_more_v2',
+        'stc_info_load_more',
+    ) as $stc_info_action
+) {
+    add_action( 'wp_ajax_' . $stc_info_action, 'stc_info_load_more_v5_final' );
+    add_action( 'wp_ajax_nopriv_' . $stc_info_action, 'stc_info_load_more_v5_final' );
 }
