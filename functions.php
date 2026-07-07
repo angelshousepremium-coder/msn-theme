@@ -953,77 +953,6 @@ $terms = get_the_terms( $post->ID , 'zh' );
     return $links;
 }
 
-add_action( 'woocommerce_after_shop_loop_item_title', 'shop_sku' );
-function shop_sku(){
-global $product;
-echo '<span itemprop="productID" class="sku"> ' . $product->get_sku(). '</span>';
-}
-
-//Вывод атрибутов в товар
-function isa_woocommerce_all_pa(){
-  
-    global $product;
-    $attributes = $product->get_attributes();
-  
-    if ( ! $attributes ) {
-        return;
-    }
-  
-    $out = '<ul class="custom-attributes">';
-  
-    foreach ( $attributes as $attribute ) {
-  
-  
-        // skip variations
-        if ( $attribute->get_variation() ) {
-        continue;
-        }
-        $name = $attribute->get_name();
-        if ( $attribute->is_taxonomy() ) {
-  
-            $terms = wp_get_post_terms( $product->get_id(), $name, 'all' );
-            // get the taxonomy
-            $tax = $terms[0]->taxonomy;
-            // get the tax object
-            $tax_object = get_taxonomy($tax);
-            // get tax label
-            if ( isset ( $tax_object->labels->singular_name ) ) {
-                $tax_label = $tax_object->labels->singular_name;
-            } elseif ( isset( $tax_object->label ) ) {
-                $tax_label = $tax_object->label;
-                // Trim label prefix since WC 3.0
-                if ( 0 === strpos( $tax_label, 'Product ' ) ) {
-                   $tax_label = substr( $tax_label, 8 );
-                }                
-            }
-  
-  
-            $out .= '<li class="' . esc_attr( $name ) . '">';
-            $out .= '<span class="attribute-label">' . esc_html( $tax_label ) . ': </span> ';
-            $out .= '<span class="attribute-value">';
-            $tax_terms = array();
-            foreach ( $terms as $term ) {
-                $single_term = esc_html( $term->name );
-                // Insert extra code here if you want to show terms as links.
-                array_push( $tax_terms, $single_term );
-            }
-            $out .= implode(', ', $tax_terms);
-            $out .= '</span></li>';
- 
-        } else {
-            $value_string = implode( ', ', $attribute->get_options() );
-            $out .= '<li class="' . sanitize_title($name) . ' ' . sanitize_title( $value_string ) . '">';
-            $out .= '<span class="attribute-label">' . $name . ': </span> ';
-            $out .= '<span class="attribute-value">' . esc_html( $value_string ) . '</span></li>';
-        }
-    }
-  
-    $out .= '</ul>';
-  
-    echo $out;
-}
-add_action('woocommerce_after_shop_loop_item_title', 'isa_woocommerce_all_pa', 25);
-
 /**
  *Убрать пагинацию и вывести 30 товаров
  */
@@ -1922,12 +1851,6 @@ function custom_woocommerce_template_loop_category_title( $category ) {
 }
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
-// Заменяем тег <H2> на <p> у товаров
-remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
-add_action( 'woocommerce_shop_loop_item_title', 'custom_woocommerce_template_loop_product_title', 10 );
-function custom_woocommerce_template_loop_product_title() {
-	echo '<p class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</p>';
-}
 
 add_action( 'wp_footer', 'redirect_cf7' );
 function redirect_cf7() {
