@@ -345,3 +345,20 @@ main.css и includeCss.css пока оставить на отдельную п�
 git ls-files по этим PHP-файлам вернул пустой результат, поэтому как rename в коммит они не попадают.
 
 Статус: архивировано.
+
+### 2026-07-06 — TwentyTwenty / before-after check
+
+Проверка страницы /remont-uralov:
+
+- beforeAfter: 0
+- twentyFn: false
+- twentyJsLoaded: false
+- twentyCssLoaded: false
+- errors: []
+
+Вывод:
+TwentyTwenty before/after сейчас фактически не используется. Глобального подключения нет, 404 по twentytwenty.css нет.
+
+Статус:
+- восстановление assets/css/twentytwenty.css не требуется;
+- footer-init для .before-after должен быть безопасным через проверку jQuery.fn.twentytwenty и наличия .before-after.
