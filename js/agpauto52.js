@@ -1,6 +1,6 @@
 /**
  * АГП 52 — Landing Page JavaScript
- * Файл: /wp-content/themes/your-theme/js/agp52.js
+ * Файл: /wp-content/themes/your-theme/js/agpauto52.js
  * Зависимости: нет (vanilla JS)
  */
 

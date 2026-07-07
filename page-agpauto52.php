@@ -2,7 +2,7 @@
 /**
  * Template Name: АГП 52 — V2
  *
- * Файл: /wp-content/themes/your-theme/page-agp52.php
+ * Файл: /wp-content/themes/your-theme/page-agpauto52.php
  * Схема: Светлая / Apple-style
  * Навбар: чёрный (всегда читается)
  * Hero: двухколоночный — текст слева, фото справа
