@@ -1166,7 +1166,6 @@ function my_wc_hide_in_stock_message( $html, $text, $product ) {
 add_filter( 'woocommerce_stock_html', 'my_wc_hide_in_stock_message', 10, 3 );
 
 //убрать лупу с товара
-remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
 remove_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
 remove_action( 'woocommerce_grouped_add_to_cart', 'woocommerce_grouped_add_to_cart', 30 );
@@ -1923,7 +1922,6 @@ function custom_woocommerce_template_loop_category_title( $category ) {
 }
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
-remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering',30 );
 // Заменяем тег <H2> на <p> у товаров
 remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
 add_action( 'woocommerce_shop_loop_item_title', 'custom_woocommerce_template_loop_product_title', 10 );
