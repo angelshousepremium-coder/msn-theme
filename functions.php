@@ -2375,9 +2375,9 @@ add_action('wp_footer', function () {
 });
 
 /* ══════════════════════════════════════════════
-   АГП 52 — два дизайна, раздельные ассеты
-   page-agp52.php     → agp52.css / agp52.js
+   АГП 52 — активный лендинг
    page-agpauto52.php → agpauto52.css / agpauto52.js
+
 ══════════════════════════════════════════════ */
 
 function agp52_enqueue_assets() {
@@ -2413,7 +2413,7 @@ function agp52_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'agp52_enqueue_assets' );
 
 function agp52_body_class( $classes ) {
-    if ( is_page_template( [ 'page-agp52.php', 'page-agpauto52.php' ] ) ) {
+    if ( is_page_template( 'page-agpauto52.php' ) ) {
         $classes[] = 'agp52-page';
     }
     return $classes;
@@ -2421,7 +2421,7 @@ function agp52_body_class( $classes ) {
 add_filter( 'body_class', 'agp52_body_class' );
 
 function agp52_localize_ajax() {
-    if ( is_page_template( [ 'page-agp52.php', 'page-agpauto52.php' ] ) ) {
+    if ( is_page_template( 'page-agpauto52.php' ) ) {
         echo '<script>var ajaxurl = "' . esc_url( admin_url( 'admin-ajax.php' ) ) . '";</script>' . "\n";
     }
 }
@@ -2485,7 +2485,7 @@ function agp52_smtp_config( $phpmailer ) {
     $phpmailer->FromName   = 'АГП 52 — Спецтехкомплект';
     $phpmailer->CharSet    = 'UTF-8';
 }
-/**Before After END ***/
+/** AGP 52 END **/
 
 /**
  * Вывод HTML крошек (как у тебя)
