@@ -25,9 +25,14 @@ $has_zh   = $zh_terms && ! is_wp_error( $zh_terms ) && count( $zh_terms ) > 0;
   <div class="stc-hero">
 
     <div class="stc-gallery">
-      <?php do_action( 'woocommerce_before_single_product_summary' ); ?>
-      <p class="stc-gallery__disclaimer">Информация носит ознакомительный характер и не является публичной офертой (ст.&nbsp;437 ГК РФ).</p>
-    </div>
+  <?php do_action( 'woocommerce_before_single_product_summary' ); ?>
+
+  <?php if ( $sku ) : ?>
+    <div class="stc-gallery__sku">Артикул: <?php echo esc_html( $sku ); ?></div>
+  <?php endif; ?>
+
+  <p class="stc-gallery__disclaimer">Информация носит ознакомительный характер и не является публичной офертой (ст.&nbsp;437 ГК РФ).</p>
+</div>
 
     <aside class="stc-panel">
 

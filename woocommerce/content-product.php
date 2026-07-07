@@ -13,6 +13,7 @@ $loopImg     = get_field('cat_file', $pid);
 $product_url = get_permalink($pid);
 $price_html  = $product->get_price_html();
 $in_stock    = $product->is_in_stock();
+$sku         = trim( (string) $product->get_sku() );
 
 // ── Парсер параметров ────────────────────────────────
 $map = [
@@ -104,21 +105,27 @@ foreach ($priority as $k) {
 
         <!-- Фото -->
         <div class="stc-card-img-wrap">
-            <?php if ($loopImg && !empty($loopImg['url'])) : ?>
-                <img class="stc-card-img"
-                     src="<?php echo esc_url($loopImg['sizes']['medium'] ?? $loopImg['url']); ?>"
-                     alt="<?php echo esc_attr($loopImg['alt'] ?: $product->get_name()); ?>"
-                     loading="lazy" width="600" height="400">
-            <?php else : ?>
-                <?php do_action('woocommerce_before_shop_loop_item_title'); ?>
-            <?php endif; ?>
-            <span class="stc-card-badge stc-card-badge--<?php echo $in_stock ? 'instock' : 'order'; ?>">
-                <?php echo $in_stock ? 'В наличии' : 'Под заказ'; ?>
-            </span>
-            <div class="stc-card-overlay" aria-hidden="true">
-                <span class="stc-card-overlay-btn">Подробнее →</span>
-            </div>
-        </div>
+    <?php if ( $loopImg && ! empty( $loopImg['url'] ) ) : ?>
+        <img class="stc-card-img"
+             src="<?php echo esc_url( $loopImg['sizes']['medium'] ?? $loopImg['url'] ); ?>"
+             alt="<?php echo esc_attr( $loopImg['alt'] ?: $product->get_name() ); ?>"
+             loading="lazy" width="600" height="400">
+    <?php else : ?>
+        <?php do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
+    <?php endif; ?>
+
+    <span class="stc-card-badge stc-card-badge--sku">
+        <?php if ( $sku !== '' ) : ?>
+            Артикул: <?php echo esc_html( $sku ); ?>
+        <?php else : ?>
+            <?php echo $in_stock ? 'В наличии' : 'Под заказ'; ?>
+        <?php endif; ?>
+    </span>
+
+    <div class="stc-card-overlay" aria-hidden="true">
+        <span class="stc-card-overlay-btn">Подробнее →</span>
+    </div>
+</div>
 
         <!-- Тело -->
         <div class="stc-card-body">
